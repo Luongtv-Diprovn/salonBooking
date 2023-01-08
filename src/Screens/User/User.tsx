@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Product } from "../../Interface"
 import { BASE_URL } from '../../BASE_URL'
 import { View, StyleSheet, Text, Button } from "react-native"
 import { useNavigation } from '@react-navigation/native';
@@ -9,9 +8,9 @@ const User = () => {
     const navigation = useNavigation<any>();
     return (
         <View style={styles.container}>
-            <Text>This is User</Text>
+            <Text style={styles.txtPage}>This is User</Text>
             <Button
-                title='Click me'
+                title='Log out'
                 onPress={() => navigation.navigate(screenName.signIn)}
             />
         </View>
@@ -27,6 +26,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: "center"
     },
+    txtPage: {
+        fontSize: 25,
+        fontWeight: "bold"
+    }
 });
 
 

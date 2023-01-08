@@ -1,20 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, Text } from "react-native"
-import { useAppSelector, useAppDispatch } from '../../Redux/hookRedux'
 
-const Home = () => {
-
-    const user = useAppSelector((state) => state.user)
+const Booking = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.txtPage}>Welcome</Text>
-            <Text>{user.userProperties.name}</Text>
+            <Text style={styles.txtPage}>This is Booking</Text>
         </View>
     )
 }
 
-export default Home
+export default Booking
 
 const styles = StyleSheet.create({
     container: {

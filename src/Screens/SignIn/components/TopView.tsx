@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { img } from '../../../asset/index'
 
 
 
 export default function TopView() {
-    const [sizeContainer, setSizeContainer] = useState<number>(0)
-    useEffect(() => {
 
-    }, [sizeContainer])
+    const [sizeContainer, setSizeContainer] = useState<number>(0)
 
     return (
         <View

@@ -8,14 +8,16 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
-  ImageBackground
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"
 import Icon1 from 'react-native-vector-icons/Entypo'
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { screenName } from '../../../navigators/screens-name'
-
+import jwt_decode from "jwt-decode"
+import { useAppSelector, useAppDispatch } from '../../../Redux/hookRedux'
+import { updateToken, updateUser } from '../../../Redux/Slice/userSlice'
+import { typeToken, typeUser } from '../../../Interface'
 
 export default function BottomView() {
   const navigation = useNavigation<any>();
@@ -25,13 +27,14 @@ export default function BottomView() {
   const [securePass, setSecurePass] = useState<boolean>(true)
   const [loading, setloading] = useState<boolean>(false)
   const [notify, setNotify] = useState<string>("")
-  // const dispatch = useDispatch();
   const passRef = useRef<any>();
+  const dispatch = useAppDispatch()
 
   // useEffect(() => {
   //   setPhone(receive?.phone !== undefined ? receive?.phone : phone)
   //   setPassword(receive?.pass !== undefined ? receive?.pass : password)
   // }, [receive?.pass, receive?.phone])
+
 
   const Post_Login = async () => {
     setloading(true)
@@ -52,19 +55,15 @@ export default function BottomView() {
           // setPassword("")
           setNotify("")
           Promise.resolve(response.json())
-            .then((value) => {
-              // dispatch(updateToken(value))
-              // var user = jwt_decode(value.token)
-              // dispatch(updateUser(user.Id, user.name, user.phone, user.address,
-              //   user.imagePath, user.birthday, user.gender, user.customerTypeId,
-              //   user.point, user.isCustomerCreated, user.customerType.percent))
+            .then((value: typeToken) => {
+              dispatch(updateToken(value))
+              var user: typeUser = jwt_decode(value.token)
+              dispatch(updateUser(user))
             });
           navigation.navigate(screenName.homeTabs);
         } else {
           setNotify("Invalid phone number or password")
         }
-      }).catch((error) => {
-        // console.log(error)
       })
     setloading(false);
   };
@@ -72,15 +71,16 @@ export default function BottomView() {
   return (
     <View style={styles.container}>
       {loading ?
-        <ActivityIndicator color="red" size={40} style={{ alignSelf: "center", flex: 1 }} />
+        <ActivityIndicator color="red" size={40} />
         :
         <ScrollView showsVerticalScrollIndicator={false} >
           <View style={styles.bottomView}>
-            <Text style={styles.txtWelcome}> WELCOME </Text>
+            <Text style={styles.txtWelcome}> Welcome </Text>
             <TextInput
               placeholder="Type phone number"
-              keyboardType='numeric'
+              keyboardType="numeric"
               selectionColor={'#ec6882'}
+              placeholderTextColor={"#9CA1A3"}
               maxLength={10}
               style={styles.textInput}
               defaultValue={phone}
@@ -98,6 +98,8 @@ export default function BottomView() {
                 placeholder="Type pass"
                 defaultValue={password}
                 selectionColor={'#ec6882'}
+                placeholderTextColor={"#9CA1A3"}
+                style={{ color: "white" }}
                 maxLength={30}
                 secureTextEntry={securePass}
                 onChangeText={(text) => {
@@ -118,9 +120,8 @@ export default function BottomView() {
             <TouchableOpacity
               style={styles.buttonSignIn}
               onPress={() => {
-                // Post_Login()
+                Post_Login()
                 // console.log(URL_BASE)
-                navigation.navigate(screenName.homeTabs)
               }}>
               <Text style={styles.txtLogin}>LOGIN</Text>
             </TouchableOpacity>
@@ -139,12 +140,12 @@ export default function BottomView() {
                 <Text style={styles.txtRegister}>Register</Text>
               </TouchableOpacity>
             </View>
-            <View style={{ flex: 1 }} />
             <Text style={styles.txtNotify}>
               {notify}
             </Text>
           </View>
         </ScrollView>
+
       }
     </View >
   )
@@ -175,7 +176,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     margin: 10,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    color: "white"
   },
   buttonSignIn: {
     width: "100%",
@@ -196,9 +198,9 @@ const styles = StyleSheet.create({
   txtWelcome: {
     alignItems: "center",
     color: "white",
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
-    marginBottom: 20
+    marginBottom: 15
   },
   txtLogin: {
     fontWeight: "bold",
@@ -216,7 +218,8 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   txtNotify: {
-    fontSize: 15,
-    color: "#27A13B"
+    fontSize: 18,
+    color: "#27A13B",
+    marginTop: 20
   }
 });
