@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { BASE_URL } from '../../BASE_URL'
+import React from 'react';
 import { View, StyleSheet, Text, Button } from "react-native"
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'
 import { screenName } from "../../navigators/screens-name"
 
-const User = () => {
+const ForgotPass = () => {
 
     const navigation = useNavigation<any>();
 
     return (
         <View style={styles.container}>
-            <Text style={styles.txtPage}>This is User</Text>
+            <Text style={styles.txtPage}>This is Forgot Pass</Text>
             <Button
-                title='Log out'
+                title='Back'
                 onPress={() => navigation.navigate(screenName.signIn)}
             />
         </View>
     )
 }
 
-export default User
+export default ForgotPass
 
 const styles = StyleSheet.create({
     container: {

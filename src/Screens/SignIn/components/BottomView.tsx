@@ -127,7 +127,7 @@ export default function BottomView() {
             </TouchableOpacity>
             <View style={styles.rowItem} >
               <TouchableOpacity
-                onPress={() => navigation.navigate("ForgotPass")}>
+                onPress={() => navigation.navigate(screenName.forgotPass)}>
                 <Text style={styles.txtForgot}>Forgot pass?</Text>
               </TouchableOpacity>
               <View style={{ flex: 1 }} />
@@ -136,7 +136,7 @@ export default function BottomView() {
                 color={"#ec6882"}
                 size={20} />
               <TouchableOpacity
-                onPress={() => navigation.navigate("SignUp")}>
+                onPress={() => navigation.navigate(screenName.signUp)}>
                 <Text style={styles.txtRegister}>Register</Text>
               </TouchableOpacity>
             </View>

@@ -15,6 +15,8 @@ import User from '../Screens/User/User'
 import HistoryBooking from '../Screens/HistoryBooking/HistoryBooking'
 import Booking from '../Screens/Booking/Booking'
 import Ranking from '../Screens/Ranking/Ranking'
+import ForgotPass from '../Screens/ForgotPass/ForgotPass'
+import SignUp from '../Screens/SignUp/SignUp'
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -74,6 +76,8 @@ const MainStack = () => {
       >
         <Stack.Screen name={screenName.home} component={Home} />
         <Stack.Screen name={screenName.signIn} component={SignIn} />
+        <Stack.Screen name={screenName.forgotPass} component={ForgotPass} />
+        <Stack.Screen name={screenName.signUp} component={SignUp} />
         <Stack.Screen name={screenName.homeTabs} component={HomeTabs} />
       </Stack.Navigator>
     </Provider>
