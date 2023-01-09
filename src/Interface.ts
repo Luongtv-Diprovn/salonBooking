@@ -20,8 +20,8 @@ export interface typeUser {
     imageName: any
     customerType: typeCustomer
     iat: number
-    exp: number,
-    token: typeToken
+    exp: number
+    Token: typeToken
 }
 
 export interface typeCustomer {
@@ -32,4 +32,24 @@ export interface typeCustomer {
     createdAt: string
     updatedAt: string
     isDeleted: boolean
+}
+
+export interface ServiceType {
+    Id: number
+    name: string
+    isDeleted: boolean
+    services: Service[]
+}
+
+export interface Service {
+    Id: number
+    price: number
+    name: string
+    imagePath?: string
+    serviceTypeId: number
+    description: string
+    createdAt: string
+    updatedAt: string
+    isDeleted: boolean
+    imageName?: string
 }

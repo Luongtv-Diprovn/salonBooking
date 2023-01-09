@@ -57,9 +57,9 @@ export default function BottomView() {
           setNotify("")
           Promise.resolve(response.json())
             .then((value: typeToken) => {
-              dispatch(updateToken(value))
               var user: typeUser = jwt_decode(value.token)
               dispatch(updateUser(user))
+              dispatch(updateToken(value))
             });
           navigation.navigate(screenName.homeTabs);
         } else {

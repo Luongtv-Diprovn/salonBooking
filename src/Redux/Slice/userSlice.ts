@@ -33,7 +33,10 @@ const initialState: userState = {
         },
         iat: 0,
         exp: 0,
-        token: { token: "", refreshToken: "" }
+        Token: {
+            token: "a",
+            refreshToken: "b"
+        }
     }
 }
 
@@ -46,7 +49,7 @@ export const userSlice = createSlice({
             state.userProperties = action.payload
         },
         updateToken: (state, action: PayloadAction<typeToken>) => {
-            state.userProperties.token = action.payload
+            state.userProperties.Token = action.payload
         }
     }
 })
