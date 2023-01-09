@@ -4,7 +4,7 @@ import CalendarPicker from "react-native-calendar-picker";
 import Icon from "react-native-vector-icons/AntDesign";
 import dayjs from "dayjs";
 import { responsive } from "../../../shared/responsive"
-import { scale } from '../../../shared/normalize'
+import { scale } from "../../../shared/normalize"
 
 function Calendar(props) {
 
@@ -39,7 +39,6 @@ function Calendar(props) {
                     minDate={dayjs().format("YYYY-MM-DD")}
                     maxDate={dayjs().add(6, "day").format("YYYY-MM-DD")}
                     selectedDayColor="#ffcc33"
-                    // selectedStartDate={year + "-" + month + "-" + day}
                     selectedStartDate={selectedDate}
                     onDateChange={(d: any) => {
                         var chooseDate = dayjs(d._d).format("YYYY-MM-DD")
