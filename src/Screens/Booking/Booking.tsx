@@ -120,7 +120,7 @@ const Booking = () => {
     return (
         <View style={styles.container}>
             {loading ?
-                <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+                <View style={styles.containerIndicator}>
                     <ActivityIndicator color="red" size={40} />
                 </View>
                 :
@@ -187,6 +187,11 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: scale(18),
         color: "#70605F"
+    },
+    containerIndicator: {
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1
     }
 });
 
