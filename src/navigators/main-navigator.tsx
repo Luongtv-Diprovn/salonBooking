@@ -72,7 +72,6 @@ const MainStack = () => {
         }}
         initialRouteName={screenName.signIn}
       >
-        <Stack.Screen name={screenName.home} component={Home} />
         <Stack.Screen name={screenName.signIn} component={SignIn} />
         <Stack.Screen name={screenName.homeTabs} component={HomeTabs} />
       </Stack.Navigator>
