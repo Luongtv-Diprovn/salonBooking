@@ -22,6 +22,7 @@ export interface typeUser {
     iat?: number
     exp?: number
     Token: typeToken
+    statusBooking: boolean
 }
 
 export interface typeCustomer {

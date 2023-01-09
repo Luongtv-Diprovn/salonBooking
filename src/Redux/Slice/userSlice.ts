@@ -36,7 +36,8 @@ const initialState: userState = {
         Token: {
             token: "a",
             refreshToken: "b"
-        }
+        },
+        statusBooking: false
     }
 }
 
@@ -50,9 +51,12 @@ export const userSlice = createSlice({
         },
         updateToken: (state, action: PayloadAction<typeToken>) => {
             state.userProperties.Token = action.payload
-        }
+        },
+        changeStatusBooking: (state, action: PayloadAction<boolean>) => {
+            state.userProperties.statusBooking = action.payload
+        },
     }
 })
 
-export const { updateToken, updateUser } = userSlice.actions
+export const { updateToken, updateUser, changeStatusBooking } = userSlice.actions
 export default userSlice.reducer
