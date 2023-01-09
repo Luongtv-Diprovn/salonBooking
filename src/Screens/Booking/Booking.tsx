@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, ScrollView } from "react-native"
+import { View, StyleSheet, Text, ScrollView, Button } from "react-native"
 import { scale } from '../../shared/normalize'
 import { useAppSelector, useAppDispatch } from '../../Redux/hookRedux'
 import BlinkMessage from './components/BlinkMessage'
