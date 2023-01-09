@@ -4,18 +4,21 @@ import { scale } from '../../shared/normalize'
 import { useAppSelector, useAppDispatch } from '../../Redux/hookRedux'
 import BlinkMessage from './components/BlinkMessage'
 import Service_DropDown from './components/Service_DropDown'
-
+import Stylist_DropDown from './components/Stylist_DropDown'
 
 const Booking = () => {
 
     const user = useAppSelector((state) => state.user)
     const [statusBooking, setStatusBooking] = useState<boolean>(false) //this variable is only used to fetch api at HistoryBooking page after booking
     const [selectedIDServices, setSelectedIDServices] = useState([])
+    const [selectedIDStylist, setSelectedIDStylist] = useState<string>("")
     const [existVoucher, setExistVoucher] = useState(null)
     const onSelectedIDServices = (list: []) => {
         setSelectedIDServices(list)
     }
-
+    const onSelectIDStylist = (item: string) => {
+        setSelectedIDStylist(item)
+    }
 
     return (
         <View style={styles.container}>
@@ -26,6 +29,11 @@ const Booking = () => {
                     existVoucher={existVoucher}
                     statusBooking={statusBooking}
                     onSelectedIDServices={(list: []) => { onSelectedIDServices(list) }} />
+                <Text style={styles.txtTitle}>2.Choose Stylist</Text>
+                <Stylist_DropDown
+                    statusBooking={statusBooking}
+                    onSelectIDStylist={(item: string) => { onSelectIDStylist(item) }} />
+                <Text style={styles.txtTitle}></Text>
             </ScrollView>
         </View>
     )
