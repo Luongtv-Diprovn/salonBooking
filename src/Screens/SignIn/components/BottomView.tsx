@@ -1,4 +1,4 @@
-import { BASE_URL } from '../../../BASE_URL'
+import { BASE_URL } from '../../../shared/BASE_URL'
 import React, { useState, useRef, useEffect } from "react";
 import {
   View,
@@ -17,8 +17,8 @@ import { screenName } from '../../../navigators/screens-name'
 import jwt_decode from "jwt-decode"
 import { useAppSelector, useAppDispatch } from '../../../Redux/hookRedux'
 import { updateToken, updateUser } from '../../../Redux/Slice/userSlice'
-import { typeToken, typeUser } from '../../../Interface'
-import { scale } from '../../../asset/normalize'
+import { typeToken, typeUser } from '../../../shared/Interface'
+import { scale } from '../../../shared/normalize'
 
 export default function BottomView() {
   const navigation = useNavigation<any>();
@@ -57,9 +57,9 @@ export default function BottomView() {
           setNotify("")
           Promise.resolve(response.json())
             .then((value: typeToken) => {
-              dispatch(updateToken(value))
               var user: typeUser = jwt_decode(value.token)
               dispatch(updateUser(user))
+              dispatch(updateToken(value))
             });
           navigation.navigate(screenName.homeTabs);
         } else {
@@ -107,7 +107,7 @@ export default function BottomView() {
                   setPassword(text);
                 }}
                 onSubmitEditing={Post_Login} />
-              <View style={{ flex: 1 }} />
+              <View style={styles.viewFlex1} />
               <TouchableOpacity
                 onPress={() => {
                   setSecurePass(!securePass)
@@ -122,7 +122,6 @@ export default function BottomView() {
               style={styles.buttonSignIn}
               onPress={() => {
                 Post_Login()
-                // console.log(URL_BASE)
               }}>
               <Text style={styles.txtLogin}>LOGIN</Text>
             </TouchableOpacity>
@@ -167,7 +166,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 15,
   },
-
+  viewFlex1: {
+    flex: 1
+  },
   textInput: {
     width: "100%",
     height: 40,
