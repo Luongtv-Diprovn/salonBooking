@@ -1,8 +1,8 @@
 
 import { View, StyleSheet, Text } from 'react-native';
 import React, { memo } from 'react';
-import { scale } from '../../../asset/normalize'
-import { responsive } from '../../../asset/responsive'
+import { scale } from '../../../shared/normalize'
+import { responsive } from '../../../shared/responsive'
 
 function BlinkMessage() {
     return (

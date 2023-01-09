@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, ScrollView } from "react-native"
-import { scale } from '../../asset/normalize'
+import { scale } from '../../shared/normalize'
 import { useAppSelector, useAppDispatch } from '../../Redux/hookRedux'
 import BlinkMessage from './components/BlinkMessage'
 import Service_DropDown from './components/Service_DropDown'
@@ -9,12 +9,13 @@ import Service_DropDown from './components/Service_DropDown'
 const Booking = () => {
 
     const user = useAppSelector((state) => state.user)
-    const [statusBooking, setStatusBooking] = useState<boolean>(false) //biến này chỉ dùng để  lại trang HistoryBooking sau khi đã đặt lịch
-    const [existVoucher, setExistVoucher] = useState(null)
+    const [statusBooking, setStatusBooking] = useState<boolean>(false) //this variable is only used to fetch api at HistoryBooking page after booking
     const [selectedIDServices, setSelectedIDServices] = useState([])
+    const [existVoucher, setExistVoucher] = useState(null)
     const onSelectedIDServices = (list: []) => {
         setSelectedIDServices(list)
     }
+
 
     return (
         <View style={styles.container}>

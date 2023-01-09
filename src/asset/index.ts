@@ -7,6 +7,7 @@ export const img = {
     profileBackground: require("./image/profile_background.jpg"),
     resetPass: require("./image/reset-pass.jpg"),
     signUp: require("./image/signup.jpg"),
-    iconService: require("./image/icon_service.png")
+    iconService: require("./image/icon_service.png"),
+    iconStylist: require("./image/icon_stylist.png")
 }
 

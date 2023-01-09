@@ -1,13 +1,13 @@
-import { BASE_URL } from "../../../BASE_URL"
+import { BASE_URL } from "../../../shared/BASE_URL"
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from "react-native"
 import React, { useState, useEffect, memo } from "react"
 import Icon from "react-native-vector-icons/AntDesign"
 import Icon1 from "react-native-vector-icons/Ionicons"
 import Icon2 from "react-native-vector-icons/MaterialIcons"
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
-import { responsive } from '../../../asset/responsive'
-import { scale } from '../../../asset/normalize'
-import { Service, ServiceType } from '../../../Interface'
+import { responsive } from '../../../shared/responsive'
+import { scale } from '../../../shared/normalize'
+import { Service, ServiceType } from '../../../shared/Interface'
 import { img } from '../../../asset/index'
 
 function Services_View(props) {
@@ -23,13 +23,11 @@ function Services_View(props) {
           if (choose) {
             listChooseIdServices[props.indexServiceType] = ""
             listChooseService[props.indexServiceType] = null
-            // listChooseIdServices.splice(listChooseIdServices.indexOf(props.service.id), 1)
             props.onChangeListChoose(listChooseIdServices, listChooseService)
           }
           else {
             listChooseIdServices[props.indexServiceType] = props.service.Id
             listChooseService[props.indexServiceType] = props.service
-            // listChooseIdServices.push(props.service.id)
             props.onChangeListChoose(listChooseIdServices, listChooseService)
           }
         }}
@@ -139,9 +137,9 @@ function Service_DropDown(props) {
       }
     });
     AllMoneyNoDiscountByRankOrVoucher = AllMoney
-    //tính lại tổng tiền sau khi đã giảm giá theo hạng tài khoản
+    //recalculate the total amount after discounting by account rank
     AllMoney = Number(user.userProperties.customerType.percent) != 0 ? AllMoney * (1 - Number(user.userProperties.customerType.percent) / 100) : AllMoney
-    //tính lại tổng tiền sau khi áp dụng voucher để giảm giá
+    //recalculate total amount after applying voucher for discount
     AllMoney = props.existVoucher != null ? AllMoney * (1 - props.existVoucher.discount / 100) : AllMoney
     return {
       AllMoney, AllMoneyNoDiscountByRankOrVoucher
@@ -161,9 +159,6 @@ function Service_DropDown(props) {
           .then((value) => {
             setData(value)
           });
-      }
-      else {
-        // console.log("Có gì không ổn rồi bạn ơi");
       }
     })
   }

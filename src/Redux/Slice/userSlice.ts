@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { typeUser, typeToken } from '../../Interface'
+import { typeUser, typeToken } from '../../shared/Interface'
 
 interface userState {
     userProperties: typeUser
