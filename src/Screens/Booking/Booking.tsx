@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../Redux/hookRedux'
 import BlinkMessage from './components/BlinkMessage'
 import Service_DropDown from './components/Service_DropDown'
 import Stylist_DropDown from './components/Stylist_DropDown'
+import Calender from './components/Calender'
 
 const Booking = () => {
 
@@ -12,12 +13,16 @@ const Booking = () => {
     const [statusBooking, setStatusBooking] = useState<boolean>(false) //this variable is only used to fetch api at HistoryBooking page after booking
     const [selectedIDServices, setSelectedIDServices] = useState([])
     const [selectedIDStylist, setSelectedIDStylist] = useState<string>("")
+    const [selectedDate, setSelectedDate] = useState<string>("")
     const [existVoucher, setExistVoucher] = useState(null)
     const onSelectedIDServices = (list: []) => {
         setSelectedIDServices(list)
     }
     const onSelectIDStylist = (item: string) => {
         setSelectedIDStylist(item)
+    }
+    const onSelectBookingDate = (item: string) => {
+        setSelectedDate(item);
     }
 
     return (
@@ -33,7 +38,10 @@ const Booking = () => {
                 <Stylist_DropDown
                     statusBooking={statusBooking}
                     onSelectIDStylist={(item: string) => { onSelectIDStylist(item) }} />
-                <Text style={styles.txtTitle}></Text>
+                <Text style={styles.txtTitle}>3.Choose Date</Text>
+                <Calender
+                    statusBooking={statusBooking}
+                    onSelectBookingDate={(item) => { onSelectBookingDate(item) }} />
             </ScrollView>
         </View>
     )
