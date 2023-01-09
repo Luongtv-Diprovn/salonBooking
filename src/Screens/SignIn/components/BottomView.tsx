@@ -18,6 +18,7 @@ import jwt_decode from "jwt-decode"
 import { useAppSelector, useAppDispatch } from '../../../Redux/hookRedux'
 import { updateToken, updateUser } from '../../../Redux/Slice/userSlice'
 import { typeToken, typeUser } from '../../../Interface'
+import { scale } from '../../../asset/normalize'
 
 export default function BottomView() {
   const navigation = useNavigation<any>();
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
   txtWelcome: {
     alignItems: "center",
     color: "white",
-    fontSize: 40,
+    fontSize: scale(40),
     fontWeight: "bold",
     marginBottom: 15
   },
@@ -210,15 +211,17 @@ const styles = StyleSheet.create({
   txtForgot: {
     color: "#68ED7F",
     fontStyle: "italic",
-    fontWeight: '600'
+    fontWeight: '600',
+    fonsize: scale(16)
   },
   txtRegister: {
     color: "#ec6882",
     fontStyle: "italic",
-    fontWeight: '600'
+    fontWeight: '600',
+    fonsize: scale(16)
   },
   txtNotify: {
-    fontSize: 18,
+    fontSize: scale(18),
     color: "#27A13B",
     marginTop: 20
   }
