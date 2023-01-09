@@ -132,3 +132,19 @@ export interface Count {
     bookings?: number
     wages?: number
 }
+
+export interface Advertisement {
+    Id: number
+    title: string
+    detail: string
+    imageName?: string
+    imagePath: string
+    discount: number
+    endDate: string
+    startDate: string
+    voucherCode: string
+    amount: number
+    isDeleted: boolean
+}
+
+
