@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { ImageSlider } from "react-native-image-slider-banner"
 import { responsive } from '../../../shared/responsive'
 import { scale } from '../../../shared/normalize'
+import ShowCofirmBooking from './ShowCofirmBooking'
 
 function SlideBanner() {
 
@@ -63,6 +64,7 @@ function SlideBanner() {
                             <Text style={styles.txtTitle}>{currentAdvertise.title}</Text>
                         </View>
                     </ImageSlider>
+                    <ShowCofirmBooking />
                     <Text style={styles.txtDetail}>Detail Advertisement: </Text>
                     <View style={styles.viewDetail}>
                         <View style={styles.rowItem}>

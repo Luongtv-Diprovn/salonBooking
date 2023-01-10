@@ -8,6 +8,7 @@ export const img = {
     resetPass: require("./image/reset-pass.jpg"),
     signUp: require("./image/signup.jpg"),
     iconService: require("./image/icon_service.png"),
-    iconStylist: require("./image/icon_stylist.png")
+    iconStylist: require("./image/icon_stylist.png"),
+    barberConfirm: require("./image/confirm_booking.jpg")
 }
 
