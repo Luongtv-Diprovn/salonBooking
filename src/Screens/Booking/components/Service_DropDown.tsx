@@ -10,6 +10,7 @@ import { scale } from '../../../shared/normalize'
 import { Service, ServiceType } from '../../../shared/Interface'
 import { img } from '../../../asset/index'
 
+
 function Services_View(props) {
   const [showDecription, setShowDecription] = useState(false);
   var choose = props.service.Id == props.listChooseIDService[props.indexServiceType] ? true : false
@@ -114,6 +115,7 @@ function ServiceType_View(props) {
 }
 
 function Service_DropDown(props) {
+
   const [data, setData] = useState([])
   const [showOption, setShowOption] = useState(false)
   const [listChooseIDService, setListChooseIDService] = useState([])

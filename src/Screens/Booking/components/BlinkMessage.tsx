@@ -5,6 +5,7 @@ import { scale } from '../../../shared/normalize'
 import { responsive } from '../../../shared/responsive'
 
 function BlinkMessage() {
+
     return (
         <View style={styles.container}>
             <Text style={styles.txtfirst}>To make an appointment, you should do the following:</Text>
