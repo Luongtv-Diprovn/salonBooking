@@ -6,6 +6,7 @@ import BlinkMessage from './components/BlinkMessage'
 import Service_DropDown from './components/Service_DropDown'
 import Stylist_DropDown from './components/Stylist_DropDown'
 import Calender from './components/Calender'
+import TimeFlatGrid from './components/TimeFlatGrid'
 
 const Booking = () => {
 
@@ -14,6 +15,7 @@ const Booking = () => {
     const [selectedIDServices, setSelectedIDServices] = useState([])
     const [selectedIDStylist, setSelectedIDStylist] = useState<string>("")
     const [selectedDate, setSelectedDate] = useState<string>("")
+    const [selectedTimeSlot, setselectedTimeSlot] = useState<string>("")
     const [existVoucher, setExistVoucher] = useState(null)
     const onSelectedIDServices = (list: []) => {
         setSelectedIDServices(list)
@@ -23,6 +25,9 @@ const Booking = () => {
     }
     const onSelectBookingDate = (item: string) => {
         setSelectedDate(item);
+    }
+    const onSelectedTimeSlot = (item: string) => {
+        setselectedTimeSlot(item);
     }
 
     return (
@@ -41,7 +46,13 @@ const Booking = () => {
                 <Text style={styles.txtTitle}>3.Choose Date</Text>
                 <Calender
                     statusBooking={statusBooking}
-                    onSelectBookingDate={(item) => { onSelectBookingDate(item) }} />
+                    onSelectBookingDate={(item: string) => { onSelectBookingDate(item) }} />
+                <Text style={styles.txtTitle}>4.Choose Timeslot</Text>
+                <TimeFlatGrid
+                    statusBooking={statusBooking}
+                    selectedIDStylist={selectedIDStylist}
+                    selectedDate={selectedDate}
+                    onSelectedTimeSlot={(item: string) => { onSelectedTimeSlot(item) }} />
             </ScrollView>
         </View>
     )
