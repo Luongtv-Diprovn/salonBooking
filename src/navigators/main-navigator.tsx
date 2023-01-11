@@ -20,9 +20,10 @@ import { scale } from '../shared/normalize'
 const Tab = createMaterialBottomTabNavigator();
 
 function HomeTabs() {
-
   return (
     <Tab.Navigator
+      labeled={false}
+      // shifting={true}
       activeColor="#ec6882"
       initialRouteName={'Home'}
       barStyle={{
@@ -32,7 +33,8 @@ function HomeTabs() {
         options={{
           tabBarLabel: 'Ranking',
           tabBarIcon: ({ color }) => (
-            <Icon2 name="sort" color={color} size={scale(24)} />),
+            <Icon2 name="sort" color={color} size={scale(24)} />
+          ),
         }} />
       <Tab.Screen name="HistoryBooking" component={HistoryBooking}
         options={{
@@ -61,6 +63,7 @@ function HomeTabs() {
     </Tab.Navigator>
   )
 }
+
 
 const Stack = createNativeStackNavigator()
 

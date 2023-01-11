@@ -9,6 +9,8 @@ export const img = {
     signUp: require("./image/signup.jpg"),
     iconService: require("./image/icon_service.png"),
     iconStylist: require("./image/icon_stylist.png"),
-    barberConfirm: require("./image/confirm_booking.jpg")
+    barberConfirm: require("./image/confirm_booking.jpg"),
+    starFill: require("./image/star_filled.jpg"),
+    starUnFill: require("./image/star_unfill.jpg")
 }
 
