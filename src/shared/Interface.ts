@@ -115,6 +115,61 @@ export interface Booking {
     updatedBy?: number
     isDeleted?: boolean
     advertisementId?: number
+    rate?: Rate
+    staff: Staff
+    customer: Customer
+    advertisement?: Advertisement
+    details: Detail[]
+}
+
+export interface Detail {
+    Id: number
+    bookingId: number
+    serviceId: number
+    billId: any
+    service: Service
+    bill: any
+}
+export interface Customer {
+    Id: number
+    name: string
+    phone: string
+    address: string
+    imageName: any
+    imagePath: string
+    birthday: string
+    gender: boolean
+    customerTypeId: number
+    customerType: CustomerType
+    rates: Rate2[]
+    isDeleted: boolean
+}
+
+export interface CustomerType {
+    Id: number
+    name: string
+    percent: number
+    description: any
+    createdAt: string
+    updatedAt: string
+    isDeleted: boolean
+}
+
+export interface Rate2 {
+    Id: number
+    rate: number
+    comment: string
+    createdAt: string
+    customerId: number
+    bookingId: number
+}
+export interface Rate {
+    Id: number
+    rate: number
+    comment: string
+    createdAt: string
+    customerId: number
+    bookingId: number
 }
 
 export interface Bill {
