@@ -4,12 +4,10 @@ import SlideBanner from './components/SlideBanner'
 
 const Home = () => {
 
-
     return (
         <View style={styles.container}>
             <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
                 <SlideBanner />
-
             </ScrollView>
         </View>
     )

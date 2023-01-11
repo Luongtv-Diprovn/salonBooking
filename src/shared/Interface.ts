@@ -13,7 +13,7 @@ export interface typeUser {
     point?: number
     createdAt?: string
     updatedAt?: string
-    customerTypeId?: number
+    customerTypeId: number
     birthday?: string
     gender?: boolean
     isDeleted?: boolean
@@ -28,7 +28,7 @@ export interface typeUser {
 export interface typeCustomer {
     Id?: number
     name?: string
-    percent?: number
+    percent: number
     description?: any
     createdAt?: string
     updatedAt?: string

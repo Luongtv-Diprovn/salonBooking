@@ -15,6 +15,7 @@ import User from '../Screens/User/User'
 import HistoryBooking from '../Screens/HistoryBooking/HistoryBooking'
 import Booking from '../Screens/Booking/Booking'
 import Ranking from '../Screens/Ranking/Ranking'
+import { scale } from '../shared/normalize'
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -31,31 +32,31 @@ function HomeTabs() {
         options={{
           tabBarLabel: 'Ranking',
           tabBarIcon: ({ color }) => (
-            <Icon2 name="sort" color={color} size={24} />),
+            <Icon2 name="sort" color={color} size={scale(24)} />),
         }} />
       <Tab.Screen name="HistoryBooking" component={HistoryBooking}
         options={{
           tabBarLabel: 'History',
           tabBarIcon: ({ color }) => (
-            <Icon1 name="history" color={color} size={24} />),
+            <Icon1 name="history" color={color} size={scale(24)} />),
         }} />
       <Tab.Screen name="Home" component={Home}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <Icon1 name="home" color={color} size={24} />),
+            <Icon1 name="home" color={color} size={scale(24)} />),
         }} />
       <Tab.Screen name="User" component={User}
         options={{
           tabBarLabel: 'User',
           tabBarIcon: ({ color }) => (
-            <Icon name="user" color={color} size={24} />),
+            <Icon name="user" color={color} size={scale(24)} />),
         }} />
       <Tab.Screen name="Booking" component={Booking}
         options={{
           tabBarLabel: 'Booking',
           tabBarIcon: ({ color }) => (
-            <Icon name="calendar" color={color} size={24} />),
+            <Icon name="calendar" color={color} size={scale(24)} />),
         }} />
     </Tab.Navigator>
   )

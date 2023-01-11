@@ -93,7 +93,7 @@ function SlideBanner() {
                         }
                         <Text
                             numberOfLines={12}
-                            style={{ fontSize: 16 }}>
+                            style={{ fontSize: scale(16) }}>
                             {currentAdvertise.detail}
                         </Text>
                     </View>
