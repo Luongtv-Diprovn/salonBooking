@@ -7,6 +7,8 @@ import Service_DropDown from './components/Service_DropDown'
 import Stylist_DropDown from './components/Stylist_DropDown'
 import Calender from './components/Calender'
 import TimeFlatGrid from './components/TimeFlatGrid'
+import Voucher from './components/Voucher'
+import { Advertisement } from '../../shared/Interface'
 
 const Booking = () => {
 
@@ -16,7 +18,7 @@ const Booking = () => {
     const [selectedIDStylist, setSelectedIDStylist] = useState<string>("")
     const [selectedDate, setSelectedDate] = useState<string>("")
     const [selectedTimeSlot, setselectedTimeSlot] = useState<string>("")
-    const [existVoucher, setExistVoucher] = useState(null)
+    const [existVoucher, setExistVoucher] = useState<Advertisement>()
     const onSelectedIDServices = (list: []) => {
         setSelectedIDServices(list)
     }
@@ -28,6 +30,9 @@ const Booking = () => {
     }
     const onSelectedTimeSlot = (item: string) => {
         setselectedTimeSlot(item);
+    }
+    const onApplyVoucher = (item: Advertisement) => {
+        setExistVoucher(item);
     }
 
     return (
@@ -53,6 +58,10 @@ const Booking = () => {
                     selectedIDStylist={selectedIDStylist}
                     selectedDate={selectedDate}
                     onSelectedTimeSlot={(item: string) => { onSelectedTimeSlot(item) }} />
+                <Text style={styles.txtTitle}>5.Voucher(type if you have)</Text>
+                <Voucher
+                    onApplyVoucher={(item: Advertisement) => { onApplyVoucher(item) }}
+                    statusBooking={statusBooking} />
             </ScrollView>
         </View>
     )

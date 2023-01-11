@@ -134,7 +134,6 @@ function TimeFlatGrid(props) {
 
     async function Get_BusyTimeOfStylist() {
         var url = BASE_URL + "/api/v1/bookings?" + "startDate=" + currentDay + "&endDate=" + endDay + "&staffId=" + props.selectedIDStylist + "&status=Confirm"
-        console.log(url)
         await fetch(url, {
             method: "GET",
             headers: {
