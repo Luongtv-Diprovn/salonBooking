@@ -9,6 +9,7 @@ import Calender from './components/Calender'
 import TimeFlatGrid from './components/TimeFlatGrid'
 import Voucher from './components/Voucher'
 import { Advertisement } from '../../shared/Interface'
+import Note from './components/Note'
 
 const Booking = () => {
 
@@ -19,6 +20,8 @@ const Booking = () => {
     const [selectedDate, setSelectedDate] = useState<string>("")
     const [selectedTimeSlot, setselectedTimeSlot] = useState<string>("")
     const [existVoucher, setExistVoucher] = useState<Advertisement>()
+    const [note, setNote] = useState<string>("")
+
     const onSelectedIDServices = (list: []) => {
         setSelectedIDServices(list)
     }
@@ -33,6 +36,9 @@ const Booking = () => {
     }
     const onApplyVoucher = (item: Advertisement) => {
         setExistVoucher(item);
+    }
+    function WriteNote(text: string) {
+        setNote(text);
     }
 
     return (
@@ -62,6 +68,11 @@ const Booking = () => {
                 <Voucher
                     onApplyVoucher={(item: Advertisement) => { onApplyVoucher(item) }}
                     statusBooking={statusBooking} />
+                <Note
+                    WriteNote={(text) => {
+                        WriteNote(text);
+                    }}
+                />
             </ScrollView>
         </View>
     )
