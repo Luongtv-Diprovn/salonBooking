@@ -148,4 +148,3 @@ export interface Advertisement {
     isDeleted: boolean
 }
 
-
