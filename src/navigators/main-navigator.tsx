@@ -27,7 +27,7 @@ function HomeTabs() {
       activeColor="#ec6882"
       initialRouteName={'Home'}
       barStyle={{
-        backgroundColor: '#fff3d1',
+        backgroundColor: 'black',
       }}>
       <Tab.Screen name="Ranking" component={Ranking}
         options={{

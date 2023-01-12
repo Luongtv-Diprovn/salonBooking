@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { screenName } from "../../navigators/screens-name"
 import BottomViewUser from './components/BottomViewUser'
 import TopViewUser from './components/TopViewUser'
+import { clor } from '../../shared/color'
 
 const User = () => {
     const navigation = useNavigation<any>();
@@ -15,6 +16,7 @@ const User = () => {
             <Button
                 title='Log out'
                 onPress={() => navigation.navigate(screenName.signIn)}
+                color={clor.maincolor}
             />
         </View>
     )

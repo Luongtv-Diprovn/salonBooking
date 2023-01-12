@@ -9,6 +9,7 @@ import { responsive } from '../../../shared/responsive'
 import { scale } from '../../../shared/normalize'
 import { Service, ServiceType } from '../../../shared/Interface'
 import { img } from '../../../asset/index'
+import { clor } from '../../../shared/color'
 
 
 function Services_View(props) {
@@ -19,7 +20,7 @@ function Services_View(props) {
   return (
     <>
       <TouchableOpacity
-        style={[styles.btnChooseService, { backgroundColor: choose ? "#ffcc33" : "white" }]}
+        style={[styles.btnChooseService, { backgroundColor: choose ? clor.C : "white" }]}
         onPress={() => {
           if (choose) {
             listChooseIdServices[props.indexServiceType] = ""
@@ -40,36 +41,36 @@ function Services_View(props) {
             source={img.iconService}
           />
           <View style={styles.viewDetail}>
-            <Text style={[styles.txt, { marginBottom: 14, marginRight: 3, alignSelf: "center" }]} numberOfLines={3}>
-              {props.service.name}
-            </Text>
-            <Text style={styles.txtMoney}>
-              {
-                Number(props.service.price).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
-              }
-            </Text>
+            <View style={styles.containerTopServices}>
+              <Text style={[styles.txt, { color: choose ? clor.white : clor.A, marginRight: 3 }]} numberOfLines={3}>
+                {props.service.name}
+              </Text>
+            </View>
+            <View style={styles.containerBottomServices}>
+              <Text style={styles.txtMoney}>
+                {
+                  Number(props.service.price).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
+                }
+              </Text>
+              <TouchableOpacity
+                style={styles.iconDetail}
+                onLongPress={() => {
+                  setShowDecription(!showDecription);
+                }}>
+                <Icon1
+                  name={"md-information-circle-outline"}
+                  size={scale(35)}
+                  color={clor.D}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-          <TouchableOpacity
-            onLongPress={() => {
-              setShowDecription(!showDecription);
-            }}
-          >
-            <Icon1
-              name={"md-information-circle-outline"}
-              size={scale(35)}
-              style={styles.iconDetail}
-            />
-          </TouchableOpacity>
         </View>
       </TouchableOpacity>
       {showDecription && (
         <View style={styles.viewDescription}>
-          <Icon2 name={"details"} size={scale(22)} />
-          <Text
-            style={styles.decription}
-          >
-            {props.service.description}
-          </Text>
+          <Icon2 name={"details"} size={scale(22)} color={"black"} />
+          <Text style={styles.decription}>{props.service.description}</Text>
         </View>
       )}
     </>
@@ -93,7 +94,7 @@ function ServiceType_View(props) {
         </View>
       </TouchableOpacity>
       {showOption &&
-        <ScrollView horizontal>
+        <ScrollView horizontal style={{ paddingVertical: 10 }}>
           {props.services.map((item: Service, index: number) => {
             return (
               <View key={index}>
@@ -180,6 +181,7 @@ function Service_DropDown(props) {
   }, [props.statusBooking])
 
 
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -193,7 +195,7 @@ function Service_DropDown(props) {
           <Icon
             name={showOption ? "caretdown" : "caretup"}
             size={scale(20)}
-            color={"black"} />
+            color={"white"} />
         </View>
       </TouchableOpacity>
       {showOption &&
@@ -245,15 +247,20 @@ function Service_DropDown(props) {
               :
               <></>
           }
-          <Text style={styles.txtAfterChoose}>
-            {
-              ((Number(user.userProperties.customerType.percent) != 0) || (props.existVoucher != null)) ?
-                "Total money(without discount): " + Number(MoneyForAll.AllMoneyNoDiscountByRankOrVoucher).toLocaleString("vi-VN", { style: "currency", currency: "VND" }) + "\n"
-                + "Total money(discount): " + Number(MoneyForAll.AllMoney).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
-                :
-                "Tổng tiền: " + Number(MoneyForAll.AllMoney).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
-            }
-          </Text>
+          <View style={{ flexDirection: "row" }}>
+            <Icon2 name={"monetization-on"} size={scale(22)} color={"green"} />
+            <Text style={styles.txtAfterChoose}>
+              {
+                ((Number(user.userProperties.customerType.percent) !== 0) || (props.existVoucher !== null)) ?
+                  "(without discount): " + Number(MoneyForAll.AllMoneyNoDiscountByRankOrVoucher).toLocaleString("vi-VN", { style: "currency", currency: "VND" }) + "\n"
+                  + "(discount): " + Number(MoneyForAll.AllMoney).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
+                  :
+                  Number(MoneyForAll.AllMoney).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
+              }
+            </Text>
+          </View>
+
+
         </View>
         :
         <></>
@@ -265,13 +272,13 @@ export default memo(Service_DropDown)
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: "95%",
     alignItems: "center",
-    margin: 10,
+    marginVertical: scale(20),
     alignSelf: "center",
   },
   DropDown: {
-    backgroundColor: "#f7f7f7",
+    backgroundColor: clor.maincolor,
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
@@ -290,23 +297,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#f79397",
     borderRadius: 10,
     padding: 10,
-    margin: 10,
+    margin: scale(10),
     alignSelf: "center",
   },
   viewChooseOption: {
     flex: 1,
-    flexDirection: "column",
     width: responsive.WIDTH * 0.9,
-    borderWidth: 1,
+    justifyContent: "center",
+    borderWidth: 2,
     padding: 10,
     borderRadius: 10,
-    margin: 10,
+    margin: scale(10),
+    borderColor: clor.C
   },
   decription: {
     alignSelf: "center",
     fontSize: scale(14),
     flex: 1,
     paddingLeft: 5,
+    color: "black"
   },
   btnChooseService: {
     flexDirection: "row",
@@ -317,10 +326,11 @@ const styles = StyleSheet.create({
     marginHorizontal: responsive.WIDTH * 0.1 / 2,
     borderRadius: 18,
     borderWidth: 2,
-    borderColor: "#c1d7ea",
+    borderColor: clor.A,
   },
   viewService: {
     flexDirection: "row",
+    alignItems: "center",
     flex: 1,
   },
   img: {
@@ -330,30 +340,21 @@ const styles = StyleSheet.create({
     margin: 8
   },
   viewDetail: {
-    flex: 1,
-    justifyContent: "center",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  iconDetail: {
-    position: "absolute",
-    bottom: -3,
-    left: -40,
-    color: "black"
+    flex: 1
   },
   txt: {
     fontSize: scale(15),
     fontWeight: "bold",
-    color: "black"
+    color: "white"
   },
   btnServiceType: {
-    backgroundColor: "#c1d7ea",
+    backgroundColor: clor.A,
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "center",
-    margin: 8,
     height: responsive.height(40),
     width: "90%",
+    marginTop: scale(15),
     borderRadius: 5,
   },
   viewServiceType: {
@@ -367,11 +368,24 @@ const styles = StyleSheet.create({
     fontSize: scale(15),
     color: "green"
   },
+  iconDetail: {
+    marginHorizontal: scale(15)
+  },
   txtMoney: {
     fontSize: scale(16),
     fontWeight: "bold",
     color: "#142FA8",
-    position: "absolute",
-    bottom: 5
+    marginRight: scale(20)
+  },
+  containerTopServices: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  containerBottomServices: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "flex-end",
+    alignItems: "center"
   }
 });

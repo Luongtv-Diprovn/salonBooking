@@ -14,6 +14,7 @@ import Toast from "react-native-toast-message";
 import { toastConfig, showToast } from "../../components/Toast/ToastNotify"
 import { BASE_URL } from "../../shared/BASE_URL"
 import { changeStatusBooking } from "../../Redux/Slice/userSlice"
+import { clor } from '../../shared/color'
 
 const Booking = () => {
 
@@ -126,7 +127,7 @@ const Booking = () => {
                 :
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <BlinkMessage />
-                    <Text style={styles.txtTitle}> 1.Choose Service </Text>
+                    <Text style={styles.txtTitle}>1.Choose Service </Text>
                     <Service_DropDown
                         existVoucher={existVoucher}
                         statusBooking={statusBooking}
@@ -160,7 +161,7 @@ const Booking = () => {
                 <></>
                 :
                 <Button
-                    color={"#ffcc33"}
+                    color={clor.maincolor}
                     disabled={disableBTNBooking}
                     onPress={() => {
                         setloading(true);
@@ -180,13 +181,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: "100%",
-        backgroundColor: "white"
+        backgroundColor: clor.grayLight
     },
     txtTitle: {
-        marginLeft: 12,
+        marginLeft: scale(12),
         fontWeight: "bold",
         fontSize: scale(18),
-        color: "#70605F"
+        color: clor.D
     },
     containerIndicator: {
         alignItems: "center",

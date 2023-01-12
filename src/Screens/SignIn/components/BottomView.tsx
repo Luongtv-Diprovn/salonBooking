@@ -24,7 +24,7 @@ import { onChangedNumber, onlyAlphabetNumeric } from '../../../shared/Function/h
 export default function BottomView() {
   const navigation = useNavigation<any>();
   const receive = useRoute()?.params;
-  const [phone, setPhone] = useState<string>("0123456789")
+  const [phone, setPhone] = useState<string>("0905444552")
   const [password, setPassword] = useState<string>("123456")
   const [securePass, setSecurePass] = useState<boolean>(true)
   const [loading, setloading] = useState<boolean>(false)

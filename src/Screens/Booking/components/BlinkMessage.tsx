@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import React, { memo } from 'react';
 import { scale } from '../../../shared/normalize'
 import { responsive } from '../../../shared/responsive'
+import { clor } from '../../../shared/color'
 
 function BlinkMessage() {
 
@@ -27,15 +28,16 @@ export default memo(BlinkMessage)
 const styles = StyleSheet.create({
     container: {
         width: responsive.WIDTH * 0.95,
-        backgroundColor: '#ebf7ef',
+        backgroundColor: clor.white,
         borderRadius: 10,
         padding: 5,
-        margin: 10
+        marginVertical: scale(20),
+        alignSelf: "center"
     },
     txt: {
         fontSize: scale(14),
         fontWeight: 'bold',
-        color: 'red',
+        color: "red",
     },
     txtfirst: {
         fontSize: scale(14),

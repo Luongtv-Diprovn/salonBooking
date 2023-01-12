@@ -3,6 +3,7 @@ import { View, StyleSheet, TextInput, Text } from 'react-native';
 import React, { useEffect, useState, memo } from 'react';
 import { scale } from '../../../shared/normalize'
 import { responsive } from '../../../shared/responsive'
+import { clor } from '../../../shared/color';
 
 function Note(props) {
 
@@ -38,8 +39,8 @@ const styles = StyleSheet.create({
         marginVertical: 20,
     },
     textAreaContainer: {
-        borderColor: 'grey',
-        borderWidth: 1,
+        borderColor: clor.B,
+        borderWidth: 8,
         padding: 5,
         borderRadius: 20
     },
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     txtNote:
     {
         fontSize: scale(23),
-        color: 'red',
+        color: clor.maincolor,
         marginBottom: 10,
         marginLeft: 50
     }

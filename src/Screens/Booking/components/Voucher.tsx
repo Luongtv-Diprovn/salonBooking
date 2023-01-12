@@ -5,6 +5,7 @@ import React, { useState, useEffect, memo } from "react";
 import { Advertisement } from "../../../shared/Interface"
 import { responsive } from "../../../shared/responsive"
 import { scale } from "../../../shared/normalize"
+import { clor } from '../../../shared/color'
 
 function Voucher(props) {
 
@@ -90,23 +91,25 @@ export default memo(Voucher)
 const styles = StyleSheet.create({
     container: {
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        marginVertical: scale(10)
     },
     indicator: {
         alignSelf: "center"
     },
     textArea: {
-        borderColor: "grey",
-        borderWidth: 1,
-        paddingHorizontal: 8,
-        marginRight: 10,
+        borderColor: clor.B,
+        borderWidth: 4,
+        paddingHorizontal: 10,
+        marginRight: scale(5),
         borderRadius: 5,
-        width: responsive.WIDTH * 0.6
+        width: responsive.WIDTH * 0.6,
+        flexShrink: 1
     },
     txtNotify: {
         fontSize: scale(14),
-        color: "#C21708",
-        marginLeft: 15
+        color: clor.C,
+        fontWeight: "bold"
     },
     rowItem: {
         width: "100%",
@@ -116,10 +119,10 @@ const styles = StyleSheet.create({
     },
     btnVoucher: {
         borderRadius: 5,
-        backgroundColor: "#ffcc33",
+        backgroundColor: clor.maincolor,
         alignItems: "center",
         justifyContent: "center",
-        padding: 10
+        padding: scale(10)
     },
     txtBTN: {
         color: "white",

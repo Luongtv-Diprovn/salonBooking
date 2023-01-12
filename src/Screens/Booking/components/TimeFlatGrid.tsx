@@ -5,28 +5,41 @@ import dayjs from "dayjs";
 import { Booking } from '../../../shared/Interface'
 import { scale } from '../../../shared/normalize'
 import { responsive } from '../../../shared/responsive'
+import { clor } from '../../../shared/color'
+
 
 const Times = [
+
     [
         { hour: "7", minute: "00" }, { hour: "7", minute: "30" },
-        { hour: "8", minute: "00" }, { hour: "8", minute: "30" },
+        { hour: "8", minute: "00" }, { hour: "8", minute: "30" }
+    ],
+    [
         { hour: "9", minute: "00" }, { hour: "9", minute: "30" },
         { hour: "10", minute: "00" }, { hour: "10", minute: "30" }
     ],
     [
         { hour: "11", minute: "00" }, { hour: "11", minute: "30" },
-        { hour: "12", minute: "00" }, { hour: "12", minute: "30" },
+        { hour: "12", minute: "00" }, { hour: "12", minute: "30" }
+    ],
+    [
         { hour: "13", minute: "00" }, { hour: "13", minute: "30" },
         { hour: "14", minute: "00" }, { hour: "14", minute: "30" }
     ],
     [
         { hour: "15", minute: "00" }, { hour: "15", minute: "30" },
-        { hour: "16", minute: "00" }, { hour: "16", minute: "30" },
+        { hour: "16", minute: "00" }, { hour: "16", minute: "30" }
+    ],
+    [
         { hour: "17", minute: "00" }, { hour: "17", minute: "30" },
-        { hour: "18", minute: "00" }, { hour: "18", minute: "30" },
+        { hour: "18", minute: "00" }, { hour: "18", minute: "30" }
     ]
 ]
 
+const numItemInRow = 4
+const marginHorizonTimeslot = scale(6)
+const widthTimeslot = (responsive.WIDTH - marginHorizonTimeslot * 2 * numItemInRow) / numItemInRow
+const heightTimeslot = widthTimeslot * 2 / 3
 
 
 function TimeItem(props) {
@@ -179,13 +192,12 @@ function TimeFlatGrid(props) {
     }, [props.statusBooking])
 
     return (
-        <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}>
+
+        <View style={styles.container}>
             {loading ?
-                <ActivityIndicator color="red" size={40} />
+                <ActivityIndicator color="red" size={scale(40)} />
                 :
-                <View style={styles.container}>
+                <>
                     <View style={styles.OneRowTime}>
                         {
                             Times[0].map((item, index) => {
@@ -246,9 +258,69 @@ function TimeFlatGrid(props) {
                             })
                         }
                     </View>
-                </View>
+                    <View style={styles.OneRowTime}>
+                        {
+                            Times[3].map((item, index) => {
+                                return (
+                                    <TimeItem
+                                        key={index}
+                                        selectedTimeSlot={selectedTimeSlot}
+                                        onSelect={(item) => { onSelect(item) }}
+                                        index={index}
+                                        hour={item.hour}
+                                        minute={item.minute}
+                                        today={currentDay}
+                                        currentHour={currentTime.getHours()}
+                                        currentMinute={currentTime.getMinutes()}
+                                        selectedDate={props.selectedDate}
+                                        listTimeSlotBusyOfStylist={data} />
+                                )
+                            })
+                        }
+                    </View>
+                    <View style={styles.OneRowTime}>
+                        {
+                            Times[4].map((item, index) => {
+                                return (
+                                    <TimeItem
+                                        key={index}
+                                        selectedTimeSlot={selectedTimeSlot}
+                                        onSelect={(item) => { onSelect(item) }}
+                                        index={index}
+                                        hour={item.hour}
+                                        minute={item.minute}
+                                        today={currentDay}
+                                        currentHour={currentTime.getHours()}
+                                        currentMinute={currentTime.getMinutes()}
+                                        selectedDate={props.selectedDate}
+                                        listTimeSlotBusyOfStylist={data} />
+                                )
+                            })
+                        }
+                    </View>
+                    <View style={styles.OneRowTime}>
+                        {
+                            Times[5].map((item, index) => {
+                                return (
+                                    <TimeItem
+                                        key={index}
+                                        selectedTimeSlot={selectedTimeSlot}
+                                        onSelect={(item) => { onSelect(item) }}
+                                        index={index}
+                                        hour={item.hour}
+                                        minute={item.minute}
+                                        today={currentDay}
+                                        currentHour={currentTime.getHours()}
+                                        currentMinute={currentTime.getMinutes()}
+                                        selectedDate={props.selectedDate}
+                                        listTimeSlotBusyOfStylist={data} />
+                                )
+                            })
+                        }
+                    </View>
+                </>
             }
-        </ScrollView>
+        </View>
     )
 }
 
@@ -256,38 +328,43 @@ export default memo(TimeFlatGrid)
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: "column",
-        padding: 10
+        flex: 1,
+        marginVertical: scale(20)
     },
     TimeItemSelected: {
         borderWidth: 2,
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
-        height: responsive.width(100) * 2 / 3,
-        width: responsive.width(100),
-        backgroundColor: "#ffcc33",
-        marginHorizontal: 5,
+        height: heightTimeslot,
+        width: widthTimeslot,
+        backgroundColor: clor.maincolor,
+        marginHorizontal: marginHorizonTimeslot,
+        borderColor: clor.B,
+        flexGrow: 1
     },
     TimeItemUnSelected: {
         borderWidth: 2,
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
-        height: responsive.width(100) * 2 / 3,
-        width: responsive.width(100),
+        height: heightTimeslot,
+        width: widthTimeslot,
         backgroundColor: "white",
-        marginHorizontal: 5,
+        marginHorizontal: marginHorizonTimeslot,
+        borderColor: clor.B,
+        flexGrow: 1
     },
     TimeItemCannotSelected: {
         borderWidth: 2,
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
-        height: responsive.width(100) * 2 / 3,
-        width: responsive.width(100),
-        backgroundColor: "gray",
-        marginHorizontal: 5,
+        height: heightTimeslot,
+        width: widthTimeslot,
+        backgroundColor: clor.A,
+        marginHorizontal: marginHorizonTimeslot,
+        flexGrow: 1
     },
     OneRowTime: {
         flex: 0.33,
