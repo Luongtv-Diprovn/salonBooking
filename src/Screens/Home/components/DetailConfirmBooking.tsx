@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
     txtContent: {
         fontSize: scale(16),
         color: 'white',
-        marginLeft: 5
+        marginLeft: 5,
+        flexShrink: 1
     },
     rowItem: {
         flexDirection: 'row',
