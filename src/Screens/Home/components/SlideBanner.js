@@ -7,6 +7,7 @@ import { ImageSlider } from "react-native-image-slider-banner"
 import { responsive } from '../../../shared/responsive'
 import { scale } from '../../../shared/normalize'
 import ShowCofirmBooking from './ShowCofirmBooking'
+import { clor } from '../../../shared/color'
 
 function SlideBanner() {
 
@@ -50,6 +51,7 @@ function SlideBanner() {
                 :
                 <View style={styles.container}>
                     <ImageSlider
+                        blurRadius={10}
                         data={data}
                         showIndicator={true}
                         timer={6000}
@@ -93,7 +95,7 @@ function SlideBanner() {
                         }
                         <Text
                             numberOfLines={12}
-                            style={{ fontSize: scale(16) }}>
+                            style={styles.txtDecription}>
                             {currentAdvertise.detail}
                         </Text>
                     </View>
@@ -117,6 +119,10 @@ const styles = StyleSheet.create({
         color: "#9CA1A3",
         fontSize: scale(16)
     },
+    txtDecription: {
+        fontSize: scale(16),
+        color: "black"
+    },
     contentInRow: {
         fontSize: scale(16),
         fontWeight: 'bold'
@@ -125,15 +131,17 @@ const styles = StyleSheet.create({
         height: responsive.HEIGHT * 0.05,
         alignItems: 'center',
         justifyContent: "center",
-        backgroundColor: '#9CA1A3'
+        backgroundColor: clor.maincolor
     },
     viewDetail: {
         alignSelf: 'center',
         width: '90%',
-        borderWidth: 1,
+        borderWidth: 4,
+        borderColor: clor.C,
         padding: 10,
         borderRadius: 10,
-        height: 400
+        height: 400,
+        marginBottom: scale(20)
     },
     txtTitle: {
         color: 'white',
@@ -143,8 +151,9 @@ const styles = StyleSheet.create({
     txtDetail: {
         fontSize: scale(18),
         fontWeight: 'bold',
-        marginVertical: 10,
-        marginLeft: 5
+        marginVertical: scale(20),
+        marginLeft: 5,
+        color: clor.A
     },
     caroselContainer: {
         height: responsive.HEIGHT * 0.5

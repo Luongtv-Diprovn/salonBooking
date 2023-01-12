@@ -5,48 +5,41 @@ import Icon from "react-native-vector-icons/AntDesign";
 import dayjs from "dayjs";
 import { responsive } from "../../../shared/responsive"
 import { scale } from "../../../shared/normalize"
+import { clor } from '../../../shared/color'
 
 function Calendar(props) {
 
     const [selectedDate, setSelectedDate] = useState<string>("")
-    const [showOption, setShowOption] = useState<boolean>(false)
 
     useEffect(() => {
         setSelectedDate("")
-        setShowOption(false)
         props.onSelectBookingDate("")
     }, [props.statusBooking])
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity
-                style={styles.DropDown}
-                onPress={() => {
-                    setShowOption(!showOption)
-                }}>
-                <Text style={[styles.txt, { color: selectedDate != "" ? "red" : "black", fontSize: scale(15) }]}>
+            <View style={styles.DropDown}>
+                <Text style={styles.txt}>
                     {selectedDate != "" ? selectedDate : "Choose booking date"}
                 </Text>
                 <Icon
-                    name={showOption ? "caretdown" : "caretup"}
+                    name={"caretdown"}
                     size={scale(20)}
-                    color={"black"}
+                    color={clor.white}
                 />
-            </TouchableOpacity>
-            {
-                showOption && (<CalendarPicker
-                    width={responsive.WIDTH * 0.95}
-                    minDate={dayjs().format("YYYY-MM-DD")}
-                    maxDate={dayjs().add(6, "day").format("YYYY-MM-DD")}
-                    selectedDayColor="#ffcc33"
-                    selectedStartDate={selectedDate}
-                    onDateChange={(d: any) => {
-                        var chooseDate = dayjs(d._d).format("YYYY-MM-DD")
-                        setSelectedDate(chooseDate)
-                        props.onSelectBookingDate(chooseDate)
-                    }}
-                />)
-            }
+            </View>
+            <CalendarPicker
+                width={responsive.WIDTH * 0.95}
+                minDate={dayjs().format("YYYY-MM-DD")}
+                maxDate={dayjs().add(6, "day").format("YYYY-MM-DD")}
+                selectedDayColor={clor.maincolor}
+                selectedStartDate={selectedDate}
+                onDateChange={(d: any) => {
+                    var chooseDate = dayjs(d._d).format("YYYY-MM-DD")
+                    setSelectedDate(chooseDate)
+                    props.onSelectBookingDate(chooseDate)
+                }}
+            />
         </View>
     );
 }
@@ -57,11 +50,11 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         alignItems: "center",
-        margin: 10,
+        marginVertical: scale(20),
         alignSelf: "center"
     },
     DropDown: {
-        backgroundColor: "#f7f7f7",
+        backgroundColor: clor.maincolor,
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
@@ -72,8 +65,8 @@ const styles = StyleSheet.create({
     txt: {
         fontSize: scale(15),
         fontWeight: "400",
-        color: "black",
-        marginRight: 5
+        color: clor.white,
+        marginRight: scale(5)
     },
 });
 
