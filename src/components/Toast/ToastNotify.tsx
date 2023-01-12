@@ -17,7 +17,7 @@ export const toastConfig: any = {
     SuccessTwoLine: ({ text1, props }) => (
         <View style={styles.containerToast}>
             <Icon name="checkmark-done-circle" color={"white"} size={scale(35)} />
-            <View style={{ flexDirection: "column" }}>
+            <View>
                 <Text style={styles.txtOneLine}>{text1}</Text>
                 <Text style={styles.txtTwoLine}>{props.txt}</Text>
             </View>
@@ -32,7 +32,7 @@ export const toastConfig: any = {
     FailTwoLine: ({ text1, props }) => (
         <View style={[styles.containerToast, { backgroundColor: "tomato" }]}>
             <Icon1 name="alert-circle" color={"white"} size={scale(35)} />
-            <View style={{ flexDirection: "column", flex: 1 }}>
+            <View>
                 <Text style={styles.txtOneLine}>{text1}</Text>
                 <Text style={styles.txtTwoLine}>{props.txt}</Text>
             </View>
@@ -65,21 +65,23 @@ const styles = StyleSheet.create({
         backgroundColor: "green",
         borderRadius: 10,
         alignItems: "center",
-        paddingHorizontal: 10
+        paddingHorizontal: scale(10)
     },
     txtOneLine: {
         fontSize: scale(20),
         color: "white",
-        marginLeft: 10,
+        marginLeft: scale(10),
+        flexShrink: 1
     },
     txtTwoLine: {
         fontSize: scale(14),
         color: "white",
-        marginLeft: 10
+        marginLeft: scale(10),
+        flexShrink: 1
     },
     txtAlert: {
         color: "white",
-        marginLeft: 10,
+        marginLeft: scale(10),
         flex: 1
     }
 });

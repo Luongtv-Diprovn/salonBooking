@@ -19,6 +19,7 @@ import { useAppSelector, useAppDispatch } from '../../../Redux/hookRedux'
 import { updateToken, updateUser } from '../../../Redux/Slice/userSlice'
 import { typeToken, typeUser } from '../../../shared/Interface'
 import { scale } from '../../../shared/normalize'
+import { onChangedNumber, onlyAlphabetNumeric } from '../../../shared/Function/handle'
 
 export default function BottomView() {
   const navigation = useNavigation<any>();
@@ -69,10 +70,27 @@ export default function BottomView() {
     setloading(false);
   };
 
+  const handleLogin = () => {
+    if (password.length == 0 || phone.length == 0) {
+      setNotify("Empty phone number or pass")
+    }
+    else if (phone[0] != "0") {
+      setNotify("Invalid Phone number")
+    }
+    else if (phone.length < 10) {
+      setNotify("Phone need at least 10 char")
+    }
+    else if (password.length < 6) {
+      setNotify("Pass need at least 6 char")
+    } else {
+      Post_Login()
+    }
+  }
+
   return (
     <View style={styles.container}>
       {loading ?
-        <ActivityIndicator color="red" size={40} />
+        <ActivityIndicator color="red" size={scale(40)} />
         :
         <ScrollView showsVerticalScrollIndicator={false} >
           <View style={styles.bottomView}>
@@ -85,8 +103,9 @@ export default function BottomView() {
               maxLength={10}
               style={styles.textInput}
               defaultValue={phone}
+              value={phone}
               onChangeText={(text) => {
-                setPhone(text);
+                setPhone(onChangedNumber(text));
               }}
               returnKeyType="next"
               onSubmitEditing={() => {
@@ -103,10 +122,11 @@ export default function BottomView() {
                 style={{ color: "white" }}
                 maxLength={30}
                 secureTextEntry={securePass}
+                value={password}
                 onChangeText={(text) => {
-                  setPassword(text);
+                  setPassword(onlyAlphabetNumeric(text))
                 }}
-                onSubmitEditing={Post_Login} />
+                onSubmitEditing={handleLogin} />
               <View style={styles.viewFlex1} />
               <TouchableOpacity
                 onPress={() => {
@@ -114,15 +134,13 @@ export default function BottomView() {
                 }}>
                 <Icon1
                   name={securePass ? "eye-with-line" : "eye"}
-                  size={28}
+                  size={scale(28)}
                   color={'#9CA1A3'} />
               </TouchableOpacity>
             </View>
             <TouchableOpacity
               style={styles.buttonSignIn}
-              onPress={() => {
-                Post_Login()
-              }}>
+              onPress={handleLogin}>
               <Text style={styles.txtLogin}>LOGIN</Text>
             </TouchableOpacity>
             <View style={styles.rowItem} >
@@ -130,11 +148,11 @@ export default function BottomView() {
                 onPress={() => navigation.navigate("ForgotPass")}>
                 <Text style={styles.txtForgot}>Forgot pass?</Text>
               </TouchableOpacity>
-              <View style={{ flex: 1 }} />
+              <View style={styles.viewFlex1} />
               <Icon
                 name={"hand-o-right"}
                 color={"#ec6882"}
-                size={20} />
+                size={scale(20)} />
               <TouchableOpacity
                 onPress={() => navigation.navigate("SignUp")}>
                 <Text style={styles.txtRegister}>Register</Text>
@@ -157,14 +175,14 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingHorizontal: 20,
+    paddingHorizontal: scale(20),
     justifyContent: "center"
   },
   bottomView: {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 15,
+    paddingVertical: scale(15),
   },
   viewFlex1: {
     flex: 1
@@ -175,38 +193,38 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
     borderRadius: 5,
-    paddingHorizontal: 10,
-    margin: 10,
+    paddingHorizontal: scale(10),
+    margin: scale(10),
     flexDirection: "row",
     alignItems: "center",
-    color: "white"
+    color: "white",
   },
   buttonSignIn: {
     width: "100%",
-    height: 40,
+    height: scale(40),
     backgroundColor: "white",
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 10,
+    marginVertical: scale(10),
   },
   rowItem: {
     flexDirection: "row",
     alignItems: 'center',
-    paddingHorizontal: 22,
+    paddingHorizontal: scale(22),
     justifyContent: 'center',
-    marginTop: 15
+    marginTop: scale(15)
   },
   txtWelcome: {
     alignItems: "center",
     color: "white",
     fontSize: scale(40),
     fontWeight: "bold",
-    marginBottom: 15
+    marginBottom: scale(15)
   },
   txtLogin: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: scale(18),
     color: "black"
   },
   txtForgot: {
@@ -219,11 +237,12 @@ const styles = StyleSheet.create({
     color: "#ec6882",
     fontStyle: "italic",
     fontWeight: '600',
-    fonsize: scale(16)
+    fonsize: scale(16),
+    marginLeft: scale(5)
   },
   txtNotify: {
     fontSize: scale(18),
     color: "#27A13B",
-    marginTop: 20
+    marginTop: scale(20)
   }
 });

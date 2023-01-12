@@ -23,6 +23,7 @@ function HomeTabs() {
 
   return (
     <Tab.Navigator
+      labeled={false}
       activeColor="#ec6882"
       initialRouteName={'Home'}
       barStyle={{
