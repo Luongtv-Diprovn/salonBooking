@@ -1,4 +1,4 @@
-import { BASE_URL } from '../../../shared/BASE_URL'
+import { BASE_URL } from "../../../shared/BASE_URL"
 import React, { useState, useRef, useEffect } from "react";
 import {
   View,
@@ -6,29 +6,42 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator,
+  ImageBackground,
   ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"
-import Icon1 from 'react-native-vector-icons/Entypo'
-import { useRoute } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
-import { screenName } from '../../../navigators/screens-name'
+import Icon1 from "react-native-vector-icons/Entypo"
+import { useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { screenName } from "../../../navigators/screens-name"
 import jwt_decode from "jwt-decode"
-import { useAppSelector, useAppDispatch } from '../../../Redux/hookRedux'
-import { updateToken, updateUser } from '../../../Redux/Slice/userSlice'
-import { typeToken, typeUser } from '../../../shared/Interface'
-import { scale } from '../../../shared/normalize'
-import { onChangedNumber, onlyAlphabetNumeric } from '../../../shared/Function/handle'
+import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
+import { updateToken, updateUser } from "../../../Redux/Slice/userSlice"
+import { typeToken, typeUser, Account } from "../../../shared/Interface"
+import { scale } from "../../../shared/normalize"
+import { onChangedNumber, onlyAlphabetNumeric } from "../../../shared/Function/handle"
+import { img } from "../../../asset/index"
+import { responsive } from "../../../shared/responsive"
+import { clor } from "../../../shared/color"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { storeLocalToken } from "../../../shared/Function/AsyncStorage"
+import LottieView from "lottie-react-native"
+
+const heightItem = scale(60)
+const marginVerticalItem = scale(12)
+const sizeTxtInput = scale(16)
+const sizeTxt = scale(14)
+const listIcon = ["facebook", "twitter", "google-"]
 
 export default function BottomView() {
   const navigation = useNavigation<any>();
   const receive = useRoute()?.params;
-  const [phone, setPhone] = useState<string>("0123456789")
-  const [password, setPassword] = useState<string>("123456")
+  const [phone, setPhone] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
   const [securePass, setSecurePass] = useState<boolean>(true)
   const [loading, setloading] = useState<boolean>(false)
   const [notify, setNotify] = useState<string>("")
+  const [rememberLogin, setRememberLogin] = useState<boolean>(false)
   const passRef = useRef<any>();
   const dispatch = useAppDispatch()
 
@@ -37,6 +50,62 @@ export default function BottomView() {
   //   setPassword(receive?.pass !== undefined ? receive?.pass : password)
   // }, [receive?.pass, receive?.phone])
 
+
+  const getLocalToken = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@localToken")
+      if (jsonValue !== null) {
+        const localToken: typeToken = JSON.parse(jsonValue)
+        const user: typeUser = jwt_decode(localToken.token)
+        dispatch(updateUser(user))
+        dispatch(updateToken(localToken))
+        navigation.navigate(screenName.homeTabs)
+      }
+    } catch (e) {
+
+    }
+  }
+
+  async function storeLocalAccount(value: Account) {
+    try {
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem("@localAccount", jsonValue)
+    } catch (e) {
+
+    }
+  }
+
+  async function getLocalAccount() {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@localAccount")
+      if (jsonValue !== null) {
+        var user: Account = JSON.parse(jsonValue)
+        if (user.remember) {
+          setPhone(user.phone)
+          setPassword(user.pass)
+          setRememberLogin(user.remember)
+        }
+        else {
+          setPhone("")
+          setPassword("")
+          setRememberLogin(false)
+        }
+      }
+    } catch (e) {
+
+    }
+  }
+
+
+
+  useEffect(() => {
+    setloading(true)
+    setTimeout(() => {
+      getLocalToken()
+      getLocalAccount()
+      setloading(false)
+    }, 5000)
+  }, [])
 
   const Post_Login = async () => {
     setloading(true)
@@ -52,13 +121,31 @@ export default function BottomView() {
       }),
     })
       .then((response) => {
+        console.log(response.ok)
         if (response.ok) {
-          // setPhone("")
-          // setPassword("")
-          setNotify("")
+          if (rememberLogin) {
+            const user: Account = {
+              phone: phone,
+              pass: password,
+              remember: rememberLogin
+            }
+            storeLocalAccount(user)
+          }
+          else {
+            setPhone("")
+            setPassword("")
+            setNotify("")
+            const user: Account = {
+              phone: "",
+              pass: "",
+              remember: false
+            }
+            storeLocalAccount(user)
+          }
           Promise.resolve(response.json())
             .then((value: typeToken) => {
               var user: typeUser = jwt_decode(value.token)
+              storeLocalToken(value)
               dispatch(updateUser(user))
               dispatch(updateToken(value))
             });
@@ -67,7 +154,7 @@ export default function BottomView() {
           setNotify("Invalid phone number or password")
         }
       })
-    setloading(false);
+    setloading(false)
   };
 
   const handleLogin = () => {
@@ -90,15 +177,27 @@ export default function BottomView() {
   return (
     <View style={styles.container}>
       {loading ?
-        <ActivityIndicator color="red" size={scale(40)} />
+        <LottieView source={img.waiting} autoPlay />
         :
         <ScrollView showsVerticalScrollIndicator={false} >
-          <View style={styles.bottomView}>
-            <Text style={styles.txtWelcome}> Welcome </Text>
+          <>
+            <ImageBackground
+              style={styles.salonLogo}
+              source={img.logoSalon}
+            />
+            <Text style={styles.txt}>Login to your Account</Text>
+            {
+              notify !== "" ?
+                <Text style={styles.txtNotify}>
+                  {notify}
+                </Text>
+                :
+                <></>
+            }
             <TextInput
               placeholder="Type phone number"
               keyboardType="numeric"
-              selectionColor={'#ec6882'}
+              selectionColor={"#ec6882"}
               placeholderTextColor={"#9CA1A3"}
               maxLength={10}
               style={styles.textInput}
@@ -117,9 +216,9 @@ export default function BottomView() {
                 ref={passRef}
                 placeholder="Type pass"
                 defaultValue={password}
-                selectionColor={'#ec6882'}
+                selectionColor={"#ec6882"}
                 placeholderTextColor={"#9CA1A3"}
-                style={{ color: "white" }}
+                style={{ color: "black", fontSize: sizeTxtInput }}
                 maxLength={30}
                 secureTextEntry={securePass}
                 value={password}
@@ -135,7 +234,7 @@ export default function BottomView() {
                 <Icon1
                   name={securePass ? "eye-with-line" : "eye"}
                   size={scale(28)}
-                  color={'#9CA1A3'} />
+                  color={"#9CA1A3"} />
               </TouchableOpacity>
             </View>
             <TouchableOpacity
@@ -143,27 +242,55 @@ export default function BottomView() {
               onPress={handleLogin}>
               <Text style={styles.txtLogin}>LOGIN</Text>
             </TouchableOpacity>
-            <View style={styles.rowItem} >
+            <View style={styles.containerCheckRemember}>
+              <TouchableOpacity
+                onPress={() => setRememberLogin(!rememberLogin)}
+              >
+                <View style={styles.viewCheckRemember}>
+                  {
+                    rememberLogin ?
+                      <Icon1
+                        name={"check"}
+                        size={scale(20)}
+                        color={clor.maincolor} />
+                      :
+                      <></>
+                  }
+                </View>
+              </TouchableOpacity>
+              <Text style={styles.txtRegister}>Remember Password</Text>
+              <View style={styles.viewFlex1} />
               <TouchableOpacity
                 onPress={() => navigation.navigate("ForgotPass")}>
                 <Text style={styles.txtForgot}>Forgot pass?</Text>
               </TouchableOpacity>
-              <View style={styles.viewFlex1} />
-              <Icon
-                name={"hand-o-right"}
-                color={"#ec6882"}
-                size={scale(20)} />
-              <TouchableOpacity
-                onPress={() => navigation.navigate("SignUp")}>
-                <Text style={styles.txtRegister}>Register</Text>
-              </TouchableOpacity>
             </View>
-            <Text style={styles.txtNotify}>
-              {notify}
-            </Text>
-          </View>
+            <View style={styles.containerBottom}>
+              <Text style={styles.txt}>---You can login with---</Text>
+              <View style={styles.viewSocial}>
+                {
+                  listIcon.map((item, index) =>
+                    <TouchableOpacity
+                      key={index}
+                      style={styles.btnIcon}>
+                      <Icon1
+                        name={item}
+                        size={scale(28)}
+                        color={clor.white}
+                      />
+                    </TouchableOpacity>
+                  )
+                }
+              </View>
+              <Text style={styles.txt}>
+                Don"t you have an account?
+                <Text style={styles.txtRegister} onPress={() => navigation.navigate(screenName.signUp)}>
+                  {"  Register"}
+                </Text>
+              </Text>
+            </View>
+          </>
         </ScrollView>
-
       }
     </View >
   )
@@ -171,78 +298,124 @@ export default function BottomView() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.5,
-    backgroundColor: "black",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    paddingHorizontal: scale(20),
-    justifyContent: "center"
-  },
-  bottomView: {
-    flexDirection: "column",
-    alignItems: "center",
+    flex: 1,
+    backgroundColor: clor.white,
+    padding: scale(20),
     justifyContent: "center",
-    paddingVertical: scale(15),
+  },
+  containerCheckRemember: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: marginVerticalItem
+  },
+  containerBottom: {
+    alignItems: "center",
+    marginVertical: marginVerticalItem
   },
   viewFlex1: {
     flex: 1
   },
+  viewSocial: {
+    flexDirection: "row",
+    alignSelf: "center",
+    marginVertical: marginVerticalItem
+  },
+  viewCheckRemember: {
+    height: scale(20),
+    width: scale(20),
+    backgroundColor: clor.grayLight,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  salonLogo: {
+    height: responsive.WIDTH * 0.3,
+    width: responsive.WIDTH * 0.3,
+    marginVertical: marginVerticalItem,
+    alignSelf: "center"
+  },
   textInput: {
     width: "100%",
-    height: 40,
-    borderWidth: 1,
-    borderColor: "white",
+    height: heightItem,
+    fontSize: sizeTxtInput,
     borderRadius: 5,
-    paddingHorizontal: scale(10),
-    margin: scale(10),
+    paddingHorizontal: 8,
+    marginVertical: marginVerticalItem,
     flexDirection: "row",
     alignItems: "center",
-    color: "white",
+    color: "black",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   buttonSignIn: {
     width: "100%",
-    height: 40,
-    backgroundColor: "white",
+    height: heightItem,
+    backgroundColor: clor.maincolor,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: scale(10),
+    marginVertical: marginVerticalItem,
+    shadowColor: "red",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 10.32,
+    elevation: 16,
   },
-  rowItem: {
-    flexDirection: "row",
-    alignItems: 'center',
-    paddingHorizontal: scale(22),
-    justifyContent: 'center',
-    marginTop: scale(15)
-  },
-  txtWelcome: {
-    alignItems: "center",
-    color: "white",
-    fontSize: scale(40),
+  txt: {
+    color: clor.grayLight,
+    fontSize: sizeTxt,
     fontWeight: "bold",
-    marginBottom: scale(15)
+    marginVertical: marginVerticalItem,
   },
   txtLogin: {
     fontWeight: "bold",
-    fontSize: scale(18),
-    color: "black"
+    fontSize: sizeTxt,
+    color: clor.white,
   },
   txtForgot: {
-    color: "#68ED7F",
+    color: clor.green,
     fontStyle: "italic",
-    fontWeight: '600',
-    fonsize: scale(16)
+    fontWeight: "600",
+    fonsize: scale(16),
+    alignSelf: "flex-end"
   },
   txtRegister: {
-    color: "#ec6882",
+    color: clor.D,
     fontStyle: "italic",
-    fontWeight: '600',
+    fontWeight: "bold",
     fonsize: scale(16),
-    marginLeft: scale(5)
+    marginLeft: scale(10)
+  },
+  txtRememberPass: {
+    fontSize: sizeTxt,
+    color: clor.green
   },
   txtNotify: {
-    fontSize: scale(18),
-    color: "#27A13B",
-    marginTop: scale(20)
+    fontSize: sizeTxt,
+    color: clor.green
+  },
+  btnIcon: {
+    backgroundColor: clor.maincolor,
+    borderRadius: 10,
+    padding: scale(marginVerticalItem),
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: responsive.WIDTH / 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 30,
+      height: 30,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 9.51,
+    elevation: 15,
   }
 });

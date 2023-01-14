@@ -60,7 +60,7 @@ function Voucher(props) {
     return (
         <>
             {loading ?
-                <ActivityIndicator color="red" size={40} style={styles.indicator} />
+                <ActivityIndicator color={clor.maincolor} size={40} style={styles.indicator} />
                 :
                 <View style={styles.container}>
                     <View style={styles.rowItem}>

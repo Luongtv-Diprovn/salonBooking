@@ -22,11 +22,6 @@ function Calendar(props) {
                 <Text style={styles.txt}>
                     {selectedDate != "" ? selectedDate : "Choose booking date"}
                 </Text>
-                <Icon
-                    name={"caretdown"}
-                    size={scale(20)}
-                    color={clor.white}
-                />
             </View>
             <CalendarPicker
                 width={responsive.WIDTH * 0.95}

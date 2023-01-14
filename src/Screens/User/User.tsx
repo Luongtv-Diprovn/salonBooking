@@ -6,6 +6,9 @@ import { screenName } from "../../navigators/screens-name"
 import BottomViewUser from './components/BottomViewUser'
 import TopViewUser from './components/TopViewUser'
 import { clor } from '../../shared/color'
+import { storeLocalToken } from '../../shared/Function/AsyncStorage'
+import { typeToken } from '../../shared/Interface'
+
 
 const User = () => {
     const navigation = useNavigation<any>();
@@ -15,7 +18,14 @@ const User = () => {
             <BottomViewUser />
             <Button
                 title='Log out'
-                onPress={() => navigation.navigate(screenName.signIn)}
+                onPress={() => {
+                    var emptyToken: typeToken = {
+                        token: "",
+                        refreshToken: ""
+                    }
+                    storeLocalToken(emptyToken)
+                    navigation.navigate(screenName.signIn)
+                }}
                 color={clor.maincolor}
             />
         </View>

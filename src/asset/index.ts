@@ -11,6 +11,8 @@ export const img = {
     iconStylist: require("./image/icon_stylist.png"),
     barberConfirm: require("./image/confirm_booking.jpg"),
     starFill: require("./image/star_filled.jpg"),
-    starUnFill: require("./image/star_unfill.jpg")
+    starUnFill: require("./image/star_unfill.jpg"),
+    background: require("./image/background.jpg"),
+    waiting: require("./imageActive/lf30_editor_tj7s6iqs.json")
 }
 

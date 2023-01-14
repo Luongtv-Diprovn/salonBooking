@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, ScrollView, Button, ActivityIndicator } from "react-native"
+import { View, StyleSheet, Text, ScrollView, Button } from "react-native"
 import { scale } from "../../shared/normalize"
 import { useAppSelector, useAppDispatch } from "../../Redux/hookRedux"
 import BlinkMessage from "./components/BlinkMessage"
@@ -10,11 +10,13 @@ import TimeFlatGrid from "./components/TimeFlatGrid"
 import Voucher from "./components/Voucher"
 import { Advertisement } from "../../shared/Interface"
 import Note from "./components/Note"
-import Toast from "react-native-toast-message";
+import Toast from "react-native-toast-message"
 import { toastConfig, showToast } from "../../components/Toast/ToastNotify"
 import { BASE_URL } from "../../shared/BASE_URL"
 import { changeStatusBooking } from "../../Redux/Slice/userSlice"
 import { clor } from '../../shared/color'
+import LottieView from 'lottie-react-native'
+import { img } from '../../asset/index'
 
 const Booking = () => {
 
@@ -106,7 +108,7 @@ const Booking = () => {
             }
         })
         dispatch(changeStatusBooking(!user.userProperties.statusBooking))
-        setloading(false);
+        setloading(false)
     }
 
     const check = (element: any) => element != ""; //check if listServiceId is all "" then return false otherwise return true
@@ -121,9 +123,7 @@ const Booking = () => {
     return (
         <View style={styles.container}>
             {loading ?
-                <View style={styles.containerIndicator}>
-                    <ActivityIndicator color="red" size={40} />
-                </View>
+                <LottieView source={img.waiting} autoPlay />
                 :
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <BlinkMessage />
@@ -188,11 +188,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: scale(18),
         color: clor.D
-    },
-    containerIndicator: {
-        alignItems: "center",
-        justifyContent: "center",
-        flex: 1
     }
 });
 

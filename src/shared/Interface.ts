@@ -36,18 +36,18 @@ export interface typeCustomer {
 }
 
 export interface ServiceType {
-    Id?: number
-    name?: string
-    isDeleted?: boolean
-    services?: Service[]
+    Id: number
+    name: string
+    isDeleted: boolean
+    services: Service[]
 }
 
 export interface Service {
-    Id?: number
-    price?: number
-    name?: string
+    Id: number
+    price: number
+    name: string
     imagePath?: string
-    serviceTypeId?: number
+    serviceTypeId: number
     description?: string
     createdAt?: string
     updatedAt?: string
@@ -56,7 +56,7 @@ export interface Service {
 }
 
 export interface Staff {
-    Id?: number
+    Id: number
     name?: string
     phone?: string
     address?: string
@@ -173,12 +173,12 @@ export interface Rate {
 }
 
 export interface Bill {
-    Id?: number
+    Id: number
     price?: number
     createdAt?: string
     updatedAt?: string
     createdBy?: number
-    staffId?: number
+    staffId: number
     customerId?: number
     bookingId?: number
 }
@@ -201,5 +201,11 @@ export interface Advertisement {
     voucherCode: string
     amount: number
     isDeleted: boolean
+}
+
+export interface Account {
+    phone: string,
+    pass: string,
+    remember: boolean
 }
 

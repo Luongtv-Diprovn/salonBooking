@@ -2,5 +2,6 @@ export enum screenName {
     home = "Home",
     homeTabs = "HomeTabs",
     signIn = "SignIn",
-    user = "User"
+    user = "User",
+    signUp = "SignUp"
 }

@@ -10,17 +10,14 @@ import {
     TouchableOpacity,
     Button,
     TextInput,
-    Image,
-    Dimensions
+    Image
 } from "react-native"
 import { img } from "../../../asset/index"
 import Modal from "react-native-modal"
 import { scale } from "../../../shared/normalize"
 import { responsive } from "../../../shared/responsive"
 import { Booking, Rate } from "../../../shared/Interface"
-
-const screenWidth = Dimensions.get("window").width
-
+import { clor } from '../../../shared/color'
 interface receiveRating {
     userStarRate?: number,
     existReview: boolean,
@@ -166,6 +163,7 @@ function Review(props: receiveReview) {
                                 style={styles.txtInputReview} />
                             <Button
                                 title="Save"
+                                color={clor.maincolor}
                                 onPress={() => {
                                     props.onLoading(true)
                                     Post_Rate()
@@ -186,8 +184,8 @@ const styles = StyleSheet.create({
     txtInputReview: {
         alignSelf: "center",
         width: "100%",
-        borderWidth: 1,
-        borderColor: "gray",
+        borderWidth: 2,
+        borderColor: clor.A,
         borderRadius: 5,
         paddingLeft: scale(10),
         marginBottom: scale(12),
@@ -242,13 +240,14 @@ const styles = StyleSheet.create({
     },
     txtName: {
         fontSize: scale(18),
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: clor.D
     },
     txtTitle: {
         fontWeight: "bold",
         alignSelf: "center",
         fontSize: scale(18),
-        color: "gray"
+        color: clor.A
     },
     imgStarRating: {
         height: responsive.width(20),

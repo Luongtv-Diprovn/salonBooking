@@ -1,6 +1,6 @@
 import { BASE_URL } from "../../../shared/BASE_URL"
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from "react-native"
-import React, { useState, useEffect, memo } from "react"
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from "react-native"
+import React, { useState, useEffect, memo, useRef } from "react"
 import Icon from "react-native-vector-icons/AntDesign"
 import Icon1 from "react-native-vector-icons/Ionicons"
 import Icon2 from "react-native-vector-icons/MaterialIcons"
@@ -10,382 +10,413 @@ import { scale } from '../../../shared/normalize'
 import { Service, ServiceType } from '../../../shared/Interface'
 import { img } from '../../../asset/index'
 import { clor } from '../../../shared/color'
+import Carousel from 'react-native-anchor-carousel'
+import SimplePaginationDot from '../../../components/SimplePaginationDot/SimplePaginationDot'
 
 
-function Services_View(props) {
-  const [showDecription, setShowDecription] = useState(false);
-  var choose = props.service.Id == props.listChooseIDService[props.indexServiceType] ? true : false
-  var listChooseIdServices = [...props.listChooseIDService]
-  var listChooseService = [...props.listChooseService]
-  return (
-    <>
-      <TouchableOpacity
-        style={[styles.btnChooseService, { backgroundColor: choose ? clor.C : "white" }]}
-        onPress={() => {
-          if (choose) {
-            listChooseIdServices[props.indexServiceType] = ""
-            listChooseService[props.indexServiceType] = null
-            props.onChangeListChoose(listChooseIdServices, listChooseService)
-          }
-          else {
-            listChooseIdServices[props.indexServiceType] = props.service.Id
-            listChooseService[props.indexServiceType] = props.service
-            props.onChangeListChoose(listChooseIdServices, listChooseService)
-          }
-        }}
-      >
-        <View style={styles.viewService}>
-          <Image
-            style={styles.img}
-            resizeMode="contain"
-            source={img.iconService}
-          />
-          <View style={styles.viewDetail}>
-            <View style={styles.containerTopServices}>
-              <Text style={[styles.txt, { color: choose ? clor.white : clor.A, marginRight: 3 }]} numberOfLines={3}>
-                {props.service.name}
-              </Text>
+const sizeText = scale(16)
+const INITIAL_INDEX = 0;
+const carouselWidth = responsive.WIDTH
+const carouselHeight = responsive.WIDTH
+const itemWidth = carouselWidth * 0.6
+
+
+interface receive {
+    key: number
+    serviceType: string
+    indexServiceType: number
+    services: Service[]
+    listChooseIDService: string[]
+    listChooseService: Service[]
+    onChangeListChoose: any
+}
+
+function ServiceType_View(props: receive) {
+    const [showOption, setShowOption] = useState(false);
+    const [showDecription, setShowDecription] = useState<boolean>(false)
+    const carouselRef = useRef<any>(null);
+    const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
+    function handleCarouselScrollEnd(item, index) {
+        setCurrentIndex(index);
+    }
+
+    const renderItem = (item: Service, index: number, indexServiceType: number, listChooseIDService: string[], listChooseService: Service[], onChangeListChoose: any) => {
+        var choose = item.Id == listChooseIDService[String(indexServiceType)] ? true : false
+        var listChooseIDService_new = [...listChooseIDService]
+        var listServiceChoose_new = [...listChooseService]
+
+        return (
+            <View style={styles.containerItem}>
+
+                <ImageBackground
+                    source={img.background}
+                    style={styles.imageBackground}>
+                    <TouchableOpacity
+                        style={styles.btnMoreInfo}
+                        onPress={() => {
+                            setShowDecription(!showDecription)
+                        }}>
+                        <Icon1
+                            name={"md-information-circle-outline"}
+                            size={scale(35)}
+                            color={clor.maincolor}
+                        />
+                    </TouchableOpacity>
+                </ImageBackground>
+                <View style={styles.lowerContainer}>
+                    <Text style={styles.txtContent} numberOfLines={3}>{item.name}</Text>
+                    <View style={styles.viewFlex1} />
+                    <View style={styles.rowItem}>
+                        <Text style={[styles.txtTitle, { color: clor.C }]}>Price:</Text>
+                        <Text style={[styles.txtContent, { color: "green", marginBottom: 5 }]}>{Number(item.price).toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</Text>
+                    </View>
+                    <TouchableOpacity
+                        onPress={() => {
+                            carouselRef.current.scrollToIndex(index);
+                            if (choose) {
+                                listChooseIDService_new[indexServiceType] = ""
+                                listServiceChoose_new[String(indexServiceType)] = null
+                                onChangeListChoose(listChooseIDService_new, listServiceChoose_new)
+                            }
+                            else {
+                                listChooseIDService_new[String(indexServiceType)] = item.Id
+                                listServiceChoose_new[props.indexServiceType] = item
+                                props.onChangeListChoose(listChooseIDService_new, listServiceChoose_new)
+                            }
+                        }}
+                        style={[styles.btnChoose, { backgroundColor: choose ? clor.maincolor : clor.white }]}
+                    >
+                        <Text style={[styles.txtTitle, { color: choose ? clor.white : clor.D }]}>Choose</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={styles.containerBottomServices}>
-              <Text style={styles.txtMoney}>
-                {
-                  Number(props.service.price).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
-                }
-              </Text>
-              <TouchableOpacity
-                style={styles.iconDetail}
-                onLongPress={() => {
-                  setShowDecription(!showDecription);
+        )
+    }
+
+    return (
+        <>
+            <TouchableOpacity
+                style={styles.btnServiceType}
+                onPress={() => {
+                    setShowOption(!showOption);
                 }}>
-                <Icon1
-                  name={"md-information-circle-outline"}
-                  size={scale(35)}
-                  color={clor.D}
+                {
+                    showOption ?
+                        <SimplePaginationDot currentIndex={currentIndex} length={props.services.length} />
+                        :
+                        <View style={styles.viewServiceType}>
+                            <Text style={styles.txt} numberOfLines={2}>
+                                {props.serviceType + " (" + props.services.length + ")"}
+                            </Text>
+                        </View>
+                }
+            </TouchableOpacity>
+            {
+                showOption &&
+                <Carousel
+                    style={styles.carousel}
+                    data={props.services}
+                    renderItem={({ item, index }) => renderItem(item, index, props.indexServiceType, props.listChooseIDService, props.listChooseService, props.onChangeListChoose)}
+                    separatorWidth={20}
+                    itemWidth={itemWidth}
+                    onScrollEnd={handleCarouselScrollEnd}
+                    ref={carouselRef}
+
                 />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-      {showDecription && (
-        <View style={styles.viewDescription}>
-          <Icon2 name={"details"} size={scale(22)} color={"black"} />
-          <Text style={styles.decription}>{props.service.description}</Text>
-        </View>
-      )}
-    </>
-  );
+            }
+        </>
+    );
 }
 
-function ServiceType_View(props) {
-  const [showOption, setShowOption] = useState(false);
-  return (
-    <>
-      <TouchableOpacity
-        style={styles.btnServiceType}
-        onPress={() => {
-          setShowOption(!showOption);
-        }}
-      >
-        <View style={styles.viewServiceType}>
-          <Text style={styles.txt} numberOfLines={2}>
-            {props.serviceType + " (" + props.services.length + ")"}
-          </Text>
-        </View>
-      </TouchableOpacity>
-      {showOption &&
-        <ScrollView horizontal style={{ paddingVertical: 10 }}>
-          {props.services.map((item: Service, index: number) => {
-            return (
-              <View key={index}>
-                <Services_View
-                  service={item}
-                  index={index}
-                  indexServiceType={props.indexServiceType}
-                  listChooseIDService={props.listChooseIDService}
-                  listChooseService={props.listChooseService}
-                  onChangeListChoose={(listId, listService) => { props.onChangeListChoose(listId, listService) }}
-                />
-              </View>
-            );
-          })}
-        </ScrollView>
-      }
-    </>
-  );
-}
+
 
 function Service_DropDown(props) {
 
-  const [data, setData] = useState([])
-  const [showOption, setShowOption] = useState(false)
-  const [listChooseIDService, setListChooseIDService] = useState([])
-  const [listChooseService, setListChooseService] = useState([])
-  const user = useAppSelector((state) => state.user)
-  const MoneyForAll = TotalMoney()
+    const [data, setData] = useState([])
+    const [showOption, setShowOption] = useState(false)
+    const [listChooseIDService, setListChooseIDService] = useState<string[]>([])
+    const [listChooseService, setListChooseService] = useState<Service[]>([])
+    const user = useAppSelector((state) => state.user)
+    const MoneyForAll = TotalMoney()
 
-  const check = (element) => element != "";
+    const check = (element) => element != "";
 
-  const onChangeListChoose = (listId, listService) => {
-    setListChooseIDService(listId)
-    setListChooseService(listService)
-  }
-
-  function TotalMoney() {
-    var AllMoney = 0;
-    var AllMoneyNoDiscountByRankOrVoucher = 0
-    listChooseService.forEach((item: Service) => {
-      if (item != null) {
-        AllMoney += Number(item.price);
-      }
-    });
-    AllMoneyNoDiscountByRankOrVoucher = AllMoney
-    //recalculate the total amount after discounting by account rank
-    AllMoney = Number(user.userProperties.customerType.percent) != 0 ? AllMoney * (1 - Number(user.userProperties.customerType.percent) / 100) : AllMoney
-    //recalculate total amount after applying voucher for discount
-    AllMoney = props.existVoucher != null ? AllMoney * (1 - props.existVoucher.discount / 100) : AllMoney
-    return {
-      AllMoney, AllMoneyNoDiscountByRankOrVoucher
+    const onChangeListChoose = (listId, listService) => {
+        setListChooseIDService(listId)
+        setListChooseService(listService)
     }
-  }
 
-  async function Get_Service() {
-    var url = BASE_URL + "/api/v1/serviceTypes"
-    await fetch(url, {
-      method: "GET",
-      headers: {
-        "Authorization": "Bearer " + user.userProperties.Token.token
-      },
-    }).then((response) => {
-      if (response.status == 200) {
-        Promise.resolve(response.json())
-          .then((value) => {
-            setData(value)
-          });
-      }
-    })
-  }
+    function TotalMoney() {
+        var AllMoney = 0;
+        var AllMoneyNoDiscountByRankOrVoucher = 0
+        if (listChooseService.length !== 0) {
+            listChooseService.forEach((item: Service) => {
+                if (item != null) {
+                    AllMoney += Number(item.price);
+                }
+            })
+            AllMoneyNoDiscountByRankOrVoucher = AllMoney
+            //recalculate the total amount after discounting by account rank
+            AllMoney = Number(user.userProperties.customerType.percent) != 0 ? AllMoney * (1 - Number(user.userProperties.customerType.percent) / 100) : AllMoney
+            //recalculate total amount after applying voucher for discount
+            AllMoney = props.existVoucher != null ? AllMoney * (1 - props.existVoucher.discount / 100) : AllMoney
+        }
 
-  useEffect(() => {
-    Get_Service();
-  }, []);
+        return {
+            AllMoney, AllMoneyNoDiscountByRankOrVoucher
+        }
+    }
 
-  useEffect(() => {
-    props.onSelectedIDServices(listChooseIDService);
-  }, [listChooseIDService]);
-
-  useEffect(() => {
-    setListChooseIDService([])
-    setListChooseService([])
-    setShowOption(false)
-  }, [props.statusBooking])
-
-
-
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.DropDown}
-        onPress={() => {
-          setShowOption(!showOption);
-        }}
-      >
-        <View style={styles.viewDropDown}>
-          <Text style={[styles.txt, { fontWeight: "400" }]}> Please choose Service here </Text>
-          <Icon
-            name={showOption ? "caretdown" : "caretup"}
-            size={scale(20)}
-            color={"white"} />
-        </View>
-      </TouchableOpacity>
-      {showOption &&
-        <>
-          {data.map((item: ServiceType, indexServiceType) => {
-            return (
-              <ServiceType_View
-                key={indexServiceType}
-                serviceType={item.name}
-                indexServiceType={indexServiceType}
-                services={item.services}
-                listChooseIDService={listChooseIDService}
-                listChooseService={listChooseService}
-                onChangeListChoose={(listId: number[], listService: Service[]) => { onChangeListChoose(listId, listService) }}
-              />
-            );
-          })}
-        </>
-      }
-      {listChooseIDService.length != 0 &&
-        listChooseIDService.some(check) &&
-        showOption == false ?
-        <View style={styles.viewChooseOption}>
-          <Text style={[styles.txtAfterChoose, { color: "red", fontSize: scale(16) }]}>All services you have choose</Text>
-          {listChooseService.map((item: Service, index) => {
-            if (item != null) {
-              return (
-                <Text key={index} style={[styles.txtAfterChoose, { color: "blue" }]}>+ {item.name}</Text>
-              );
+    async function Get_Service() {
+        var url = BASE_URL + "/api/v1/serviceTypes"
+        await fetch(url, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + user.userProperties.Token.token
+            },
+        }).then((response) => {
+            if (response.status == 200) {
+                Promise.resolve(response.json())
+                    .then((value) => {
+                        setData(value)
+                    });
             }
-          })}
-          {
-            Number(user.userProperties.customerType.percent) != 0 ?
-              <Text style={styles.txtAfterChoose}>
-                {
-                  "Discounts by membership class " + user.userProperties.customerType.percent + "%"
-                }
-              </Text>
-              :
-              <></>
-          }
-          {
-            props.existVoucher != null ?
-              <Text style={styles.txtAfterChoose}>
-                {
-                  "Discounts by voucher " + props.existVoucher.discount + "%"
-                }
-              </Text>
-              :
-              <></>
-          }
-          <View style={{ flexDirection: "row" }}>
-            <Icon2 name={"monetization-on"} size={scale(22)} color={"green"} />
-            <Text style={styles.txtAfterChoose}>
-              {
-                ((Number(user.userProperties.customerType.percent) !== 0) || (props.existVoucher !== null)) ?
-                  "(without discount): " + Number(MoneyForAll.AllMoneyNoDiscountByRankOrVoucher).toLocaleString("vi-VN", { style: "currency", currency: "VND" }) + "\n"
-                  + "(discount): " + Number(MoneyForAll.AllMoney).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
-                  :
-                  Number(MoneyForAll.AllMoney).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
-              }
-            </Text>
-          </View>
+        })
+    }
+
+    useEffect(() => {
+        Get_Service();
+    }, []);
+
+    useEffect(() => {
+        props.onSelectedIDServices(listChooseIDService);
+    }, [listChooseIDService]);
+
+    useEffect(() => {
+        setListChooseIDService([])
+        setListChooseService([])
+        setShowOption(false)
+    }, [props.statusBooking])
 
 
+
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity
+                style={styles.DropDown}
+                onPress={() => {
+                    setShowOption(!showOption);
+                }}
+            >
+                <View style={styles.viewDropDown}>
+                    <Text style={[styles.txt, { fontWeight: "400" }]}> Please choose Service here  </Text>
+                    <Icon
+                        name={showOption ? "caretdown" : "caretup"}
+                        size={scale(20)}
+                        color={"white"} />
+                </View>
+            </TouchableOpacity>
+            {showOption &&
+                <>
+                    {data.map((item: ServiceType, indexServiceType) => {
+                        return (
+                            <ServiceType_View
+                                key={indexServiceType}
+                                serviceType={item.name}
+                                indexServiceType={indexServiceType}
+                                services={item.services}
+                                listChooseIDService={listChooseIDService}
+                                listChooseService={listChooseService}
+                                onChangeListChoose={(listId?: number[], listService?: Service[]) => { onChangeListChoose(listId, listService) }}
+                            />
+                        );
+                    })}
+                </>
+            }
+            {listChooseIDService.length != 0 &&
+                listChooseIDService.some(check) &&
+                showOption == false ?
+                <View style={styles.viewChooseOption}>
+                    <Text style={[styles.txtAfterChoose, { color: "red", fontSize: scale(16) }]}>All services you have choose</Text>
+                    {listChooseService.map((item: Service, index) => {
+                        if (item != null) {
+                            return (
+                                <Text key={index} style={[styles.txtAfterChoose, { color: "blue" }]}>+ {item.name}</Text>
+                            );
+                        }
+                    })}
+                    {
+                        Number(user.userProperties.customerType.percent) != 0 ?
+                            <Text style={styles.txtAfterChoose}>
+                                {
+                                    "Discounts by membership class " + user.userProperties.customerType.percent + "%"
+                                }
+                            </Text>
+                            :
+                            <></>
+                    }
+                    {
+                        props.existVoucher != null ?
+                            <Text style={styles.txtAfterChoose}>
+                                {
+                                    "Discounts by voucher " + props.existVoucher.discount + "%"
+                                }
+                            </Text>
+                            :
+                            <></>
+                    }
+                    <View style={{ flexDirection: "row" }}>
+                        <Icon2 name={"monetization-on"} size={scale(22)} color={"green"} />
+                        <Text style={styles.txtAfterChoose}>
+                            {
+                                ((Number(user.userProperties.customerType.percent) !== 0) || (props.existVoucher !== null)) ?
+                                    "(without discount): " + Number(MoneyForAll.AllMoneyNoDiscountByRankOrVoucher).toLocaleString("vi-VN", { style: "currency", currency: "VND" }) + "\n"
+                                    + "(discount): " + Number(MoneyForAll.AllMoney).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
+                                    :
+                                    Number(MoneyForAll.AllMoney).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
+                            }
+                        </Text>
+                    </View>
+                </View>
+                :
+                <></>
+            }
         </View>
-        :
-        <></>
-      }
-    </View>
-  );
+    );
 }
 export default memo(Service_DropDown)
 
 const styles = StyleSheet.create({
-  container: {
-    width: "95%",
-    alignItems: "center",
-    marginVertical: scale(20),
-    alignSelf: "center",
-  },
-  DropDown: {
-    backgroundColor: clor.maincolor,
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "center",
-    height: responsive.height(40),
-    width: responsive.WIDTH * 0.95,
-  },
-  viewDropDown: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  viewDescription: {
-    alignItems: "center",
-    flexDirection: "row",
-    width: responsive.WIDTH * 0.9,
-    backgroundColor: "#f79397",
-    borderRadius: 10,
-    padding: 10,
-    margin: scale(10),
-    alignSelf: "center",
-  },
-  viewChooseOption: {
-    flex: 1,
-    width: responsive.WIDTH * 0.9,
-    justifyContent: "center",
-    borderWidth: 2,
-    padding: 10,
-    borderRadius: 10,
-    margin: scale(10),
-    borderColor: clor.C
-  },
-  decription: {
-    alignSelf: "center",
-    fontSize: scale(14),
-    flex: 1,
-    paddingLeft: 5,
-    color: "black"
-  },
-  btnChooseService: {
-    flexDirection: "row",
-    alignSelf: "center",
-    marginVertical: 10,
-    height: responsive.height(120),
-    width: responsive.WIDTH * 0.9,
-    marginHorizontal: responsive.WIDTH * 0.1 / 2,
-    borderRadius: 18,
-    borderWidth: 2,
-    borderColor: clor.A,
-  },
-  viewService: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
-  },
-  img: {
-    height: responsive.height(100),
-    width: responsive.height(100),
-    borderRadius: 18,
-    margin: 8
-  },
-  viewDetail: {
-    flex: 1
-  },
-  txt: {
-    fontSize: scale(15),
-    fontWeight: "bold",
-    color: "white"
-  },
-  btnServiceType: {
-    backgroundColor: clor.A,
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "center",
-    height: responsive.height(40),
-    width: "90%",
-    marginTop: scale(15),
-    borderRadius: 5,
-  },
-  viewServiceType: {
-    width: "100%",
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-  txtAfterChoose: {
-    fontSize: scale(15),
-    color: "green"
-  },
-  iconDetail: {
-    marginHorizontal: scale(15)
-  },
-  txtMoney: {
-    fontSize: scale(16),
-    fontWeight: "bold",
-    color: "#142FA8",
-    marginRight: scale(20)
-  },
-  containerTopServices: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-end",
-  },
-  containerBottomServices: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "flex-end",
-    alignItems: "center"
-  }
+    container: {
+        width: "100%",
+        marginVertical: scale(20),
+    },
+    DropDown: {
+        backgroundColor: clor.maincolor,
+        borderRadius: 5,
+        alignSelf: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        height: responsive.height(40),
+        width: "95%",
+        flexDirection: "row"
+    },
+    viewDropDown: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    viewChooseOption: {
+        flex: 1,
+        width: responsive.WIDTH * 0.9,
+        justifyContent: "center",
+        borderWidth: 2,
+        padding: 10,
+        borderRadius: 10,
+        marginTop: scale(15),
+        borderColor: clor.C,
+        alignSelf: "center"
+    },
+    viewService: {
+        flexDirection: "row",
+        alignItems: "center",
+        flex: 1,
+    },
+    img: {
+        height: responsive.height(100),
+        width: responsive.height(100),
+        borderRadius: 18,
+        margin: 8
+    },
+    viewDetail: {
+        flex: 1
+    },
+    txt: {
+        fontSize: scale(15),
+        fontWeight: "bold",
+        color: "white"
+    },
+    btnServiceType: {
+        backgroundColor: clor.A,
+        flexDirection: "row",
+        alignItems: "center",
+        alignSelf: "center",
+        height: responsive.height(40),
+        width: "90%",
+        marginTop: scale(15),
+        borderRadius: 5,
+    },
+    btnMoreInfo: {
+        backgroundColor: 'rgba(49, 49, 51,0.5)',
+        borderBottomLeftRadius: 10,
+        padding: 3,
+        position: "absolute",
+        top: 0,
+        right: 0,
+        zIndex: 1
+    },
+    viewServiceType: {
+        width: "100%",
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row",
+    },
+    txtAfterChoose: {
+        fontSize: scale(15),
+        color: "green"
+    },
+    containerItem: {
+        borderWidth: 2,
+        backgroundColor: 'white',
+        flex: 1,
+        borderRadius: 5,
+        borderColor: 'white',
+        alignSelf: "center",
+        elevation: 20,
+        shadowColor: '#52006A',
+    },
+    imageBackground: {
+        flex: 3,
+        backgroundColor: '#EBEBEB',
+        borderWidth: 5,
+        borderColor: 'white',
+    },
+    lowerContainer: {
+        flex: 2,
+        margin: 10,
+    },
+    rowItem: {
+        flexDirection: "row",
+        paddingHorizontal: scale(5),
+        alignSelf: "center"
+    },
+    txtTitle: {
+        fontWeight: 'bold',
+        fontSize: sizeText,
+        color: clor.D
+    },
+    txtContent: {
+        fontWeight: 'bold',
+        fontSize: sizeText,
+        color: clor.D,
+        flexShrink: 1
+    },
+    viewFlex1: {
+        flex: 1
+    },
+    btnChoose: {
+        borderWidth: 2,
+        borderRadius: 5,
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 5,
+        borderColor: clor.A
+    },
+    carousel: {
+        aspectRatio: 1.5,
+        height: carouselHeight,
+        width: carouselWidth,
+        marginTop: 20,
+    },
 });

@@ -1,14 +1,19 @@
 
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ImageBackground } from 'react-native';
 import React, { memo } from 'react';
 import { scale } from '../../../shared/normalize'
 import { responsive } from '../../../shared/responsive'
 import { clor } from '../../../shared/color'
+import { img } from '../../../asset/index'
 
 function BlinkMessage() {
 
     return (
-        <View style={styles.container}>
+        <ImageBackground
+            style={styles.container}
+            source={img.background}
+            blurRadius={1.5}
+        >
             <Text style={styles.txtfirst}>To make an appointment, you should do the following:</Text>
             <Text style={styles.txt}>
                 {
@@ -20,7 +25,7 @@ function BlinkMessage() {
                     + "If you want to note us, you can leave a note below"
                 }
             </Text>
-        </View>
+        </ImageBackground>
     )
 }
 export default memo(BlinkMessage)
@@ -28,7 +33,6 @@ export default memo(BlinkMessage)
 const styles = StyleSheet.create({
     container: {
         width: responsive.WIDTH * 0.95,
-        backgroundColor: clor.white,
         borderRadius: 10,
         padding: 5,
         marginVertical: scale(20),
@@ -37,12 +41,12 @@ const styles = StyleSheet.create({
     txt: {
         fontSize: scale(14),
         fontWeight: 'bold',
-        color: "red",
+        color: clor.B,
     },
     txtfirst: {
         fontSize: scale(14),
         fontWeight: 'bold',
-        color: 'purple',
+        color: clor.D,
     }
 })
 
