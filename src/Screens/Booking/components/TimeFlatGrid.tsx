@@ -195,7 +195,7 @@ function TimeFlatGrid(props) {
 
         <View style={styles.container}>
             {loading ?
-                <ActivityIndicator color="red" size={scale(40)} />
+                <ActivityIndicator color={clor.maincolor} size={scale(40)} />
                 :
                 <>
                     <View style={styles.OneRowTime}>

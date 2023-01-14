@@ -11,7 +11,7 @@ const SignIn = () => {
         }}
             accessible={false}>
             <View style={styles.container}>
-                <TopView />
+                {/* <TopView /> */}
                 <BottomView />
             </View>
         </TouchableWithoutFeedback>
@@ -24,7 +24,7 @@ export default SignIn
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
         backgroundColor: 'white',
+        justifyContent: "center"
     }
 })

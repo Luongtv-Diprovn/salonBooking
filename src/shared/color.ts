@@ -5,5 +5,6 @@ export enum clor {
     C = "#6E5157",
     D = "#BA5267",
     grayLight = "#F0EBF0",
-    white = "white"
+    white = "white",
+    green = "#68ED7F"
 }

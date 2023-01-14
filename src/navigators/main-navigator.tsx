@@ -15,6 +15,7 @@ import User from '../Screens/User/User'
 import HistoryBooking from '../Screens/HistoryBooking/HistoryBooking'
 import Booking from '../Screens/Booking/Booking'
 import Ranking from '../Screens/Ranking/Ranking'
+import SignUp from '../Screens/SignUp/SignUp'
 import { scale } from '../shared/normalize'
 
 const Tab = createMaterialBottomTabNavigator();
@@ -74,8 +75,10 @@ const MainStack = () => {
         }}
         initialRouteName={screenName.signIn}
       >
+        <Stack.Screen name={"Booking"} component={Booking} />
         <Stack.Screen name={screenName.signIn} component={SignIn} />
         <Stack.Screen name={screenName.homeTabs} component={HomeTabs} />
+        <Stack.Screen name={screenName.signUp} component={SignUp} />
       </Stack.Navigator>
     </Provider>
   )

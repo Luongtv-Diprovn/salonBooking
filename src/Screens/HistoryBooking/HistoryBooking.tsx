@@ -21,6 +21,7 @@ import { Booking } from "../../shared/Interface"
 import DetailHistory from "./components/DetailHistory"
 import { Picker } from "@react-native-picker/picker";
 import { clor } from '../../shared/color'
+import LottieView from 'lottie-react-native'
 
 export default function HistoryBooking() {
   const user = useAppSelector((state) => state.user)
@@ -97,7 +98,7 @@ export default function HistoryBooking() {
     <View style={styles.container}>
       {
         loading ?
-          <ActivityIndicator color="red" size={scale(40)} style={styles.Indicator} />
+          <LottieView source={img.waiting} autoPlay />
           :
           <View>
             {
@@ -110,7 +111,7 @@ export default function HistoryBooking() {
                 :
                 <Image
                   source={img.notfound}
-                  resizeMode={"contain"}
+                  resizeMode={"center"}
                   style={styles.IMGNotFound}
                 />
             }
@@ -122,6 +123,7 @@ export default function HistoryBooking() {
                   <Icon
                     name={"banckward"}
                     size={scale(25)}
+                    color={clor.A}
                   />
                 </TouchableOpacity>
                 <Text style={styles.txtPage}>{"Page " + curentPage + "/" + totalPage}</Text>
@@ -132,6 +134,7 @@ export default function HistoryBooking() {
                   <Icon
                     name={"forward"}
                     size={scale(25)}
+                    color={clor.A}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.btnRefresh}
@@ -173,31 +176,37 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: "100%",
   },
-  Indicator: {
-    flex: 1,
-    alignSelf: "center"
-  },
   IMGNotFound: {
     flex: 1,
     alignSelf: "center"
   },
   containerOption: {
-    height: responsive.HEIGHT * 1 / 9,
+    height: responsive.HEIGHT * 1 / 8,
     width: "100%",
     flexDirection: "column",
+    alignSelf: "center",
     padding: scale(8),
-    alignSelf: "center"
+    borderTopWidth: 2,
+    borderColor: clor.maincolor,
+    shadowRadius: 2,
+    shadowOffset: {
+      width: 0,
+      height: -8,
+    },
+    elevation: 50,
+    shadowColor: '#52006A',
+
   },
   containerButton: {
     width: "100%",
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   txtPage: {
     fontSize: scale(16),
     fontWeight: "400",
-    color: "black",
-    marginHorizontal: scale(5)
+    color: clor.D,
+    marginHorizontal: scale(8)
   },
   btnRefresh: {
     borderRadius: 10,

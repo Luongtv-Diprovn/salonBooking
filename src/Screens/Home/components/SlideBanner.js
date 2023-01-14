@@ -47,11 +47,12 @@ function SlideBanner() {
     return (
         <View style={styles.container}>
             {loading ?
-                <ActivityIndicator color="red" size={40} style={styles.Indicator} />
+                <ActivityIndicator color={clor.maincolor} size={40} style={styles.Indicator} />
                 :
                 <View style={styles.container}>
                     <ImageSlider
                         blurRadius={10}
+                        activeIndicatorStyle={{ color: "black" }}
                         data={data}
                         showIndicator={true}
                         timer={6000}

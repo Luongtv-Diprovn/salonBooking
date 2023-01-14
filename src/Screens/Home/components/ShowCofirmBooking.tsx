@@ -1,19 +1,18 @@
 
 import { BASE_URL } from '../../../shared/BASE_URL'
-import { View, StyleSheet, ActivityIndicator, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import React, { useEffect, useState, memo } from 'react';
 import dayjs from "dayjs";
 import DetailConfirmBooking from './DetailConfirmBooking'
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
 import { Advertisement, Booking } from '../../../shared/Interface'
-import { isReturnStatement } from 'typescript';
+import { clor } from '../../../shared/color'
 
 function ShowConfirmBooking() {
 
     const user = useAppSelector((state) => state.user)
     const [data, setData] = useState<Booking[]>([])
     const [existConfirmBooking, setExistConfirmBooking] = useState<boolean>(false)
-    const [loading, setloading] = useState<boolean>(false);
     let currentDay = dayjs().format('YYYY-MM-DD')
     let endDay = dayjs().add(6, 'day').format('YYYY-MM-DD')
 
@@ -37,11 +36,9 @@ function ShowConfirmBooking() {
                 setExistConfirmBooking(false)
             }
         })
-        setloading(false);
     }
 
     useEffect(() => {
-        setloading(true)
         Get_ExsistConfirmBookingOfUser()
     }, [user.userProperties.Id, user.userProperties.statusBooking])
 
@@ -59,18 +56,12 @@ function ShowConfirmBooking() {
 
     return (
         <View>
-            {loading ?
-                <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
-                    <ActivityIndicator color="red" size={40} />
-                </View>
-                :
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={data}
-                    horizontal
-                    renderItem={({ item }) => renderItem(item)}
-                />
-            }
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                data={data}
+                horizontal
+                renderItem={({ item }) => renderItem(item)}
+            />
         </View>
     )
 }
