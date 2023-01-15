@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BASE_URL } from '../../shared/BASE_URL'
-import { View, StyleSheet, Text, Button } from "react-native"
+import React from 'react';
+import { View, StyleSheet, Text, Button, ImageBackground } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 import { screenName } from "../../navigators/screens-name"
 import BottomViewUser from './components/BottomViewUser'
@@ -8,12 +7,15 @@ import TopViewUser from './components/TopViewUser'
 import { clor } from '../../shared/color'
 import { storeLocalToken } from '../../shared/Function/AsyncStorage'
 import { typeToken } from '../../shared/Interface'
-
+import { img } from '../../asset/index'
 
 const User = () => {
     const navigation = useNavigation<any>();
     return (
-        <View style={styles.container}>
+        <ImageBackground
+            blurRadius={1}
+            source={img.profileBackground}
+            style={styles.container}>
             <TopViewUser />
             <BottomViewUser />
             <Button
@@ -28,7 +30,7 @@ const User = () => {
                 }}
                 color={clor.maincolor}
             />
-        </View>
+        </ImageBackground>
     )
 }
 

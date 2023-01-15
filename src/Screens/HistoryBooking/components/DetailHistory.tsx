@@ -14,6 +14,7 @@ import Review from "./Review"
 import { Booking } from "../../../shared/Interface"
 import { responsive } from "../../../shared/responsive"
 import { scale } from "../../../shared/normalize"
+import { clor } from '../../../shared/color'
 
 interface receiveDetailHistory {
     history: Booking,
@@ -317,9 +318,9 @@ export default DetailHistory
 
 const styles = StyleSheet.create({
     lineHorizone: {
-        borderWidth: 0.75,
-        borderColor: "black",
-        marginVertical: scale(10),
+        borderWidth: 1,
+        borderColor: clor.white,
+        marginVertical: scale(15),
     },
     viewFlex1: {
         flex: 1

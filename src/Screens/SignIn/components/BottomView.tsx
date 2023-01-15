@@ -96,8 +96,6 @@ export default function BottomView() {
     }
   }
 
-
-
   useEffect(() => {
     setloading(true)
     setTimeout(() => {
@@ -197,7 +195,7 @@ export default function BottomView() {
             <TextInput
               placeholder="Type phone number"
               keyboardType="numeric"
-              selectionColor={"#ec6882"}
+              selectionColor={clor.maincolor}
               placeholderTextColor={"#9CA1A3"}
               maxLength={10}
               style={styles.textInput}
@@ -216,7 +214,7 @@ export default function BottomView() {
                 ref={passRef}
                 placeholder="Type pass"
                 defaultValue={password}
-                selectionColor={"#ec6882"}
+                selectionColor={clor.maincolor}
                 placeholderTextColor={"#9CA1A3"}
                 style={{ color: "black", fontSize: sizeTxtInput }}
                 maxLength={30}

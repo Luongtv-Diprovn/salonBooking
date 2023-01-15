@@ -57,9 +57,9 @@ export interface Service {
 
 export interface Staff {
     Id: number
-    name?: string
-    phone?: string
-    address?: string
+    name: string
+    phone: string
+    address: string
     basicWage?: number
     imageName?: string
     imagePath?: string
@@ -74,7 +74,7 @@ export interface Staff {
     isDeleted?: boolean
     bookings?: Booking[]
     bills?: Bill[]
-    _count?: Count
+    _count: Count
     avg?: string
 }
 
@@ -209,3 +209,8 @@ export interface Account {
     remember: boolean
 }
 
+export interface RankingStylist {
+    _count: number
+    staffId: number
+    staff: Staff
+}

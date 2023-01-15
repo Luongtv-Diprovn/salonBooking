@@ -150,6 +150,7 @@ const Booking = () => {
                     <Voucher
                         onApplyVoucher={(item: Advertisement) => { onApplyVoucher(item) }}
                         statusBooking={statusBooking} />
+                    <Text style={styles.txtTitle}>6.Note</Text>
                     <Note
                         WriteNote={(text) => {
                             WriteNote(text);

@@ -17,20 +17,14 @@ function TopViewUser() {
     const [heightOfIMGBG, setHeightOfIMGBG] = useState(0)
 
     return (
-        <View style={styles.topView}>
-            <ImageBackground
-                source={img.profileBackground}
-                style={styles.IMGBackground}
-                onLayout={(event) => {
-                    setHeightOfIMGBG(event.nativeEvent.layout.height)
-                }}>
-                <View style={styles.viewType}>
-                    <Text style={styles.txtType}>Type:</Text>
-                    <Text style={[styles.txtType, { fontWeight: "bold", color: "black" }]}>{name_level[user.userProperties.customerTypeId - 1]}</Text>
-                </View>
-            </ImageBackground>
-            <View style={[styles.containerIMGPhoneName, { top: heightOfIMGBG / 2 }]}>
-                <View style={{ flexDirection: "column" }}>
+        <View
+            style={styles.topView}
+            onLayout={(event) => {
+                setHeightOfIMGBG(event.nativeEvent.layout.height)
+            }}>
+
+            <View style={[styles.containerIMGPhoneName, { top: heightOfIMGBG / 5 }]}>
+                <View style={{ flexDirection: "column" }} >
                     <Text style={styles.txtName}>{user.userProperties.gender ? ('Mr.' + user.userProperties.name) : ('Ms.' + user.userProperties.name)}</Text>
                     <View style={styles.viewPhone}>
                         <Icon
@@ -94,7 +88,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     txtType: {
-        color: "#9CA1A3",
+        color: "white",
         fontSize: scale(18)
     },
     txtName: {
@@ -106,7 +100,7 @@ const styles = StyleSheet.create({
     containerIMGPhoneName: {
         flex: 0.55,
         width: '100%',
-        alignItems: 'center',
+        alignItems: "center",
         justifyContent: 'center',
         flexDirection: "row",
         position: "absolute",

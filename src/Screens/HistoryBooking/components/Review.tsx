@@ -250,8 +250,8 @@ const styles = StyleSheet.create({
         color: clor.A
     },
     imgStarRating: {
-        height: responsive.width(20),
-        width: responsive.width(20),
+        height: scale(20),
+        width: scale(20),
         marginLeft: scale(5)
     },
     viewModal: {

@@ -7,6 +7,8 @@ import { responsive } from "../../../shared/responsive"
 import { scale } from "../../../shared/normalize"
 import { clor } from '../../../shared/color'
 
+const marginVerticalItem = scale(15)
+
 function Voucher(props) {
 
     const [voucherCode, setVoucherCode] = useState<string>("")
@@ -66,21 +68,26 @@ function Voucher(props) {
                     <View style={styles.rowItem}>
                         <TextInput
                             style={styles.textArea}
-                            underlineColorAndroid="transparent"
+                            selectionColor={clor.maincolor}
                             placeholderTextColor="grey"
-                            maxLength={30}
+                            maxLength={20}
                             value={voucherCode}
                             onChangeText={(text) => {
                                 setVoucherCode(text)
-                            }}
-                        />
+                            }}>
+                        </TextInput>
                         <TouchableOpacity
                             style={styles.btnVoucher}
                             onPress={checkExistVoucher}>
-                            <Text style={styles.txtBTN}>Apply Voucher</Text>
+                            <Text style={styles.txtBTN}>Apply</Text>
                         </TouchableOpacity>
                     </View>
-                    <Text style={styles.txtNotify}>{notify}</Text>
+                    {
+                        notify !== "" ?
+                            <Text style={styles.txtNotify}>{notify}</Text>
+                            :
+                            <></>
+                    }
                 </View>
             }
         </>
@@ -90,43 +97,43 @@ export default memo(Voucher)
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: "center",
-        justifyContent: "center",
-        marginVertical: scale(10)
+        marginVertical: marginVerticalItem,
     },
     indicator: {
         alignSelf: "center"
     },
     textArea: {
-        borderColor: clor.B,
-        borderWidth: 4,
-        paddingHorizontal: 10,
-        marginRight: scale(5),
-        borderRadius: 5,
-        width: responsive.WIDTH * 0.6,
-        flexShrink: 1
+        fontSize: scale(18),
+        flex: 1
     },
+
     txtNotify: {
-        fontSize: scale(14),
+        fontSize: scale(16),
         color: clor.C,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        alignSelf: "center",
+        marginTop: marginVerticalItem
     },
     rowItem: {
-        width: "100%",
-        justifyContent: "center",
+        alignSelf: "center",
         flexDirection: "row",
-        marginVertical: 10
+        borderColor: clor.B,
+        borderWidth: 4,
+        paddingLeft: 10,
+        marginRight: scale(5),
+        borderRadius: 5,
+        width: responsive.WIDTH * 0.9,
     },
     btnVoucher: {
-        borderRadius: 5,
         backgroundColor: clor.maincolor,
         alignItems: "center",
         justifyContent: "center",
-        padding: scale(10)
+        padding: scale(10),
+        width: responsive.WIDTH * 0.9 * 0.33
     },
     txtBTN: {
         color: "white",
-        fontSize: scale(16),
+        fontSize: scale(18),
         fontWeight: "bold"
     }
 
