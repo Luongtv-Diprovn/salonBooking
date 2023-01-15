@@ -6,5 +6,9 @@ export enum clor {
     D = "#BA5267",
     grayLight = "#F0EBF0",
     white = "white",
-    green = "#68ED7F"
+    green = "#68ED7F",
+    au = "#ffd94a",
+    ag = "#d8d9c9",
+    cu = "#f3ac6e",
+    grayForTxt = "#9CA1A3"
 }

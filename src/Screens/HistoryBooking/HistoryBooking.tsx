@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  RefreshControl,
   FlatList,
+  ImageBackground
 } from "react-native"
 import Icon from "react-native-vector-icons/AntDesign"
 import Toast from "react-native-toast-message"
@@ -29,6 +31,7 @@ export default function HistoryBooking() {
   const [loading, setloading] = useState<boolean>(false);
   const [curentPage, setCurentPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(0)
+  const [refresh, setFresh] = useState<boolean>(false)
   const pageSize = 5
   //Open,Value,Items dùng cho dropdown
   const [selectedDropdown, setSelectedDropdown] = useState<any>("");
@@ -42,6 +45,14 @@ export default function HistoryBooking() {
 
   function onLoading(load) {
     setloading(load);
+  }
+
+  const handleRefresh = () => {
+    setFresh(true)
+    get_HistoryBooking()
+    setTimeout(() => {
+      setFresh(false)
+    }, 5000)
   }
 
   async function get_HistoryBooking() {
@@ -60,6 +71,8 @@ export default function HistoryBooking() {
           });
       }
       else {
+        setCurentPage(0)
+        setTotalPage(0)
         setData([])
       }
     })
@@ -100,13 +113,16 @@ export default function HistoryBooking() {
         loading ?
           <LottieView source={img.waiting} autoPlay />
           :
-          <View>
+          <>
             {
               data.length !== 0 ?
                 <FlatList
                   showsVerticalScrollIndicator={false}
                   data={data}
                   renderItem={({ item, index }) => renderItem(item, index)}
+                  refreshControl={
+                    <RefreshControl refreshing={refresh} onRefresh={handleRefresh} colors={[clor.maincolor]} />
+                  }
                 />
                 :
                 <Image
@@ -115,53 +131,47 @@ export default function HistoryBooking() {
                   style={styles.IMGNotFound}
                 />
             }
-            <View style={styles.containerOption}>
-              <View style={styles.containerButton}>
-                <TouchableOpacity
-                  disabled={curentPage == 1 ? true : false}
-                  onPress={handlePrevPage}>
-                  <Icon
-                    name={"banckward"}
-                    size={scale(25)}
-                    color={clor.A}
-                  />
-                </TouchableOpacity>
-                <Text style={styles.txtPage}>{"Page " + curentPage + "/" + totalPage}</Text>
-                <TouchableOpacity
-                  disabled={curentPage < totalPage ? false : true}
-                  onPress={handleNextPage}
-                >
-                  <Icon
-                    name={"forward"}
-                    size={scale(25)}
-                    color={clor.A}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.btnRefresh}
-                  onPress={() => {
-                    setloading(true)
-                    setCurentPage(1)
-                    get_HistoryBooking()
-                  }}>
-                  <Text style={styles.txtRefresh}>REFRESH</Text>
-                </TouchableOpacity>
-              </View>
-              <Picker
-                itemStyle={{ fontSize: scale(16) }}
-                selectedValue={selectedDropdown}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSelectedDropdown(itemValue)
-                }>
-                <Picker.Item label="All Booking" value="" />
-                <Picker.Item label="Pending" value="Pending" />
-                <Picker.Item label="Confirm" value="Confirm" />
-                <Picker.Item label="Done" value="Done" />
-                <Picker.Item label="Cancel" value="Cancel" />
-              </Picker>
+            <View style={styles.containerButton}>
+              <TouchableOpacity
+                disabled={curentPage == 1 ? true : false}
+                onPress={handlePrevPage}
+              >
+                <Icon
+                  name={"banckward"}
+                  size={scale(25)}
+                  style={{ opacity: 1 }}
+                  color={clor.A}
+                />
+
+              </TouchableOpacity>
+              <Text style={styles.txtPage}>{curentPage + "/" + totalPage}</Text>
+              <TouchableOpacity
+                disabled={curentPage < totalPage ? false : true}
+                onPress={handleNextPage}
+              >
+                <Icon
+                  name={"forward"}
+                  size={scale(25)}
+                  color={clor.A}
+                />
+              </TouchableOpacity>
             </View>
-          </View >
+            <Picker
+              itemStyle={{ fontSize: scale(16) }}
+              selectedValue={selectedDropdown}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedDropdown(itemValue)
+              }>
+              <Picker.Item label="All Booking" value="" />
+              <Picker.Item label="Pending" value="Pending" />
+              <Picker.Item label="Confirm" value="Confirm" />
+              <Picker.Item label="Done" value="Done" />
+              <Picker.Item label="Cancel" value="Cancel" />
+            </Picker>
+          </>
       }
       <Toast config={toastConfig} />
+
     </View >
 
   );
@@ -172,54 +182,27 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     backgroundColor: clor.grayLight,
-    alignItems: "center",
-    justifyContent: "center",
     height: "100%",
   },
   IMGNotFound: {
     flex: 1,
     alignSelf: "center"
   },
-  containerOption: {
-    height: responsive.HEIGHT * 1 / 8,
-    width: "100%",
-    flexDirection: "column",
-    alignSelf: "center",
-    padding: scale(8),
-    borderTopWidth: 2,
-    borderColor: clor.maincolor,
-    shadowRadius: 2,
-    shadowOffset: {
-      width: 0,
-      height: -8,
-    },
-    elevation: 50,
-    shadowColor: '#52006A',
-
-  },
   containerButton: {
-    width: "100%",
     flexDirection: "row",
-    alignItems: "center",
+    padding: 10,
+    zIndex: 1,
+    borderRadius: 20,
+    alignSelf: "center",
+    backgroundColor: "gray",
+    position: "absolute",
+    bottom: responsive.HEIGHT * 1 / 10,
+    opacity: 0.8
   },
   txtPage: {
     fontSize: scale(16),
-    fontWeight: "400",
-    color: clor.D,
-    marginHorizontal: scale(8)
-  },
-  btnRefresh: {
-    borderRadius: 10,
-    justifyContent: "center",
-    backgroundColor: clor.maincolor,
-    flexGrow: 1,
-    marginLeft: scale(10),
-    padding: scale(4)
-  },
-  txtRefresh: {
-    alignSelf: "center",
-    fontSize: scale(20),
     fontWeight: "bold",
-    color: "white"
-  }
+    color: clor.D,
+    marginHorizontal: scale(15),
+  },
 });

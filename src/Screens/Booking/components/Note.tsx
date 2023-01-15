@@ -13,47 +13,33 @@ function Note(props) {
         props.WriteNote("")
     }, [props.statusBooking])
     return (
-        <View style={styles.container}>
-            <Text style={styles.txtNote}>Note</Text>
-            <View style={styles.textAreaContainer} >
-                <TextInput
-                    style={styles.textArea}
-                    placeholderTextColor="grey"
-                    multiline={true}
-                    maxLength={300}
-                    onChangeText={(text) => {
-                        setNote(text)
-                        props.WriteNote(note)
-                    }}
-                />
-            </View>
-        </View>
+        <TextInput
+            style={styles.textArea}
+            selectionColor={clor.maincolor}
+            placeholderTextColor="grey"
+            multiline={true}
+            maxLength={300}
+            onChangeText={(text) => {
+                setNote(text)
+                props.WriteNote(note)
+            }}
+        />
+
     )
 }
 export default memo(Note)
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 20,
-        marginVertical: 20,
-    },
-    textAreaContainer: {
-        borderColor: clor.B,
-        borderWidth: 8,
-        padding: 5,
-        borderRadius: 20
-    },
     textArea: {
+        marginVertical: scale(15),
+        alignSelf: "center",
+        width: responsive.WIDTH * 0.95,
         height: responsive.height(150),
-        justifyContent: "flex-start"
-    },
-    txtNote:
-    {
-        fontSize: scale(23),
-        color: clor.maincolor,
-        marginBottom: 10,
-        marginLeft: 50
+        borderColor: clor.B,
+        borderWidth: 4,
+        padding: scale(5),
+        borderRadius: 20,
+        fontSize: scale(16)
     }
 })
 

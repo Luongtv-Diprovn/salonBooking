@@ -75,7 +75,7 @@ const MainStack = () => {
         }}
         initialRouteName={screenName.signIn}
       >
-        <Stack.Screen name={"Booking"} component={Booking} />
+        <Stack.Screen name={"Ranking"} component={Ranking} />
         <Stack.Screen name={screenName.signIn} component={SignIn} />
         <Stack.Screen name={screenName.homeTabs} component={HomeTabs} />
         <Stack.Screen name={screenName.signUp} component={SignUp} />

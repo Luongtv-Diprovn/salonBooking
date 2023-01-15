@@ -13,6 +13,8 @@ export const img = {
     starFill: require("./image/star_filled.jpg"),
     starUnFill: require("./image/star_unfill.jpg"),
     background: require("./image/background.jpg"),
-    waiting: require("./imageActive/lf30_editor_tj7s6iqs.json")
+    waiting: require("./imageActive/lf30_editor_tj7s6iqs.json"),
+    bgrSalon: require("./image/bgrSalon.jpg"),
+    bgrGray: require("./image/bgrGray.jpg")
 }
 

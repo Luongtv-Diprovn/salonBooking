@@ -8,6 +8,8 @@ import { responsive } from '../../../shared/responsive'
 import { scale } from '../../../shared/normalize'
 import ShowCofirmBooking from './ShowCofirmBooking'
 import { clor } from '../../../shared/color'
+import LottieView from "lottie-react-native"
+import { img } from '../../../asset/index'
 
 function SlideBanner() {
 
@@ -47,7 +49,7 @@ function SlideBanner() {
     return (
         <View style={styles.container}>
             {loading ?
-                <ActivityIndicator color={clor.maincolor} size={40} style={styles.Indicator} />
+                <LottieView source={img.waiting} autoPlay />
                 :
                 <View style={styles.container}>
                     <ImageSlider
