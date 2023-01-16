@@ -41,25 +41,15 @@ export default function Test() {
         }
     }
 
-    if (!confirm) {
-        return (
-            <>
-                <Button
-                    title="Phone Number Sign In"
-                    onPress={() => signInWithPhoneNumber('+840968018419')}
-                />
-            </>
-
-        );
-    }
-
-
     return (
         <>
             <TextInput value={code}
                 style={{ borderWidth: 1, width: "60%" }}
                 onChangeText={text => setCode(text)} />
             <Button title="Confirm Code" onPress={() => confirmCode()} />
+            <Button
+                title="Phone Number Sign In"
+                onPress={() => signInWithPhoneNumber('+840901901459')} />
         </>
     );
 }

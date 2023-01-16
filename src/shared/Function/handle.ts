@@ -14,3 +14,13 @@ export const onlyAlphabetNumeric = (text: string) => {
     newText = text.replace(/[^A-Za-z0-9]/gi, '')
     return newText
 }
+
+export const CreateRandomPass = (length: number) => {
+    var result = "";
+    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}

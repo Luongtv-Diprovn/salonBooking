@@ -17,7 +17,7 @@ import { screenName } from "../../../navigators/screens-name"
 import jwt_decode from "jwt-decode"
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
 import { updateToken, updateUser } from "../../../Redux/Slice/userSlice"
-import { typeToken, typeUser, Account } from "../../../shared/Interface"
+import { typeToken, typeUser, Account, SpamOTP } from "../../../shared/Interface"
 import { scale } from "../../../shared/normalize"
 import { onChangedNumber, onlyAlphabetNumeric } from "../../../shared/Function/handle"
 import { img } from "../../../asset/index"
@@ -35,7 +35,7 @@ const listIcon = ["facebook", "twitter", "google-"]
 
 export default function BottomView() {
   const navigation = useNavigation<any>();
-  const receive = useRoute()?.params;
+  const receive = useRoute<any>()?.params;
   const [phone, setPhone] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [securePass, setSecurePass] = useState<boolean>(true)
@@ -45,11 +45,19 @@ export default function BottomView() {
   const passRef = useRef<any>();
   const dispatch = useAppDispatch()
 
-  // useEffect(() => {
-  //   setPhone(receive?.phone !== undefined ? receive?.phone : phone)
-  //   setPassword(receive?.pass !== undefined ? receive?.pass : password)
-  // }, [receive?.pass, receive?.phone])
+  useEffect(() => {
+    setPhone(receive?.newPhone !== undefined ? receive?.newPhone : phone)
+    setPassword(receive?.newPass !== undefined ? receive?.newPass : password)
+  }, [receive?.newPass, receive?.newPhone])
 
+  async function Test(spam: SpamOTP) {
+    try {
+      const jsonValue = JSON.stringify(spam)
+      await AsyncStorage.setItem("@localSpamCounter", jsonValue)
+    } catch (e) {
+
+    }
+  }
 
   const getLocalToken = async () => {
     try {
@@ -259,7 +267,7 @@ export default function BottomView() {
               <Text style={styles.txtRegister}>Remember Password</Text>
               <View style={styles.viewFlex1} />
               <TouchableOpacity
-                onPress={() => navigation.navigate("ForgotPass")}>
+                onPress={() => navigation.navigate(screenName.forgotpass)}>
                 <Text style={styles.txtForgot}>Forgot pass?</Text>
               </TouchableOpacity>
             </View>
@@ -269,6 +277,7 @@ export default function BottomView() {
                 {
                   listIcon.map((item, index) =>
                     <TouchableOpacity
+                      onPress={() => Test({ numSpam: 0, dateSpam: "2022-01-16", numResend: 0 })}
                       key={index}
                       style={styles.btnIcon}>
                       <Icon1
@@ -296,7 +305,7 @@ export default function BottomView() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 4,
     backgroundColor: clor.white,
     padding: scale(20),
     justifyContent: "center",
