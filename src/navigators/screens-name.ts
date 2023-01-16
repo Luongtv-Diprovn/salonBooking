@@ -3,5 +3,7 @@ export enum screenName {
     homeTabs = "HomeTabs",
     signIn = "SignIn",
     user = "User",
-    signUp = "SignUp"
+    signUp = "SignUp",
+    otp = "OTPView",
+    forgotpass = "ForgotPass"
 }

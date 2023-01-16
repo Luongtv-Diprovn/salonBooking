@@ -214,3 +214,9 @@ export interface RankingStylist {
     staffId: number
     staff: Staff
 }
+
+export interface SpamOTP {
+    dateSpam: string,
+    numSpam: number,
+    numResend: number
+}

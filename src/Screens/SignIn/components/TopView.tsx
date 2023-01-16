@@ -1,33 +1,41 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import { img } from '../../../asset/index'
+import { BASE_URL } from "../../../shared/BASE_URL"
+import React, { useState, useRef, useEffect } from "react";
+import {
+    View,
+    StyleSheet,
+    ImageBackground,
+} from "react-native";
+import { scale } from "../../../shared/normalize"
+import { img } from "../../../asset/index"
+import { responsive } from "../../../shared/responsive"
+import { clor } from "../../../shared/color"
 
 
+const heightItem = scale(60)
+const marginVerticalItem = scale(12)
 
-export default function TopView() {
-
-    const [sizeContainer, setSizeContainer] = useState<number>(0)
+export default function BottomView() {
 
     return (
-        <View
-            style={styles.topView}
-            onLayout={(event) => {
-                setSizeContainer(event.nativeEvent.layout.height)
-            }}
-        >
-            <Image
+        <View style={styles.container}>
+            <ImageBackground
+                style={styles.salonLogo}
                 source={img.logoSalon}
-                resizeMode='stretch'
-                style={{ height: sizeContainer * 0.8, width: sizeContainer * 0.8, borderRadius: 20 }} />
-        </View>
-    );
+            />
+        </View >
+    )
 }
+
 const styles = StyleSheet.create({
-
-    topView: {
-        flex: 0.5,
-        alignItems: 'center',
-        justifyContent: 'center'
+    container: {
+        flex: 1,
+        backgroundColor: clor.white,
+        alignItems: "center",
+        justifyContent: "center"
     },
-
-})
+    salonLogo: {
+        height: responsive.WIDTH * 0.3,
+        width: responsive.WIDTH * 0.3,
+        marginVertical: marginVerticalItem,
+    },
+});
