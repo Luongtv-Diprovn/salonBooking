@@ -31,7 +31,6 @@ const sizeOTP = scale(40)
 const time_counter = 40
 const chanceVerifyOtpPerDay = 5
 const chanceResendOtpPerday = 3
-const p = "0935030419"
 
 const checkOnlyDigit = (value: string) => {
     if (value == "1" || value == "2" || value == "3" || value == "4" ||
@@ -59,25 +58,27 @@ export default function OTPView() {
     const otpRef6 = useRef<any>()
     const countDownRef = useRef<any>()
 
-    async function Post_NewAccount(txtPhone: string, txtPass: string) {
-
-        var url = BASE_URL + "/api/v1/customers"
-        var account = new FormData()
-        account.append("name", "User")
-        account.append("phone", txtPhone)
-        account.append("password", txtPass)
+    async function Patch_ResetPass(txtPhone: string, txtPass: string) {
+        console.log(txtPhone)
+        console.log(txtPass)
+        var url = BASE_URL + "/api/v1/customers/password/reset"
+        console.log(url);
 
         await fetch(url, {
             method: "POST",
             headers: {
-                "Content-Type": "multipart/form-data"
+                "Content-Type": "application/json"
             },
-            body: account
+            body:
+                JSON.stringify({
+                    phone: txtPhone,
+                    newPassword: txtPass,
+                }),
         }).then((response) => {
             if (response.ok) {
                 Alert.alert(
-                    "New Account",
-                    "Your new account:  " + txtPhone + "\n" + "Password:  " + txtPass
+                    "New Password",
+                    "Your account:  " + txtPhone + "\n" + "Password:  " + txtPass
                     + "\n" + "Login to change your password ",
                     [
                         {
@@ -92,11 +93,8 @@ export default function OTPView() {
                     ],
                 );
             }
-            else if (response.status == 400) {
-                setNotify("This phone number already exists!")
-            }
             else {
-                setNotify("Please check OTP code");
+                setNotify("Invalid phone number");
             }
         })
     }
@@ -143,8 +141,8 @@ export default function OTPView() {
 
     async function confirmOTP() {
         try {
-            await confirmVerify.confirm(otp[1] + otp[2] + otp[3] + otp[4] + otp[5] + otp[6])
-            Post_NewAccount(receive?.phone, CreateRandomPass(6))
+            await confirmVerify.confirm(otp[1] + otp[2] + otp[3] + otp[4]);
+            Patch_ResetPass(receive?.phone, CreateRandomPass(6))
 
         } catch (error) {
             setNotify("Invalid OTP code")
@@ -334,7 +332,8 @@ export default function OTPView() {
                     style={[styles.btn, { backgroundColor: handleDisableVerification() ? "black" : clor.maincolor, shadowColor: handleDisableVerification() ? "black" : clor.maincolor }]}
                     // disabled={handleDisableVerification()}
                     onPress={() => {
-                        handleVerification(otp[1] + otp[2] + otp[3] + otp[4])
+                        // handleVerification(otp[1] + otp[2] + otp[3] + otp[4])
+                        Patch_ResetPass(receive?.phone, CreateRandomPass(6))
                     }}>
                     <Text style={styles.txtTitleBTN}>VERIFICATION</Text>
                 </TouchableOpacity>

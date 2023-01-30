@@ -5,18 +5,21 @@ import Icon from "react-native-vector-icons/Ionicons"
 import Icon1 from "react-native-vector-icons/Feather"
 import { responsive } from '../../shared/responsive'
 import { scale } from '../../shared/normalize'
+import { clor } from '../../shared/color'
+
+const sizeIcon = scale(35)
 
 export const toastConfig: any = {
 
     Success: ({ text1 }) => (
         <View style={styles.containerToast}>
-            <Icon name="checkmark-done-circle" color={"white"} size={scale(35)} />
+            <Icon name="checkmark-done-circle" color={clor.white} size={sizeIcon} />
             <Text style={styles.txtOneLine}>{text1}</Text>
         </View>
     ),
     SuccessTwoLine: ({ text1, props }) => (
         <View style={styles.containerToast}>
-            <Icon name="checkmark-done-circle" color={"white"} size={scale(35)} />
+            <Icon name="checkmark-done-circle" color={clor.white} size={sizeIcon} />
             <View>
                 <Text style={styles.txtOneLine}>{text1}</Text>
                 <Text style={styles.txtTwoLine}>{props.txt}</Text>
@@ -24,14 +27,14 @@ export const toastConfig: any = {
         </View>
     ),
     Fail: ({ text1 }) => (
-        <View style={[styles.containerToast, { backgroundColor: "tomato" }]}>
-            <Icon1 name="alert-circle" color={"white"} size={scale(35)} />
+        <View style={styles.containerToast}>
+            <Icon1 name="alert-circle" color={clor.white} size={sizeIcon} />
             <Text style={styles.txtOneLine}>{text1}</Text>
         </View>
     ),
     FailTwoLine: ({ text1, props }) => (
-        <View style={[styles.containerToast, { backgroundColor: "tomato" }]}>
-            <Icon1 name="alert-circle" color={"white"} size={scale(35)} />
+        <View style={styles.containerToast}>
+            <Icon1 name="alert-circle" color={clor.white} size={sizeIcon} />
             <View>
                 <Text style={styles.txtOneLine}>{text1}</Text>
                 <Text style={styles.txtTwoLine}>{props.txt}</Text>
@@ -40,14 +43,14 @@ export const toastConfig: any = {
     ),
 
     Warning: ({ text1, props }) => (
-        <View style={[styles.containerToast, { backgroundColor: "#E6B82E" }]}>
-            <Icon1 name="alert-triangle" color={"white"} size={scale(35)} />
+        <View style={styles.containerToast}>
+            <Icon1 name="alert-triangle" color={clor.white} size={sizeIcon} />
             <Text style={[styles.txtAlert, { fontSize: props.size !== null && props.size !== undefined ? props.size : 12 }]}>{text1}</Text>
         </View>
     )
 };
 
-export const showToast = (type: any, text1: any, text?: any, size?: number) => {
+export const showToast = (type: string, text1: string, text?: string, size?: number) => {
     Toast.show({
         visibilityTime: 4000,
         type: type,
@@ -62,25 +65,25 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         height: responsive.height(80),
         width: responsive.WIDTH * 0.9,
-        backgroundColor: "green",
+        backgroundColor: clor.D,
         borderRadius: 10,
         alignItems: "center",
         paddingHorizontal: scale(10)
     },
     txtOneLine: {
         fontSize: scale(20),
-        color: "white",
+        color: clor.white,
         marginLeft: scale(10),
         flexShrink: 1
     },
     txtTwoLine: {
         fontSize: scale(14),
-        color: "white",
+        color: clor.white,
         marginLeft: scale(10),
         flexShrink: 1
     },
     txtAlert: {
-        color: "white",
+        color: clor.white,
         marginLeft: scale(10),
         flex: 1
     }

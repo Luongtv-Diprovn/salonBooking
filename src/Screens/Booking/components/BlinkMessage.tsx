@@ -12,7 +12,8 @@ function BlinkMessage() {
         <ImageBackground
             style={styles.container}
             source={img.background}
-            blurRadius={1.5}
+            borderRadius={5}
+            blurRadius={2}
         >
             <Text style={styles.txtfirst}>To make an appointment, you should do the following:</Text>
             <Text style={styles.txt}>
@@ -39,14 +40,14 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     txt: {
-        fontSize: scale(14),
+        fontSize: scale(15),
         fontWeight: 'bold',
         color: clor.B,
     },
     txtfirst: {
-        fontSize: scale(14),
+        fontSize: scale(15),
         fontWeight: 'bold',
-        color: clor.D,
+        color: clor.B,
     }
 })
 

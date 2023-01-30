@@ -37,8 +37,8 @@ const Times = [
 ]
 
 const numItemInRow = 4
-const marginHorizonTimeslot = scale(6)
-const widthTimeslot = (responsive.WIDTH - marginHorizonTimeslot * 2 * numItemInRow) / numItemInRow
+const marginHorizonBetweenItem = scale(6)
+const widthTimeslot = (responsive.WIDTH - marginHorizonBetweenItem * 2 * numItemInRow) / numItemInRow
 const heightTimeslot = widthTimeslot * 2 / 3
 
 
@@ -70,11 +70,11 @@ function TimeItem(props) {
         if (props.selectedTimeSlot == TimeSlot) {
             return (
                 <TouchableOpacity
-                    style={styles.TimeItemSelected}
+                    style={styles.TimeItemCanSelected}
                     onPress={() => {
                         props.onSelect(TimeSlot)
                     }}>
-                    <Text style={styles.txt}>{props.hour + ":" + props.minute}</Text>
+                    <Text style={[styles.txt, { color: clor.white }]}>{props.hour + ":" + props.minute}</Text>
                 </TouchableOpacity>
             )
         }
@@ -111,7 +111,7 @@ function TimeItem(props) {
     else if (props.selectedTimeSlot == TimeSlot) {
         return (
             <TouchableOpacity
-                style={styles.TimeItemSelected}
+                style={styles.TimeItemCanSelected}
                 onPress={() => {
                     props.onSelect(TimeSlot)
                 }}>
@@ -198,126 +198,32 @@ function TimeFlatGrid(props) {
                 <ActivityIndicator color={clor.maincolor} size={scale(40)} />
                 :
                 <>
-                    <View style={styles.OneRowTime}>
-                        {
-                            Times[0].map((item, index) => {
-                                return (
-                                    <TimeItem
-                                        key={index}
-                                        selectedTimeSlot={selectedTimeSlot}
-                                        onSelect={(item) => { onSelect(item) }}
-                                        index={index}
-                                        hour={item.hour}
-                                        minute={item.minute}
-                                        today={currentDay}
-                                        currentHour={currentTime.getHours()}
-                                        currentMinute={currentTime.getMinutes()}
-                                        selectedDate={props.selectedDate}
-                                        listTimeSlotBusyOfStylist={data} />
-                                )
-                            })
-                        }
-                    </View>
-                    <View style={styles.OneRowTime}>
-                        {
-                            Times[1].map((item, index) => {
-                                return (
-                                    <TimeItem
-                                        key={index}
-                                        selectedTimeSlot={selectedTimeSlot}
-                                        onSelect={(item) => { onSelect(item) }}
-                                        index={index}
-                                        hour={item.hour}
-                                        minute={item.minute}
-                                        today={currentDay}
-                                        currentHour={currentTime.getHours()}
-                                        currentMinute={currentTime.getMinutes()}
-                                        selectedDate={props.selectedDate}
-                                        listTimeSlotBusyOfStylist={data} />
-                                )
-                            })
-                        }
-                    </View>
-                    <View style={styles.OneRowTime}>
-                        {
-                            Times[2].map((item, index) => {
-                                return (
-                                    <TimeItem
-                                        key={index}
-                                        selectedTimeSlot={selectedTimeSlot}
-                                        onSelect={(item) => { onSelect(item) }}
-                                        index={index}
-                                        hour={item.hour}
-                                        minute={item.minute}
-                                        today={currentDay}
-                                        currentHour={currentTime.getHours()}
-                                        currentMinute={currentTime.getMinutes()}
-                                        selectedDate={props.selectedDate}
-                                        listTimeSlotBusyOfStylist={data} />
-                                )
-                            })
-                        }
-                    </View>
-                    <View style={styles.OneRowTime}>
-                        {
-                            Times[3].map((item, index) => {
-                                return (
-                                    <TimeItem
-                                        key={index}
-                                        selectedTimeSlot={selectedTimeSlot}
-                                        onSelect={(item) => { onSelect(item) }}
-                                        index={index}
-                                        hour={item.hour}
-                                        minute={item.minute}
-                                        today={currentDay}
-                                        currentHour={currentTime.getHours()}
-                                        currentMinute={currentTime.getMinutes()}
-                                        selectedDate={props.selectedDate}
-                                        listTimeSlotBusyOfStylist={data} />
-                                )
-                            })
-                        }
-                    </View>
-                    <View style={styles.OneRowTime}>
-                        {
-                            Times[4].map((item, index) => {
-                                return (
-                                    <TimeItem
-                                        key={index}
-                                        selectedTimeSlot={selectedTimeSlot}
-                                        onSelect={(item) => { onSelect(item) }}
-                                        index={index}
-                                        hour={item.hour}
-                                        minute={item.minute}
-                                        today={currentDay}
-                                        currentHour={currentTime.getHours()}
-                                        currentMinute={currentTime.getMinutes()}
-                                        selectedDate={props.selectedDate}
-                                        listTimeSlotBusyOfStylist={data} />
-                                )
-                            })
-                        }
-                    </View>
-                    <View style={styles.OneRowTime}>
-                        {
-                            Times[5].map((item, index) => {
-                                return (
-                                    <TimeItem
-                                        key={index}
-                                        selectedTimeSlot={selectedTimeSlot}
-                                        onSelect={(item) => { onSelect(item) }}
-                                        index={index}
-                                        hour={item.hour}
-                                        minute={item.minute}
-                                        today={currentDay}
-                                        currentHour={currentTime.getHours()}
-                                        currentMinute={currentTime.getMinutes()}
-                                        selectedDate={props.selectedDate}
-                                        listTimeSlotBusyOfStylist={data} />
-                                )
-                            })
-                        }
-                    </View>
+                    {
+                        Times.map((item1, index) => {
+                            return (
+                                <View key={index} style={styles.OneRowTime}>
+                                    {
+                                        item1.map((item, index) => {
+                                            return (
+                                                <TimeItem
+                                                    key={index}
+                                                    selectedTimeSlot={selectedTimeSlot}
+                                                    onSelect={(item) => { onSelect(item) }}
+                                                    index={index}
+                                                    hour={item.hour}
+                                                    minute={item.minute}
+                                                    today={currentDay}
+                                                    currentHour={currentTime.getHours()}
+                                                    currentMinute={currentTime.getMinutes()}
+                                                    selectedDate={props.selectedDate}
+                                                    listTimeSlotBusyOfStylist={data} />
+                                            )
+                                        })
+                                    }
+                                </View>
+                            )
+                        })
+                    }
                 </>
             }
         </View>
@@ -331,7 +237,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginVertical: scale(20)
     },
-    TimeItemSelected: {
+    TimeItemCanSelected: {
         borderWidth: 2,
         borderRadius: 5,
         alignItems: "center",
@@ -339,7 +245,7 @@ const styles = StyleSheet.create({
         height: heightTimeslot,
         width: widthTimeslot,
         backgroundColor: clor.maincolor,
-        marginHorizontal: marginHorizonTimeslot,
+        marginHorizontal: marginHorizonBetweenItem,
         borderColor: clor.B,
         flexGrow: 1
     },
@@ -351,7 +257,7 @@ const styles = StyleSheet.create({
         height: heightTimeslot,
         width: widthTimeslot,
         backgroundColor: "white",
-        marginHorizontal: marginHorizonTimeslot,
+        marginHorizontal: marginHorizonBetweenItem,
         borderColor: clor.B,
         flexGrow: 1
     },
@@ -363,17 +269,16 @@ const styles = StyleSheet.create({
         height: heightTimeslot,
         width: widthTimeslot,
         backgroundColor: clor.A,
-        marginHorizontal: marginHorizonTimeslot,
+        marginHorizontal: marginHorizonBetweenItem,
         flexGrow: 1
     },
     OneRowTime: {
-        flex: 0.33,
         flexDirection: "row",
         marginVertical: 5
     },
     txt: {
         fontSize: scale(15),
         fontWeight: "600",
-        color: "black",
+        color: clor.D,
     },
 })

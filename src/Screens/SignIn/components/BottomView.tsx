@@ -1,5 +1,5 @@
 import { BASE_URL } from "../../../shared/BASE_URL"
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react"
 import {
   View,
   Text,
@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
   ImageBackground,
   ScrollView,
-} from "react-native";
+} from "react-native"
 import Icon from "react-native-vector-icons/FontAwesome"
 import Icon1 from "react-native-vector-icons/Entypo"
-import { useRoute } from "@react-navigation/native";
-import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 import { screenName } from "../../../navigators/screens-name"
 import jwt_decode from "jwt-decode"
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
@@ -34,6 +34,7 @@ const sizeTxt = scale(14)
 const listIcon = ["facebook", "twitter", "google-"]
 
 export default function BottomView() {
+
   const navigation = useNavigation<any>();
   const receive = useRoute<any>()?.params;
   const [phone, setPhone] = useState<string>("")
@@ -42,7 +43,7 @@ export default function BottomView() {
   const [loading, setloading] = useState<boolean>(false)
   const [notify, setNotify] = useState<string>("")
   const [rememberLogin, setRememberLogin] = useState<boolean>(false)
-  const passRef = useRef<any>();
+  const passRef = useRef<any>()
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -127,7 +128,7 @@ export default function BottomView() {
       }),
     })
       .then((response) => {
-        console.log(response.ok)
+
         if (response.ok) {
           if (rememberLogin) {
             const user: Account = {
@@ -391,14 +392,14 @@ const styles = StyleSheet.create({
     color: clor.green,
     fontStyle: "italic",
     fontWeight: "600",
-    fonsize: scale(16),
+    fontSize: sizeTxt,
     alignSelf: "flex-end"
   },
   txtRegister: {
     color: clor.D,
     fontStyle: "italic",
     fontWeight: "bold",
-    fonsize: scale(16),
+    fontSize: sizeTxt,
     marginLeft: scale(10)
   },
   txtRememberPass: {

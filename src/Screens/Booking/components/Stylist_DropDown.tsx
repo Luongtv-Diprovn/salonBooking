@@ -120,7 +120,7 @@ function Stylist_DropDown(props) {
                 }}>
                 {
                     showOption ?
-                        <SimplePaginationDot currentIndex={currentIndex} length={data.length} />
+                        <SimplePaginationDot currentIndex={currentIndex} length={data.length} inActiveDotSize={scale(8)} activeDotSize={scale(16)} />
                         :
                         <>
                             <Text style={styles.txtDropDown}>

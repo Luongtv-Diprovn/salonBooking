@@ -102,7 +102,7 @@ function ServiceType_View(props: receive) {
                 }}>
                 {
                     showOption ?
-                        <SimplePaginationDot currentIndex={currentIndex} length={props.services.length} />
+                        <SimplePaginationDot currentIndex={currentIndex} length={props.services.length} inActiveDotSize={scale(8)} activeDotSize={scale(16)} />
                         :
                         <View style={styles.viewServiceType}>
                             <Text style={styles.txt} numberOfLines={2}>

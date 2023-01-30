@@ -16,9 +16,12 @@ import HistoryBooking from '../Screens/HistoryBooking/HistoryBooking'
 import Booking from '../Screens/Booking/Booking'
 import Ranking from '../Screens/Ranking/Ranking'
 import SignUp from '../Screens/SignUp/SignUp'
-import OTPView from '../Screens/SignUp/components/OTPView'
+import OTPSignUp from '../Screens/SignUp/components/OTPView'
+import OTPForgotPass from '../Screens/ForgotPass/components/OTPView'
 import ForgotPass from '../Screens/ForgotPass/ForgotPass'
+import MainDrawer from '../Screens/DrawerNavigator/main-drawer'
 import { scale } from '../shared/normalize'
+import { clor } from '../shared/color'
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -27,14 +30,16 @@ function HomeTabs() {
   return (
     <Tab.Navigator
       labeled={false}
-      activeColor="#ec6882"
+      activeColor={clor.white}
+      inactiveColor={clor.maincolor}
       initialRouteName={'Home'}
       barStyle={{
-        backgroundColor: 'black',
+        backgroundColor: clor.grayForBGR,
       }}>
       <Tab.Screen name="Ranking" component={Ranking}
         options={{
           tabBarLabel: 'Ranking',
+
           tabBarIcon: ({ color }) => (
             <Icon2 name="sort" color={color} size={scale(24)} />),
         }} />
@@ -50,9 +55,8 @@ function HomeTabs() {
           tabBarIcon: ({ color }) => (
             <Icon1 name="home" color={color} size={scale(24)} />),
         }} />
-      <Tab.Screen name="User" component={User}
+      <Tab.Screen name="MainDrawer" component={MainDrawer}
         options={{
-          tabBarLabel: 'User',
           tabBarIcon: ({ color }) => (
             <Icon name="user" color={color} size={scale(24)} />),
         }} />
@@ -62,6 +66,7 @@ function HomeTabs() {
           tabBarIcon: ({ color }) => (
             <Icon name="calendar" color={color} size={scale(24)} />),
         }} />
+
     </Tab.Navigator>
   )
 }
@@ -80,8 +85,10 @@ const MainStack = () => {
         <Stack.Screen name={screenName.signIn} component={SignIn} />
         <Stack.Screen name={screenName.homeTabs} component={HomeTabs} />
         <Stack.Screen name={screenName.signUp} component={SignUp} />
-        <Stack.Screen name={screenName.otp} component={OTPView} />
+        <Stack.Screen name={screenName.otpSignUp} component={OTPSignUp} />
+        <Stack.Screen name={screenName.otpForgotPass} component={OTPForgotPass} />
         <Stack.Screen name={screenName.forgotpass} component={ForgotPass} />
+        <Stack.Screen name={screenName.mainDrawer} component={MainDrawer} />
       </Stack.Navigator>
     </Provider>
   )

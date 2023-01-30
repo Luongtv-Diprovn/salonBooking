@@ -54,7 +54,6 @@ function SlideBanner() {
                 <View style={styles.container}>
                     <ImageSlider
                         blurRadius={10}
-                        activeIndicatorStyle={{ color: "black" }}
                         data={data}
                         showIndicator={true}
                         timer={6000}
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
     },
     txtDecription: {
         fontSize: scale(16),
-        color: "black"
+        color: clor.blackForTxt
     },
     contentInRow: {
         fontSize: scale(16),

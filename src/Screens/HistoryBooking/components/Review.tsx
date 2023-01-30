@@ -112,7 +112,7 @@ function Review(props: receiveReview) {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.viewMiddle}>
-                                <Image source={img.iconStylist}
+                                <Image source={img.barberConfirm}
                                     style={styles.avatar}
                                 />
                                 <View style={styles.viewRatingAndName}>
@@ -144,7 +144,7 @@ function Review(props: receiveReview) {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.viewMiddle}>
-                                <Image source={img.iconStylist}
+                                <Image source={img.barberConfirm}
                                     style={styles.avatar}
                                 />
                                 <View style={styles.viewRatingAndName}>
@@ -159,6 +159,7 @@ function Review(props: receiveReview) {
                             <TextInput
                                 onChangeText={(text) => { setReview(text) }}
                                 multiline={true}
+                                selectionColor={clor.maincolor}
                                 maxLength={500}
                                 style={styles.txtInputReview} />
                             <Button
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         width: "100%",
         borderWidth: 2,
-        borderColor: clor.A,
+        borderColor: clor.maincolor,
         borderRadius: 5,
         paddingLeft: scale(10),
         marginBottom: scale(12),
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
     },
     txtReview: {
         fontSize: scale(16),
-        color: "black"
+        color: clor.blackForTxt
     },
     viewTop: {
         flexDirection: "row"
@@ -222,7 +223,8 @@ const styles = StyleSheet.create({
     },
     viewUserReview: {
         width: "100%",
-        borderWidth: 1,
+        borderWidth: 2,
+        borderColor: clor.maincolor,
         borderRadius: 10,
         flexShrink: 1,
         flexGrow: 1

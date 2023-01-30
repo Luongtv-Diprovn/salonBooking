@@ -6,6 +6,8 @@ import {
     TextInput,
     TouchableOpacity,
     ImageBackground,
+    TouchableWithoutFeedback,
+    Keyboard
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { screenName } from "../../navigators/screens-name"
@@ -37,51 +39,56 @@ export default function SignUp() {
             setNotify("Phone need at least 10 char")
         }
         else {
-            navigation.navigate(screenName.otp, { phone: phone })
+            navigation.navigate(screenName.otpSignUp, { phone: phone })
         }
     }
 
 
     return (
-        <View style={styles.container}>
-            <ImageBackground
-                style={styles.salonLogo}
-                source={img.logoSalon}
-            />
-            <Text style={styles.txt}>Create your new Account</Text>
-            {
-                notify !== "" ?
-                    <Text style={styles.txtNotify}>
-                        {notify}
-                    </Text>
-                    :
-                    <></>
-            }
-            <TextInput
-                placeholder="Type phone number"
-                keyboardType="numeric"
-                selectionColor={clor.maincolor}
-                placeholderTextColor={"#9CA1A3"}
-                maxLength={10}
-                style={styles.textInput}
-                defaultValue={phone}
-                value={phone}
-                onChangeText={(text) => {
-                    setPhone(onChangedNumber(text));
-                }}
-                onSubmitEditing={() => handleCreateAccount()}
-            />
-            <TouchableOpacity
-                style={styles.btn}
-                onPress={handleCreateAccount}>
-                <Text style={styles.txtLogin}>CREATE ACCOUNT</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.btn}
-                onPress={() => navigation.navigate(screenName.signIn)}>
-                <Text style={styles.txtLogin}>GO BACK</Text>
-            </TouchableOpacity>
-        </View>
+        <TouchableWithoutFeedback onPress={() => {
+            Keyboard.dismiss()
+        }}
+            accessible={false}>
+            <View style={styles.container}>
+                <ImageBackground
+                    style={styles.salonLogo}
+                    source={img.logoSalon}
+                />
+                <Text style={styles.txt}>Create your new Account</Text>
+                {
+                    notify !== "" ?
+                        <Text style={styles.txtNotify}>
+                            {notify}
+                        </Text>
+                        :
+                        <></>
+                }
+                <TextInput
+                    placeholder="Type phone number"
+                    keyboardType="numeric"
+                    selectionColor={clor.maincolor}
+                    placeholderTextColor={"#9CA1A3"}
+                    maxLength={10}
+                    style={styles.textInput}
+                    defaultValue={phone}
+                    value={phone}
+                    onChangeText={(text) => {
+                        setPhone(onChangedNumber(text));
+                    }}
+                    onSubmitEditing={() => handleCreateAccount()}
+                />
+                <TouchableOpacity
+                    style={styles.btn}
+                    onPress={handleCreateAccount}>
+                    <Text style={styles.txtBtn}>CREATE ACCOUNT</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.btn}
+                    onPress={() => navigation.navigate(screenName.signIn)}>
+                    <Text style={styles.txtBtn}>GO BACK</Text>
+                </TouchableOpacity>
+            </View>
+        </TouchableWithoutFeedback>
     )
 }
 
@@ -90,7 +97,6 @@ const styles = StyleSheet.create({
         flex: 4,
         backgroundColor: clor.white,
         padding: scale(20),
-
     },
 
     salonLogo: {
@@ -141,7 +147,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginVertical: marginVerticalItem,
     },
-    txtLogin: {
+    txtBtn: {
         fontWeight: "bold",
         fontSize: sizeTxt,
         color: clor.white,
