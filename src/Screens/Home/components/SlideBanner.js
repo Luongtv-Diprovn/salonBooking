@@ -1,15 +1,15 @@
 
-import { BASE_URL } from '../../../shared/BASE_URL'
-import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
-import React, { useEffect, useState, memo } from 'react';
-import dayjs from "dayjs";
+import { BASE_URL } from "../../../shared/BASE_URL"
+import { View, StyleSheet, Text } from "react-native"
+import React, { useEffect, useState, memo } from "react"
+import dayjs from "dayjs"
 import { ImageSlider } from "react-native-image-slider-banner"
-import { responsive } from '../../../shared/responsive'
-import { scale } from '../../../shared/normalize'
-import ShowCofirmBooking from './ShowCofirmBooking'
-import { clor } from '../../../shared/color'
+import { responsive } from "../../../shared/responsive"
+import { scale } from "../../../shared/normalize"
+import ShowCofirmBooking from "./ShowCofirmBooking"
+import { clor } from "../../../shared/color"
 import LottieView from "lottie-react-native"
-import { img } from '../../../asset/index'
+import { img } from "../../../asset/index"
 
 function SlideBanner() {
 
@@ -19,7 +19,7 @@ function SlideBanner() {
 
     async function Get_AllAdvertisement() {
         setloading(true)
-        var url = BASE_URL + '/api/v1/advertisements'
+        var url = BASE_URL + "/api/v1/advertisements"
         await fetch(url, {
             method: "GET",
         }).then((response) => {
@@ -73,11 +73,11 @@ function SlideBanner() {
                     <View style={styles.viewDetail}>
                         <View style={styles.rowItem}>
                             <Text style={styles.titleInRow}>Start Date:  </Text>
-                            <Text style={styles.contentInRow}>{dayjs(currentAdvertise.startDate).format('DD-MM-YYYY')}</Text>
+                            <Text style={styles.contentInRow}>{dayjs(currentAdvertise.startDate).format("DD-MM-YYYY")}</Text>
                         </View>
                         <View style={styles.rowItem}>
                             <Text style={styles.titleInRow}>End Date: </Text>
-                            <Text style={styles.contentInRow}>{dayjs(currentAdvertise.endDate).format('DD-MM-YYYY')}</Text>
+                            <Text style={styles.contentInRow}>{dayjs(currentAdvertise.endDate).format("DD-MM-YYYY")}</Text>
                         </View>
                         {
                             currentAdvertise.voucherCode != null && currentAdvertise.amount > 0 ?
@@ -90,7 +90,7 @@ function SlideBanner() {
                                         <Text style={styles.titleInRow}>Discount: </Text>
                                         <Text style={styles.contentInRow}>{currentAdvertise.discount}%</Text>
                                     </View>
-                                    <Text style={styles.contentInRow}>{'=> The number of vouchers is limited, hurry and book now to use'} </Text>
+                                    <Text style={styles.contentInRow}>{"=> The number of vouchers is limited, hurry and book now to use"} </Text>
                                 </>
                                 :
                                 <></>
@@ -114,8 +114,8 @@ const styles = StyleSheet.create({
         flex: 1
     },
     rowItem: {
-        flexDirection: 'row',
-        alignItems: 'center'
+        flexDirection: "row",
+        alignItems: "center"
     },
     titleInRow: {
         color: "#9CA1A3",
@@ -127,32 +127,32 @@ const styles = StyleSheet.create({
     },
     contentInRow: {
         fontSize: scale(16),
-        fontWeight: 'bold'
+        fontWeight: "bold"
     },
     viewTitle: {
         height: responsive.HEIGHT * 0.05,
-        alignItems: 'center',
+        alignItems: "center",
         justifyContent: "center",
         backgroundColor: clor.maincolor
     },
     viewDetail: {
-        alignSelf: 'center',
-        width: '90%',
+        alignSelf: "center",
+        width: "90%",
         borderWidth: 4,
         borderColor: clor.C,
-        padding: 10,
+        padding: scale(10),
         borderRadius: 10,
         height: 400,
         marginBottom: scale(20)
     },
     txtTitle: {
-        color: 'white',
+        color: "white",
         fontSize: scale(14),
-        fontWeight: 'bold'
+        fontWeight: "bold"
     },
     txtDetail: {
         fontSize: scale(18),
-        fontWeight: 'bold',
+        fontWeight: "bold",
         marginVertical: scale(20),
         marginLeft: 5,
         color: clor.A

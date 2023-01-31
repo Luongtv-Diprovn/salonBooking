@@ -14,9 +14,9 @@ import Toast from "react-native-toast-message"
 import { toastConfig, showToast } from "../../components/Toast/ToastNotify"
 import { BASE_URL } from "../../shared/BASE_URL"
 import { changeStatusBooking } from "../../Redux/Slice/userSlice"
-import { clor } from '../../shared/color'
-import LottieView from 'lottie-react-native'
-import { img } from '../../asset/index'
+import { clor } from "../../shared/color"
+import LottieView from "lottie-react-native"
+import { img } from "../../asset/index"
 
 const Booking = () => {
 

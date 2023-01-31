@@ -8,19 +8,15 @@ import { img } from "../../../asset/index"
 import { Staff } from "../../../shared/Interface"
 import { scale, width } from "../../../shared/normalize"
 import { responsive } from "../../../shared/responsive"
-import { clor } from '../../../shared/color'
-import Carousel from 'react-native-anchor-carousel';
-import SimplePaginationDot from '../../../components/SimplePaginationDot/SimplePaginationDot'
-
-
+import { clor } from "../../../shared/color"
+import Carousel from "react-native-anchor-carousel"
+import SimplePaginationDot from "../../../components/SimplePaginationDot/SimplePaginationDot"
 
 const sizeText = scale(18)
 const INITIAL_INDEX = 0;
 const carouselWidth = responsive.WIDTH
 const carouselHeight = responsive.WIDTH
 const itemWidth = carouselWidth * 0.6
-
-
 
 function Stylist_DropDown(props) {
 
@@ -91,7 +87,7 @@ function Stylist_DropDown(props) {
                             /></Text>
                     </View>
                     <View style={styles.rowItem}>
-                        <Text style={styles.txtTitle}>Phone:</Text>
+                        <Text style={styles.txtTitle}>Phone: </Text>
                         <Text style={styles.txtContent}>{item.phone}</Text>
                     </View>
                     <View style={styles.viewFlex1} />
@@ -105,7 +101,6 @@ function Stylist_DropDown(props) {
                     >
                         <Text style={[styles.txtTitle, { color: selectedIndex == index ? "white" : clor.D }]}>Choose</Text>
                     </TouchableOpacity>
-
                 </View>
             </View>
         )
@@ -190,26 +185,26 @@ const styles = StyleSheet.create({
     },
     containerItem: {
         borderWidth: 2,
-        backgroundColor: 'white',
+        backgroundColor: "white",
         flex: 1,
         borderRadius: 5,
-        borderColor: 'white',
+        borderColor: "white",
         alignSelf: "center",
         elevation: 20,
-        shadowColor: '#52006A',
+        shadowColor: "#52006A",
     },
     imageBackground: {
         flex: 2,
-        backgroundColor: '#EBEBEB',
+        backgroundColor: "#EBEBEB",
         borderWidth: 5,
-        borderColor: 'white',
+        borderColor: "white",
     },
     containerDetail: {
         flexDirection: "column",
         width: "80%",
         backgroundColor: clor.D,
         borderRadius: 10,
-        padding: 5,
+        padding: scale(5),
         margin: scale(10)
     },
     containerTop: {
@@ -222,12 +217,12 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     txtTitle: {
-        fontWeight: 'bold',
+        fontWeight: "bold",
         fontSize: sizeText,
         color: clor.C
     },
     txtContent: {
-        fontWeight: 'bold',
+        fontWeight: "bold",
         fontSize: sizeText,
         color: clor.D
     },
@@ -236,7 +231,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
-        padding: 5,
+        padding: scale(5),
         borderColor: clor.A
     }
 })

@@ -1,4 +1,4 @@
-import { BASE_URL } from '../../../shared/BASE_URL'
+import { BASE_URL } from "../../../shared/BASE_URL"
 import React, { useState, useRef, useEffect } from "react";
 import {
     View,
@@ -18,11 +18,11 @@ import { img } from "../../../asset/index"
 import { responsive } from "../../../shared/responsive"
 import { clor } from "../../../shared/color"
 import { useRoute } from "@react-navigation/native"
-import { CreateRandomPass } from '../../../shared/Function/handle'
+import { CreateRandomPass } from "../../../shared/Function/handle"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { SpamOTP } from '../../../shared/Interface'
+import { SpamOTP } from "../../../shared/Interface"
 import dayjs from "dayjs"
-import auth from '@react-native-firebase/auth';
+import auth from "@react-native-firebase/auth";
 
 const heightItem = scale(60)
 const marginVerticalItem = scale(12)
@@ -59,11 +59,8 @@ export default function OTPView() {
     const countDownRef = useRef<any>()
 
     async function Patch_ResetPass(txtPhone: string, txtPass: string) {
-        console.log(txtPhone)
-        console.log(txtPass)
-        var url = BASE_URL + "/api/v1/customers/password/reset"
-        console.log(url);
 
+        var url = BASE_URL + "/api/v1/customers/password/reset"
         await fetch(url, {
             method: "POST",
             headers: {
@@ -82,7 +79,7 @@ export default function OTPView() {
                     + "\n" + "Login to change your password ",
                     [
                         {
-                            text: 'OK',
+                            text: "OK",
                             onPress: () => {
                                 navigation.navigate(screenName.signIn, {
                                     newPhone: txtPhone,

@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import TopView from './components/TopView'
-import BottomView from './components/BottomView'
+import React from "react";
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
+import TopView from "./components/TopView"
+import BottomView from "./components/BottomView"
 
 const SignIn = () => {
 
@@ -23,7 +23,7 @@ export default SignIn
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: "white",
         justifyContent: "center"
     }
 })

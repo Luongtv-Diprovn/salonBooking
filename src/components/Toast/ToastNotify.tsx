@@ -3,9 +3,9 @@ import { View, StyleSheet, Text } from "react-native";
 import Toast from "react-native-toast-message";
 import Icon from "react-native-vector-icons/Ionicons"
 import Icon1 from "react-native-vector-icons/Feather"
-import { responsive } from '../../shared/responsive'
-import { scale } from '../../shared/normalize'
-import { clor } from '../../shared/color'
+import { responsive } from "../../shared/responsive"
+import { scale } from "../../shared/normalize"
+import { clor } from "../../shared/color"
 
 const sizeIcon = scale(35)
 

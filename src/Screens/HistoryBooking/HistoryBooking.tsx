@@ -16,8 +16,8 @@ import { scale } from "../../shared/normalize"
 import { Booking } from "../../shared/Interface"
 import DetailHistory from "./components/DetailHistory"
 import { Picker } from "@react-native-picker/picker"
-import { clor } from '../../shared/color'
-import LottieView from 'lottie-react-native'
+import { clor } from "../../shared/color"
+import LottieView from "lottie-react-native"
 
 const sizeTxtPage = scale(18)
 
@@ -83,8 +83,6 @@ export default function HistoryBooking() {
     })
     setloading(false);
   }
-
-
 
   const handleRefresh = () => {
     if (!refresh && loadmore == false) {
@@ -169,7 +167,6 @@ export default function HistoryBooking() {
             <Picker
               dropdownIconColor={clor.maincolor}
               dropdownIconRippleColor={clor.D}
-              itemStyle={{ fontSize: scale(16) }}
               selectedValue={selectedDropdown}
               onValueChange={(itemValue, itemIndex) => {
                 setData([])
@@ -177,15 +174,15 @@ export default function HistoryBooking() {
                 setSelectedDropdown(itemValue)
               }}>
               {
-                ListDropDown.map((item, index) => <Picker.Item key={index} label={item.label} value={item.value} color={clor.maincolor} />)
+                ListDropDown.map((item, index) => <Picker.Item key={index} label={item.label} value={item.value} color={clor.maincolor} style={{ fontSize: scale(15) }} />)
               }
             </Picker>
           </>
       }
       <Toast config={toastConfig} />
-      <View style={styles.viewPage}>
+      {/* <View style={styles.viewPage}>
         <Text style={styles.txtPage}>{curentPage + "/" + totalPage}</Text>
-      </View>
+      </View> */}
     </View >
   )
 }

@@ -18,10 +18,10 @@ import Icon from "react-native-vector-icons/AntDesign"
 import { Booking } from "../../../shared/Interface"
 import { responsive } from "../../../shared/responsive"
 import { scale } from "../../../shared/normalize"
-import { clor } from '../../../shared/color'
-import { img } from '../../../asset/index'
-import { s } from '../../../shared/normalize'
-import ShowService from './ShowService'
+import { clor } from "../../../shared/color"
+import { img } from "../../../asset/index"
+import { s } from "../../../shared/normalize"
+import ShowService from "./ShowService"
 
 interface receiveDetailHistory {
     history: Booking,
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
         borderRadius: sizeIMG / 4,
         borderWidth: 4,
         borderColor: clor.white,
-        marginRight: 15
+        marginRight: scale(15)
     },
     iconDetail: {
         position: "absolute",
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
     btn: {
         justifyContent: "center",
         alignItems: "center",
-        padding: 10,
+        padding: scale(10),
         backgroundColor: clor.white,
         borderRadius: 40
     }

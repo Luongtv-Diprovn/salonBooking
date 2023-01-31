@@ -8,8 +8,8 @@ import {
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
 import Icon from "react-native-vector-icons/Entypo"
 import dayjs from "dayjs";
-import { scale } from '../../../shared/normalize'
-import { clor } from '../../../shared/color'
+import { scale } from "../../../shared/normalize"
+import { clor } from "../../../shared/color"
 
 
 const sizeTxt = scale(16)
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     borderColor: clor.grayLight,
   },
   icon: {
-    marginHorizontal: 20
+    marginHorizontal: scale(20)
   },
   rowInfo: {
     flexDirection: "row",

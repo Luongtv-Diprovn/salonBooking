@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from "react-native";
 
 function genCircleStyle(size) {
     if (!size) {
@@ -22,7 +22,7 @@ function Dot({ isActive, color, activeDotSize, inActiveDotSize, dotSeparator }) 
     const processedInActiveDotStyle = [
         styles.inActiveDot,
         {
-            backgroundColor: 'transparent',
+            backgroundColor: "transparent",
             borderColor: color,
             marginHorizontal: dotSeparator / 2,
             ...genCircleStyle(inActiveDotSize),
@@ -43,7 +43,7 @@ export default function SimplePaginationDot(props) {
         style,
         length,
         currentIndex = 0,
-        color = '#fff',
+        color = "#fff",
         activeDotSize = 14,
         inActiveDotSize = 10,
         dotSeparator = 10,
@@ -69,21 +69,21 @@ export default function SimplePaginationDot(props) {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        width: '100%',
+        flexDirection: "row",
+        width: "100%",
         height: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
     },
     baseDot: {
         borderRadius: 5,
         borderWidth: 1,
-        borderColor: 'white',
+        borderColor: "white",
     },
     activeDot: {
-        backgroundColor: 'white',
+        backgroundColor: "white",
     },
     inActiveDot: {
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
     },
 });

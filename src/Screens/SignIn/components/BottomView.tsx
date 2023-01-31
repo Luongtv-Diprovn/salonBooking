@@ -128,7 +128,6 @@ export default function BottomView() {
       }),
     })
       .then((response) => {
-
         if (response.ok) {
           if (rememberLogin) {
             const user: Account = {
@@ -162,7 +161,7 @@ export default function BottomView() {
         }
       })
     setloading(false)
-  };
+  }
 
   const handleLogin = () => {
     if (password.length == 0 || phone.length == 0) {
@@ -178,6 +177,7 @@ export default function BottomView() {
       setNotify("Pass need at least 6 char")
     } else {
       Post_Login()
+      setTimeout(() => { setloading(false) }, 5000)
     }
   }
 
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
     height: heightItem,
     fontSize: sizeTxtInput,
     borderRadius: 5,
-    paddingHorizontal: 8,
+    paddingHorizontal: scale(8),
     marginVertical: marginVerticalItem,
     flexDirection: "row",
     alignItems: "center",

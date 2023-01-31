@@ -1,10 +1,10 @@
 
-import { View, StyleSheet, Text, ImageBackground } from 'react-native';
-import React, { memo } from 'react';
-import { scale } from '../../../shared/normalize'
-import { responsive } from '../../../shared/responsive'
-import { clor } from '../../../shared/color'
-import { img } from '../../../asset/index'
+import { View, StyleSheet, Text, ImageBackground } from "react-native";
+import React, { memo } from "react";
+import { scale } from "../../../shared/normalize"
+import { responsive } from "../../../shared/responsive"
+import { clor } from "../../../shared/color"
+import { img } from "../../../asset/index"
 
 function BlinkMessage() {
 
@@ -35,18 +35,19 @@ const styles = StyleSheet.create({
     container: {
         width: responsive.WIDTH * 0.95,
         borderRadius: 10,
-        padding: 5,
+        paddingHorizontal: scale(10),
+        paddingVertical: scale(15),
         marginVertical: scale(20),
         alignSelf: "center"
     },
     txt: {
         fontSize: scale(15),
-        fontWeight: 'bold',
+        fontWeight: "bold",
         color: clor.B,
     },
     txtfirst: {
         fontSize: scale(15),
-        fontWeight: 'bold',
+        fontWeight: "bold",
         color: clor.B,
     }
 })

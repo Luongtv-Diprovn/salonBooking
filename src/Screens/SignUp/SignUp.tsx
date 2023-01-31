@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         height: heightItem,
         fontSize: sizeTxtInput,
         borderRadius: 5,
-        paddingHorizontal: 8,
+        paddingHorizontal: scale(8),
         marginVertical: marginVerticalItem,
         flexDirection: "row",
         alignItems: "center",

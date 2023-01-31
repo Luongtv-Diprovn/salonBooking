@@ -1,4 +1,4 @@
-import { BASE_URL } from '../../../shared/BASE_URL'
+import { BASE_URL } from "../../../shared/BASE_URL"
 import {
     View,
     StyleSheet,
@@ -12,11 +12,11 @@ import {
 import React, { useState, memo } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5"
 import Modal from "react-native-modal";
-import { responsive } from '../../../shared/responsive'
-import { clor } from '../../../shared/color'
-import { s } from '../../../shared/normalize'
-import { img } from '../../../asset/index'
-import { Rate, RankingStylist } from '../../../shared/Interface'
+import { responsive } from "../../../shared/responsive"
+import { clor } from "../../../shared/color"
+import { s, scale } from "../../../shared/normalize"
+import { img } from "../../../asset/index"
+import { Rate, RankingStylist } from "../../../shared/Interface"
 import LottieView from "lottie-react-native"
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
 import dayjs from "dayjs";
@@ -111,7 +111,7 @@ function ItemStylist(props: receiveItemStylist) {
         await fetch(url, {
             method: "GET",
             headers: {
-                'Authorization': 'Bearer ' + user.userProperties.Token.token,
+                "Authorization": "Bearer " + user.userProperties.Token.token,
                 "Content-Type": "application/json",
             },
         }).then((response) => {
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
         elevation: 24,
     },
     viewIconTrophy: {
-        borderWidth: 2,
+        borderWidth: scale(2),
         borderColor: clor.white,
         backgroundColor: clor.white,
         height: sizeViewIconTrophy,
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
         height: responsive.WIDTH * 0.8 * 1.5,
         width: responsive.WIDTH * 0.8,
         backgroundColor: "white",
-        padding: 10,
+        padding: scale(10),
         borderRadius: 15,
 
     },
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     },
     btnClose: {
         backgroundColor: "red",
-        padding: 5,
+        padding: scale(5),
         borderRadius: 5,
         flexShrink: 1
     },

@@ -2,10 +2,10 @@ import { BASE_URL } from "../../../shared/BASE_URL"
 import React, { useEffect, useState, memo } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator } from "react-native";
 import dayjs from "dayjs";
-import { Booking } from '../../../shared/Interface'
-import { scale } from '../../../shared/normalize'
-import { responsive } from '../../../shared/responsive'
-import { clor } from '../../../shared/color'
+import { Booking } from "../../../shared/Interface"
+import { scale } from "../../../shared/normalize"
+import { responsive } from "../../../shared/responsive"
+import { clor } from "../../../shared/color"
 
 
 const Times = [
@@ -175,7 +175,7 @@ function TimeFlatGrid(props) {
         }, [])
 
     useEffect(() => {
-        // every time User selects another stylist, the current selected stylist's busy schedule will be taken
+        // every time User selects another stylist, the current selected stylist"s busy schedule will be taken
         setloading(true)
         Get_BusyTimeOfStylist()
     }, [props.selectedIDStylist])

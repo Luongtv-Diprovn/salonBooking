@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native"
-import { clor } from '../../shared/color'
-import TopView from './components/TopViewChangePass'
-import BottomView from './components/BottomViewChangePass'
+import { clor } from "../../shared/color"
+import TopView from "./components/TopViewChangePass"
+import BottomView from "./components/BottomViewChangePass"
 
 const ChangePass = () => {
 

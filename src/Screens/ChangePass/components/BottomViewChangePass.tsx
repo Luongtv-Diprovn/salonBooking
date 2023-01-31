@@ -1,4 +1,4 @@
-import { BASE_URL } from '../../../shared/BASE_URL'
+import { BASE_URL } from "../../../shared/BASE_URL"
 import React, { memo, useState, useRef } from "react"
 import {
   StyleSheet,
@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
 } from "react-native"
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
-import { scale } from '../../../shared/normalize'
-import { clor } from '../../../shared/color'
+import { scale } from "../../../shared/normalize"
+import { clor } from "../../../shared/color"
 import Toast from "react-native-toast-message"
 import { toastConfig, showToast } from "../../../components/Toast/ToastNotify"
-import LottieView from 'lottie-react-native'
-import { img } from '../../../asset/index'
+import LottieView from "lottie-react-native"
+import { img } from "../../../asset/index"
 import Icon1 from "react-native-vector-icons/Entypo"
 
 const heightItem = scale(60)
@@ -48,15 +48,13 @@ function BottomViewChangePass() {
   }
 
   async function Patch_Password() {
-    console.log("ok")
-
     setloading(true)
     var url = BASE_URL + "/api/v1/customers/" + user.userProperties.Id + "/password"
     await fetch(url, {
       method: "PATCH",
       headers: {
-        'Authorization': 'Bearer ' + user.userProperties.Token.token,
-        "Content-Type": 'application/json'
+        "Authorization": "Bearer " + user.userProperties.Token.token,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         "oldPassword": oldPass,
@@ -175,7 +173,7 @@ const styles = StyleSheet.create({
     height: heightItem,
     fontSize: sizeTxtInput,
     borderRadius: 5,
-    paddingHorizontal: 8,
+    paddingHorizontal: scale(8),
     marginVertical: marginVerticalItem,
     flexDirection: "row",
     alignItems: "center",

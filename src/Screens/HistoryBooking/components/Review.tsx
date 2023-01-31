@@ -17,7 +17,7 @@ import Modal from "react-native-modal"
 import { scale } from "../../../shared/normalize"
 import { responsive } from "../../../shared/responsive"
 import { Booking, Rate } from "../../../shared/Interface"
-import { clor } from '../../../shared/color'
+import { clor } from "../../../shared/color"
 interface receiveRating {
     userStarRate?: number,
     existReview: boolean,

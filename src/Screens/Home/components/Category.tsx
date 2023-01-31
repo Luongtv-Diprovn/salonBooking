@@ -1,12 +1,13 @@
-import React from 'react'
-import { View, StyleSheet, Text, Image, TouchableOpacity, FlatList } from 'react-native';
-import { responsive } from '../../../shared/responsive'
-import { scale } from '../../../shared/normalize'
-import { img } from '../../../asset/index'
-import { clor } from '../../../shared/color'
+import React from "react"
+import { View, StyleSheet, Text, Image, TouchableOpacity, FlatList } from "react-native";
+import { responsive } from "../../../shared/responsive"
+import { scale } from "../../../shared/normalize"
+import { img } from "../../../asset/index"
+import { clor } from "../../../shared/color"
 
-const sizeIcon = scale(60)
-const sizeTxt = scale(16)
+const sizeIcon = scale(40)
+const sizeTxt = scale(11)
+const marginRightItem = scale(22)
 
 interface Category {
     name: string,
@@ -17,12 +18,10 @@ const renderItem = (item: Category, index: number) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                style={styles.btnIcon}
-                onPress={() => alert("hi")}>
+                style={styles.btnIcon}>
                 <Image
                     source={item.img}
                     resizeMode={"cover"}
-                    onMagicTap={() => alert("hi")}
                     style={styles.imgIcon} />
             </TouchableOpacity>
             <Text style={styles.txtCategory}>{item.name}</Text>
@@ -42,6 +41,7 @@ function Category() {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingLeft: marginRightItem }}
                 data={listCategory}
                 renderItem={({ item, index }) => renderItem(item, index)}
             />
@@ -53,10 +53,8 @@ export default Category
 
 const styles = StyleSheet.create({
     container: {
-        borderWidth: 1,
-        padding: 10,
         alignItems: "center",
-        marginRight: 20
+        marginRight: marginRightItem,
     },
     imgIcon: {
         height: sizeIcon,

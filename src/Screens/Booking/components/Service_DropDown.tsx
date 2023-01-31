@@ -5,14 +5,14 @@ import Icon from "react-native-vector-icons/AntDesign"
 import Icon1 from "react-native-vector-icons/Ionicons"
 import Icon2 from "react-native-vector-icons/MaterialIcons"
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
-import { responsive } from '../../../shared/responsive'
-import { scale } from '../../../shared/normalize'
-import { Service, ServiceType } from '../../../shared/Interface'
-import { img } from '../../../asset/index'
-import { clor } from '../../../shared/color'
-import Carousel from 'react-native-anchor-carousel'
-import SimplePaginationDot from '../../../components/SimplePaginationDot/SimplePaginationDot'
-
+import { responsive } from "../../../shared/responsive"
+import { scale } from "../../../shared/normalize"
+import { Service, ServiceType } from "../../../shared/Interface"
+import { img } from "../../../asset/index"
+import { clor } from "../../../shared/color"
+import Carousel from "react-native-anchor-carousel"
+import SimplePaginationDot from "../../../components/SimplePaginationDot/SimplePaginationDot"
+import { TotalMoney } from "../../../shared/Function/handle"
 
 const sizeText = scale(16)
 const INITIAL_INDEX = 0;
@@ -64,11 +64,11 @@ function ServiceType_View(props: receive) {
                     </TouchableOpacity>
                 </ImageBackground>
                 <View style={styles.lowerContainer}>
-                    <Text style={styles.txtContent} numberOfLines={3}>{item.name}</Text>
+                    <Text style={styles.txtContent} numberOfLines={2}>{item.name}</Text>
                     <View style={styles.viewFlex1} />
                     <View style={styles.rowItem}>
-                        <Text style={[styles.txtTitle, { color: clor.C }]}>Price:</Text>
-                        <Text style={[styles.txtContent, { color: "green", marginBottom: 5 }]}>{Number(item.price).toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</Text>
+                        <Text style={[styles.txtTitle, { color: clor.C }]}>Price: </Text>
+                        <Text style={[styles.txtContent, { color: clor.greenDark, marginBottom: 5 }]}>{Number(item.price).toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</Text>
                     </View>
                     <TouchableOpacity
                         onPress={() => {
@@ -137,34 +137,13 @@ function Service_DropDown(props) {
     const [listChooseIDService, setListChooseIDService] = useState<string[]>([])
     const [listChooseService, setListChooseService] = useState<Service[]>([])
     const user = useAppSelector((state) => state.user)
-    const MoneyForAll = TotalMoney()
+    const MoneyForAll = TotalMoney(listChooseService, user.userProperties.customerType.percent, props.existVoucher)
 
     const check = (element) => element != "";
 
     const onChangeListChoose = (listId, listService) => {
         setListChooseIDService(listId)
         setListChooseService(listService)
-    }
-
-    function TotalMoney() {
-        var AllMoney = 0;
-        var AllMoneyNoDiscountByRankOrVoucher = 0
-        if (listChooseService.length !== 0) {
-            listChooseService.forEach((item: Service) => {
-                if (item != null) {
-                    AllMoney += Number(item.price);
-                }
-            })
-            AllMoneyNoDiscountByRankOrVoucher = AllMoney
-            //recalculate the total amount after discounting by account rank
-            AllMoney = Number(user.userProperties.customerType.percent) != 0 ? AllMoney * (1 - Number(user.userProperties.customerType.percent) / 100) : AllMoney
-            //recalculate total amount after applying voucher for discount
-            AllMoney = props.existVoucher != null ? AllMoney * (1 - props.existVoucher.discount / 100) : AllMoney
-        }
-
-        return {
-            AllMoney, AllMoneyNoDiscountByRankOrVoucher
-        }
     }
 
     async function Get_Service() {
@@ -311,7 +290,7 @@ const styles = StyleSheet.create({
         width: responsive.WIDTH * 0.9,
         justifyContent: "center",
         borderWidth: 2,
-        padding: 10,
+        padding: scale(10),
         borderRadius: 10,
         marginTop: scale(15),
         borderColor: clor.C,
@@ -326,7 +305,7 @@ const styles = StyleSheet.create({
         height: responsive.height(100),
         width: responsive.height(100),
         borderRadius: 18,
-        margin: 8
+        margin: scale(8)
     },
     viewDetail: {
         flex: 1
@@ -347,9 +326,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     btnMoreInfo: {
-        backgroundColor: 'rgba(49, 49, 51,0.5)',
+        backgroundColor: "rgba(49, 49, 51,0.5)",
         borderBottomLeftRadius: 10,
-        padding: 3,
+        padding: scale(3),
         position: "absolute",
         top: 0,
         right: 0,
@@ -364,23 +343,23 @@ const styles = StyleSheet.create({
     },
     txtAfterChoose: {
         fontSize: scale(15),
-        color: "green"
+        color: clor.greenDark
     },
     containerItem: {
         borderWidth: 2,
-        backgroundColor: 'white',
+        backgroundColor: "white",
         flex: 1,
         borderRadius: 5,
-        borderColor: 'white',
+        borderColor: "white",
         alignSelf: "center",
         elevation: 20,
-        shadowColor: '#52006A',
+        shadowColor: "#52006A",
     },
     imageBackground: {
         flex: 3,
-        backgroundColor: '#EBEBEB',
+        backgroundColor: "#EBEBEB",
         borderWidth: 5,
-        borderColor: 'white',
+        borderColor: "white",
     },
     lowerContainer: {
         flex: 2,
@@ -392,12 +371,12 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     txtTitle: {
-        fontWeight: 'bold',
+        fontWeight: "bold",
         fontSize: sizeText,
         color: clor.D
     },
     txtContent: {
-        fontWeight: 'bold',
+        fontWeight: "bold",
         fontSize: sizeText,
         color: clor.D,
         flexShrink: 1
@@ -410,7 +389,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
-        padding: 5,
+        padding: scale(5),
         borderColor: clor.A
     },
     carousel: {

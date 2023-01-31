@@ -1,12 +1,12 @@
-import React, { memo, useEffect, useState, useRef } from "react"
-import { StyleSheet, View, Text, Image, ImageBackground, TouchableOpacity, } from "react-native"
-import Icon from 'react-native-vector-icons/Fontisto'
-import { useNavigation } from '@react-navigation/native'
+import React, { memo, useState } from "react"
+import { StyleSheet, View, Text, Image, TouchableOpacity, } from "react-native"
+import Icon from "react-native-vector-icons/MaterialIcons"
+import { useNavigation } from "@react-navigation/native"
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
-import { img } from '../../../asset/index'
-import { responsive } from '../../../shared/responsive'
-import { scale } from '../../../shared/normalize'
-import { clor } from '../../../shared/color'
+import { img } from "../../../asset/index"
+import { responsive } from "../../../shared/responsive"
+import { scale } from "../../../shared/normalize"
+import { clor } from "../../../shared/color"
 
 const sizeItem = scale(18)
 
@@ -24,16 +24,16 @@ function TopViewUser() {
             }}>
             <View style={styles.topView}>
                 <Icon
-                    style={{ alignSelf: "center" }}
-                    name={"player-settings"}
+                    style={styles.btnMoreOption}
+                    name={"settings"}
                     size={sizeItem}
                     color={clor.white} />
                 <Text style={styles.txt}>Profile</Text>
                 <TouchableOpacity
-                    style={{ padding: 10, paddingHorizontal: 15 }}
+                    style={styles.btnMoreOption}
                     onPress={() => navigation.openDrawer()}>
                     <Icon
-                        name={"more-v-a"}
+                        name={"more"}
                         size={sizeItem}
                         color={clor.white} />
                 </TouchableOpacity>
@@ -41,9 +41,9 @@ function TopViewUser() {
             <View style={styles.bottomView}>
                 <Image
                     style={[styles.avatar, { height: heightOfTopView * 0.6, width: heightOfTopView * 0.6 }]}
-                    resizeMode='contain'
+                    resizeMode="contain"
                     source={img.ava} />
-                <Text style={styles.txt}>{user.userProperties.gender ? ('Mr.' + user.userProperties.name) : ('Ms.' + user.userProperties.name)}</Text>
+                <Text style={styles.txt}>{user.userProperties.gender ? ("Mr." + user.userProperties.name) : ("Ms." + user.userProperties.name)}</Text>
             </View>
         </View >
     );
@@ -54,12 +54,11 @@ export default memo(TopViewUser)
 const styles = StyleSheet.create({
     container: {
         flex: 2,
-        width: '100%',
+        width: "100%",
         backgroundColor: clor.maincolor,
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
     },
-
     topView: {
         justifyContent: "space-around",
         alignItems: "center",
@@ -81,6 +80,9 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         color: clor.white,
         fontSize: sizeItem,
-        fontWeight: '600',
+        fontWeight: "600",
+    },
+    btnMoreOption: {
+        paddingHorizontal: scale(15)
     }
 })

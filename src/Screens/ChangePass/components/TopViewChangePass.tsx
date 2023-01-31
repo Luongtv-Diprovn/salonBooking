@@ -1,11 +1,11 @@
 import React, { memo, useState } from "react"
 import { StyleSheet, View, Text, Image, TouchableOpacity, } from "react-native"
-import Icon from 'react-native-vector-icons/Fontisto'
-import { useNavigation } from '@react-navigation/native'
+import Icon from "react-native-vector-icons/MaterialIcons"
+import { useNavigation } from "@react-navigation/native"
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
-import { responsive } from '../../../shared/responsive'
-import { scale } from '../../../shared/normalize'
-import { clor } from '../../../shared/color'
+import { responsive } from "../../../shared/responsive"
+import { scale } from "../../../shared/normalize"
+import { clor } from "../../../shared/color"
 
 const sizeItem = scale(22)
 
@@ -17,16 +17,16 @@ function TopViewUser() {
     return (
         <View style={styles.container}>
             <Icon
-                style={{ alignSelf: "center" }}
-                name={"player-settings"}
+                style={styles.btnMoreOption}
+                name={"settings"}
                 size={sizeItem}
                 color={clor.white} />
             <Text style={styles.txt}>Change Pass</Text>
             <TouchableOpacity
-                style={{ padding: 10, paddingHorizontal: 15 }}
+                style={styles.btnMoreOption}
                 onPress={() => navigation.openDrawer()}>
                 <Icon
-                    name={"more-v-a"}
+                    name={"more"}
                     size={sizeItem}
                     color={clor.white} />
             </TouchableOpacity>
@@ -39,7 +39,7 @@ export default memo(TopViewUser)
 const styles = StyleSheet.create({
     container: {
         height: responsive.height(60),
-        width: '100%',
+        width: "100%",
         backgroundColor: clor.maincolor,
         justifyContent: "space-around",
         alignItems: "center",
@@ -49,6 +49,9 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         color: clor.white,
         fontSize: sizeItem,
-        fontWeight: '600',
+        fontWeight: "600",
+    },
+    btnMoreOption: {
+        paddingHorizontal: scale(15)
     }
 })

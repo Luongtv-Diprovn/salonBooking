@@ -1,23 +1,18 @@
-import { BASE_URL } from "../../../shared/BASE_URL"
-import React, { useState } from "react"
-import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
-import { changeStatusBooking } from "../../../Redux/Slice/userSlice";
+import React from "react"
+import Icon2 from "react-native-vector-icons/MaterialIcons"
 import {
     StyleSheet,
     View,
     Text,
     ScrollView,
-    TouchableOpacity,
-    Button,
-    TextInput,
-    Image
+    TouchableOpacity
 } from "react-native"
-import { img } from "../../../asset/index"
 import Modal from "react-native-modal"
 import { scale } from "../../../shared/normalize"
 import { responsive } from "../../../shared/responsive"
 import { Booking } from "../../../shared/Interface"
-import { clor } from '../../../shared/color'
+import { clor } from "../../../shared/color"
+import { TotalMoney1 } from "../../../shared/Function/handle"
 
 interface receive {
     history: Booking
@@ -26,10 +21,11 @@ interface receive {
 }
 
 const sizeTxt = scale(16)
+const paddingContainer = scale(10)
 
 function ShowService(props: receive) {
 
-
+    const MoneyForAll = TotalMoney1(props.history.details, props.history.customer.customerType.percent, props.history.advertisement)
     return (
         <Modal
             isVisible={props.isModalVisible}
@@ -65,13 +61,25 @@ function ShowService(props: receive) {
                         props.history.details.map((item, index) => {
                             return (
                                 <View key={index}>
-                                    <Text style={styles.txtContent}>{item.service.name}</Text>
+                                    <Text style={styles.txtContent}>{"+ " + item.service.name}</Text>
                                     <Text style={styles.txtContent}>{"Price " + Number(item.service.price).toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</Text>
                                 </View>
                             )
                         })
                     }
                 </ScrollView>
+                <View style={styles.viewTotalMoney}>
+                    <Icon2 name={"monetization-on"} size={scale(22)} color={clor.greenDark} />
+                    <Text style={styles.txtTotalMoney}>
+                        {
+                            ((props.history.customer.customerType.percent !== 0) || (props.history.advertisement !== null)) ?
+                                "(without discount): " + Number(MoneyForAll.AllMoneyNoDiscountByRankOrVoucher).toLocaleString("vi-VN", { style: "currency", currency: "VND" }) + "\n"
+                                + "(discount): " + Number(MoneyForAll.AllMoney).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
+                                :
+                                Number(MoneyForAll.AllMoney).toLocaleString("vi-VN", { style: "currency", currency: "VND" })
+                        }
+                    </Text>
+                </View>
             </View>
         </Modal>
     )
@@ -80,33 +88,23 @@ function ShowService(props: receive) {
 export default ShowService
 
 const styles = StyleSheet.create({
-
-    txtInputReview: {
-        alignSelf: "center",
-        width: "100%",
-        borderWidth: 2,
-        borderColor: clor.A,
-        borderRadius: 5,
-        paddingLeft: scale(10),
-        marginBottom: scale(12),
-        flexGrow: 1
-    },
     txtClose: {
         fontSize: sizeTxt,
         color: "white"
     },
-    txtReview: {
-        fontSize: sizeTxt,
-        color: "black"
-    },
     viewTop: {
         flexDirection: "row"
     },
-
     viewFlex1: {
         flex: 1
     },
-
+    viewTotalMoney: {
+        flexDirection: "row",
+        justifyContent: "center",
+        borderTopWidth: 1,
+        borderColor: clor.greenDark,
+        paddingTop: paddingContainer
+    },
     btnClose: {
         backgroundColor: "red",
         padding: scale(5),
@@ -118,6 +116,11 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         fontSize: sizeTxt * 1.2,
         color: clor.A
+    },
+    txtTotalMoney: {
+        fontSize: sizeTxt,
+        color: clor.greenDark,
+        marginLeft: scale(5)
     },
     txtTitle: {
         fontSize: sizeTxt,
@@ -133,7 +136,7 @@ const styles = StyleSheet.create({
         width: responsive.WIDTH * 0.8,
         alignSelf: "center",
         backgroundColor: "white",
-        padding: scale(10),
+        padding: paddingContainer,
         borderRadius: 15
     }
 });

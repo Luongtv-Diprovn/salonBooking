@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import {
     View,
     Text,
@@ -8,8 +8,8 @@ import {
     ImageBackground,
     TouchableWithoutFeedback,
     Keyboard
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+} from "react-native"
+import { useNavigation } from "@react-navigation/native"
 import { screenName } from "../../navigators/screens-name"
 import { scale } from "../../shared/normalize"
 import { onChangedNumber } from "../../shared/Function/handle"
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         height: heightItem,
         fontSize: sizeTxtInput,
         borderRadius: 5,
-        paddingHorizontal: 8,
+        paddingHorizontal: scale(8),
         marginVertical: marginVerticalItem,
         flexDirection: "row",
         alignItems: "center",

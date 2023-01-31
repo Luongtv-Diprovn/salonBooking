@@ -8,12 +8,12 @@ import {
     ImageBackground
 } from "react-native";
 import React, { useState, memo, useEffect, useRef } from "react";
-import { clor } from '../../shared/color'
-import { scale } from '../../shared/normalize'
-import { img } from '../../asset/index'
-import { RankingStylist } from '../../shared/Interface'
+import { clor } from "../../shared/color"
+import { scale } from "../../shared/normalize"
+import { img } from "../../asset/index"
+import { RankingStylist } from "../../shared/Interface"
 import LottieView from "lottie-react-native"
-import ItemStylist from './components/ItemStylist'
+import ItemStylist from "./components/ItemStylist"
 
 const sizeTitle = scale(16)
 

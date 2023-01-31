@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import dayjs from "dayjs";
 import { responsive } from "../../../shared/responsive"
 import { scale } from "../../../shared/normalize"
-import { clor } from '../../../shared/color'
+import { clor } from "../../../shared/color"
 
 function Calendar(props) {
 

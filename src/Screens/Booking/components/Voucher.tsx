@@ -5,7 +5,7 @@ import React, { useState, useEffect, memo } from "react";
 import { Advertisement } from "../../../shared/Interface"
 import { responsive } from "../../../shared/responsive"
 import { scale } from "../../../shared/normalize"
-import { clor } from '../../../shared/color'
+import { clor } from "../../../shared/color"
 
 const marginVerticalItem = scale(15)
 
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderColor: clor.B,
         borderWidth: 4,
-        paddingLeft: 10,
+        paddingLeft: scale(10),
         marginRight: scale(5),
         borderRadius: 5,
         width: responsive.WIDTH * 0.9,
