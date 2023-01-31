@@ -53,7 +53,7 @@ function DetailConfirmBooking(props) {
                     <View style={styles.rowItem}>
                         <Icon name="calendar" color={"white"} size={scale(24)} />
                         <Text style={styles.txtContent}>{props.timeSlot + ", " + DayOfWeek[dayjs(props.dateBooking).get("day")] + ", " +
-                            "Date " + dayjs(props.dateBooking).format("DD-MM-YYYY")}</Text>
+                            dayjs(props.dateBooking).format("DD-MM-YYYY")}</Text>
                     </View>
                     <View style={styles.rowItem}>
                         <Icon1 name="address" color={"white"} size={scale(24)} />
@@ -62,6 +62,10 @@ function DetailConfirmBooking(props) {
                     <View style={styles.rowItem}>
                         <Icon2 name="person" size={scale(24)} color="white" />
                         <Text style={styles.txtContent}>{"Stylist: " + props.staffName}</Text>
+                    </View>
+                    <View style={styles.rowItem}>
+                        <Icon name="infocirlceo" color={"white"} size={scale(24)} />
+                        <Text style={styles.txtContent}>{"ID Booking: " + props.idBooking}</Text>
                     </View>
                     <Text style={styles.txtPleasure}>It is our pleasure to serve you</Text>
                 </>
@@ -99,7 +103,6 @@ const styles = StyleSheet.create({
         fontSize: scale(16),
         color: "white",
         marginLeft: scale(5),
-        flexShrink: 1
     },
     rowItem: {
         flexDirection: "row",

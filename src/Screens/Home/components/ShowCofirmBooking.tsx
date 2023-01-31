@@ -47,6 +47,7 @@ function ShowConfirmBooking() {
         return (
             <DetailConfirmBooking
                 existConfirmBooking={existConfirmBooking}
+                idBooking={item.Id}
                 imgStaff={item.staff.imagePath}
                 phoneCustomer={item.customer.phone}
                 dateBooking={item.date}

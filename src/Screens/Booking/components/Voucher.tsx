@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderColor: clor.B,
         borderWidth: 4,
-        paddingLeft: scale(10),
+        paddingLeft: scale(5),
         marginRight: scale(5),
         borderRadius: 5,
         width: responsive.WIDTH * 0.9,

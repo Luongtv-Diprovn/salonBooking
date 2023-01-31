@@ -43,7 +43,6 @@ export default function SignUp() {
         }
     }
 
-
     return (
         <TouchableWithoutFeedback onPress={() => {
             Keyboard.dismiss()

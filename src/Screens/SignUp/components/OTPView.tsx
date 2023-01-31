@@ -9,8 +9,8 @@ import {
     ImageBackground,
     ScrollView,
     Alert
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+} from "react-native"
+import { useNavigation } from "@react-navigation/native"
 import { screenName } from "../../../navigators/screens-name"
 import { scale } from "../../../shared/normalize"
 import { onChangedNumber } from "../../../shared/Function/handle"
@@ -22,7 +22,7 @@ import { CreateRandomPass } from "../../../shared/Function/handle"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { SpamOTP } from "../../../shared/Interface"
 import dayjs from "dayjs"
-import auth from "@react-native-firebase/auth";
+import auth from "@react-native-firebase/auth"
 
 const heightItem = scale(60)
 const marginVerticalItem = scale(12)
@@ -31,7 +31,6 @@ const sizeOTP = scale(40)
 const time_counter = 40
 const chanceVerifyOtpPerDay = 5
 const chanceResendOtpPerday = 3
-const p = "0935030419"
 
 const checkOnlyDigit = (value: string) => {
     if (value == "1" || value == "2" || value == "3" || value == "4" ||
@@ -90,7 +89,7 @@ export default function OTPView() {
                             }
                         },
                     ],
-                );
+                )
             }
             else if (response.status == 400) {
                 setNotify("This phone number already exists!")

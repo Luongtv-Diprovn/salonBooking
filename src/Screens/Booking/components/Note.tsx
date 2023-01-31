@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
         width: responsive.WIDTH * 0.95,
         height: responsive.height(150),
         borderColor: clor.B,
-        borderWidth: 4,
-        padding: scale(5),
+        borderWidth: 3,
+        padding: scale(10),
         borderRadius: 20,
         fontSize: scale(16)
     }

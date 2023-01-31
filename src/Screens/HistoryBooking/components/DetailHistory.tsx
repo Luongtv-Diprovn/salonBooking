@@ -167,7 +167,7 @@ function DetailHistory(props: receiveDetailHistory) {
                     <View style={styles.viewFlex1} />
                 </View>
                 <View style={styles.containerStatusButton}>
-                    <Text style={[styles.txtContent, { color: checkStatusReturnColorTxt() }]}>{"STATUS: " + props.history.status} </Text>
+                    <Text style={styles.txtContent}>{"STATUS: " + props.history.status} </Text>
                     <View style={styles.viewFlex1} />
                     {
                         checkStatusBookingReturnView()

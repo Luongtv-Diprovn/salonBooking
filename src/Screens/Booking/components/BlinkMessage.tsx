@@ -12,8 +12,9 @@ function BlinkMessage() {
         <ImageBackground
             style={styles.container}
             source={img.background}
-            borderRadius={5}
             blurRadius={2}
+            borderBottomLeftRadius={20}
+            borderBottomRightRadius={20}
         >
             <Text style={styles.txtfirst}>To make an appointment, you should do the following:</Text>
             <Text style={styles.txt}>
@@ -33,11 +34,9 @@ export default memo(BlinkMessage)
 
 const styles = StyleSheet.create({
     container: {
-        width: responsive.WIDTH * 0.95,
-        borderRadius: 10,
-        paddingHorizontal: scale(10),
-        paddingVertical: scale(15),
-        marginVertical: scale(20),
+        width: responsive.WIDTH,
+        padding: scale(20),
+        marginBottom: scale(20),
         alignSelf: "center"
     },
     txt: {

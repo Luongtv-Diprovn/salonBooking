@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from "react-native"
+import { View, Text, TouchableOpacity, ImageBackground, StyleSheet, Alert } from "react-native"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import {
     createDrawerNavigator,
@@ -37,12 +37,26 @@ function CustomDrawerContent(props) {
                 <TouchableOpacity
                     style={styles.btnLogOut}
                     onPress={() => {
-                        var emptyToken: typeToken = {
-                            token: "",
-                            refreshToken: ""
-                        }
-                        storeLocalToken(emptyToken)
-                        navigation.navigate(screenName.signIn)
+                        Alert.alert(
+                            "OOPS !!!",
+                            "Are you sure to log out?",
+                            [
+                                {
+                                    text: "Yes",
+                                    onPress: () => {
+                                        var emptyToken: typeToken = {
+                                            token: "",
+                                            refreshToken: ""
+                                        }
+                                        storeLocalToken(emptyToken)
+                                        navigation.navigate(screenName.signIn)
+                                    }
+                                },
+                                {
+                                    text: "No"
+                                }
+                            ],
+                        )
                     }}
                 >
                     <Icon name="logout" color={clor.maincolor} size={widthOfDrawer / 3} />
