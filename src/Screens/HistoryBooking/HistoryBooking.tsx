@@ -1,61 +1,67 @@
 import { BASE_URL } from "../../shared/BASE_URL"
 import React, { useState, useEffect } from "react"
 import { useAppSelector, useAppDispatch } from "../../Redux/hookRedux"
-import { changeStatusBooking } from "../../Redux/Slice/userSlice";
 import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
-  Image,
   ActivityIndicator,
   RefreshControl,
   FlatList,
-  ImageBackground
 } from "react-native"
-import Icon from "react-native-vector-icons/AntDesign"
 import Toast from "react-native-toast-message"
 import { toastConfig, showToast } from "../../components/Toast/ToastNotify"
 import { img } from "../../asset/index"
 import { scale } from "../../shared/normalize"
-import { responsive } from "../../shared/responsive"
 import { Booking } from "../../shared/Interface"
 import DetailHistory from "./components/DetailHistory"
-import { Picker } from "@react-native-picker/picker";
-import { clor } from '../../shared/color'
-import LottieView from 'lottie-react-native'
+import { Picker } from "@react-native-picker/picker"
+import { clor } from "../../shared/color"
+import LottieView from "lottie-react-native"
+
+const sizeTxtPage = scale(18)
 
 export default function HistoryBooking() {
+
   const user = useAppSelector((state) => state.user)
   const [data, setData] = useState<Booking[]>([]);
   const [loading, setloading] = useState<boolean>(false);
   const [curentPage, setCurentPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(0)
   const [refresh, setFresh] = useState<boolean>(false)
+  const [loadmore, setLoadmore] = useState<boolean>(false)
   const pageSize = 5
-  //Open,Value,Items dùng cho dropdown
   const [selectedDropdown, setSelectedDropdown] = useState<any>("");
-  const [items, setItems] = useState([
-    { label: "All Booking", value: "" },
-    { label: "Pending", value: "Pending" },
-    { label: "Done", value: "Done" },
-    { label: "Cancel", value: "Cancel" },
-    { label: "Confirm", value: "Confirm" }
-  ]);
+  const ListDropDown = [
+    {
+      label: "All Booking",
+      value: ""
+    },
+    {
+      label: "Pending",
+      value: "Pending"
+    },
+    {
+      label: "Confirm",
+      value: "Confirm"
+    },
+    {
+      label: "Done",
+      value: "Done"
+    },
+    {
+      label: "Cancel",
+      value: "Cancel"
+    }
+  ]
 
   function onLoading(load) {
     setloading(load);
   }
 
-  const handleRefresh = () => {
-    setFresh(true)
-    get_HistoryBooking()
-    setTimeout(() => {
-      setFresh(false)
-    }, 5000)
-  }
 
   async function get_HistoryBooking() {
+
     var url = BASE_URL + "/api/v1/bookings?" + "customerId=" + user.userProperties.Id + "&page=" + curentPage + "&pageSize=" + pageSize + "&status=" + selectedDropdown
     await fetch(url, {
       method: "GET",
@@ -67,30 +73,47 @@ export default function HistoryBooking() {
         Promise.resolve(response.json())
           .then((value) => {
             setTotalPage(value.totalPage)
-            setData(value.bookings)
+            setData(data.concat(value.bookings))
           });
       }
       else {
         setCurentPage(0)
         setTotalPage(0)
-        setData([])
       }
     })
     setloading(false);
   }
 
-  function handleNextPage() {
-    setCurentPage(curentPage + 1)
+  const handleRefresh = () => {
+    if (!refresh && loadmore == false) {
+      setFresh(true)
+      setData([])
+      setCurentPage(1)
+      get_HistoryBooking()
+      setTimeout(() => {
+        setFresh(false)
+      }, 5000)
+    }
   }
 
-  function handlePrevPage() {
-    setCurentPage(curentPage - 1)
+  const handleLoadMore = () => {
+    if (!loadmore && refresh == false && curentPage < totalPage) {
+      setLoadmore(true)
+      setCurentPage(prev => prev + 1)
+      setTimeout(() => {
+        setLoadmore(false)
+      }, 5000)
+    }
   }
 
   useEffect(() => {
     setloading(true)
     get_HistoryBooking()
-  }, [curentPage, user.userProperties.statusBooking])
+  }, [])
+
+  useEffect(() => {
+    get_HistoryBooking()
+  }, [curentPage, , user.userProperties.statusBooking])
 
   useEffect(() => {
     setloading(true)
@@ -107,6 +130,21 @@ export default function HistoryBooking() {
     )
   }
 
+  const renderLoadMore = () => {
+    return (
+      <>
+        {
+          loadmore ?
+            <View style={styles.viewLoadMore}>
+              <ActivityIndicator size={scale(50)} color={clor.maincolor} />
+            </View>
+            :
+            <></>
+        }
+      </>
+    )
+  }
+
   return (
     <View style={styles.container}>
       {
@@ -114,95 +152,66 @@ export default function HistoryBooking() {
           <LottieView source={img.waiting} autoPlay />
           :
           <>
-            {
-              data.length !== 0 ?
-                <FlatList
-                  showsVerticalScrollIndicator={false}
-                  data={data}
-                  renderItem={({ item, index }) => renderItem(item, index)}
-                  refreshControl={
-                    <RefreshControl refreshing={refresh} onRefresh={handleRefresh} colors={[clor.maincolor]} />
-                  }
-                />
-                :
-                <Image
-                  source={img.notfound}
-                  resizeMode={"center"}
-                  style={styles.IMGNotFound}
-                />
-            }
-            <View style={styles.containerButton}>
-              <TouchableOpacity
-                disabled={curentPage == 1 ? true : false}
-                onPress={handlePrevPage}
-              >
-                <Icon
-                  name={"banckward"}
-                  size={scale(25)}
-                  style={{ opacity: 1 }}
-                  color={clor.A}
-                />
-
-              </TouchableOpacity>
-              <Text style={styles.txtPage}>{curentPage + "/" + totalPage}</Text>
-              <TouchableOpacity
-                disabled={curentPage < totalPage ? false : true}
-                onPress={handleNextPage}
-              >
-                <Icon
-                  name={"forward"}
-                  size={scale(25)}
-                  color={clor.A}
-                />
-              </TouchableOpacity>
-            </View>
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ paddingTop: scale(50) }}
+              data={data}
+              renderItem={({ item, index }) => renderItem(item, index)}
+              refreshControl={
+                <RefreshControl refreshing={refresh} onRefresh={handleRefresh} colors={[clor.maincolor]} />
+              }
+              ListFooterComponent={renderLoadMore}
+              onEndReached={handleLoadMore}
+              onEndReachedThreshold={0}
+            />
             <Picker
-              itemStyle={{ fontSize: scale(16) }}
+              dropdownIconColor={clor.maincolor}
+              dropdownIconRippleColor={clor.D}
               selectedValue={selectedDropdown}
-              onValueChange={(itemValue, itemIndex) =>
+              onValueChange={(itemValue, itemIndex) => {
+                setData([])
+                setCurentPage(1)
                 setSelectedDropdown(itemValue)
-              }>
-              <Picker.Item label="All Booking" value="" />
-              <Picker.Item label="Pending" value="Pending" />
-              <Picker.Item label="Confirm" value="Confirm" />
-              <Picker.Item label="Done" value="Done" />
-              <Picker.Item label="Cancel" value="Cancel" />
+              }}>
+              {
+                ListDropDown.map((item, index) => <Picker.Item key={index} label={item.label} value={item.value} color={clor.maincolor} style={{ fontSize: scale(15) }} />)
+              }
             </Picker>
           </>
       }
       <Toast config={toastConfig} />
-
+      {/* <View style={styles.viewPage}>
+        <Text style={styles.txtPage}>{curentPage + "/" + totalPage}</Text>
+      </View> */}
     </View >
-
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: clor.grayLight,
-    height: "100%",
+    backgroundColor: clor.white,
   },
-  IMGNotFound: {
-    flex: 1,
-    alignSelf: "center"
-  },
-  containerButton: {
+  viewPage: {
     flexDirection: "row",
-    padding: 10,
     zIndex: 1,
-    borderRadius: 20,
+    borderBottomRightRadius: sizeTxtPage / 2,
     alignSelf: "center",
-    backgroundColor: "gray",
+    backgroundColor: clor.B,
     position: "absolute",
-    bottom: responsive.HEIGHT * 1 / 10,
+    top: 0,
+    left: 0,
     opacity: 0.8
   },
   txtPage: {
-    fontSize: scale(16),
+    fontSize: sizeTxtPage,
     fontWeight: "bold",
-    color: clor.D,
+    color: clor.white,
     marginHorizontal: scale(15),
   },
+  viewLoadMore: {
+    marginBottom: 50,
+    justifyContent: "center"
+  }
 });

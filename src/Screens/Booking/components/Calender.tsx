@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import dayjs from "dayjs";
 import { responsive } from "../../../shared/responsive"
 import { scale } from "../../../shared/normalize"
-import { clor } from '../../../shared/color'
+import { clor } from "../../../shared/color"
 
 function Calendar(props) {
 
@@ -27,7 +27,9 @@ function Calendar(props) {
                 width={responsive.WIDTH * 0.95}
                 minDate={dayjs().format("YYYY-MM-DD")}
                 maxDate={dayjs().add(6, "day").format("YYYY-MM-DD")}
+                textStyle={{ color: clor.D }}
                 selectedDayColor={clor.maincolor}
+                selectedDayTextColor={clor.white}
                 selectedStartDate={selectedDate}
                 onDateChange={(d: any) => {
                     var chooseDate = dayjs(d._d).format("YYYY-MM-DD")

@@ -1,28 +1,29 @@
 
-import { BASE_URL } from '../../../shared/BASE_URL'
-import { View, StyleSheet, FlatList } from 'react-native';
-import React, { useEffect, useState, memo } from 'react';
+import { BASE_URL } from "../../../shared/BASE_URL"
+import { View, StyleSheet, FlatList } from "react-native";
+import React, { useEffect, useState, memo } from "react";
 import dayjs from "dayjs";
-import DetailConfirmBooking from './DetailConfirmBooking'
+import DetailConfirmBooking from "./DetailConfirmBooking"
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
-import { Advertisement, Booking } from '../../../shared/Interface'
-import { clor } from '../../../shared/color'
+import { Advertisement, Booking } from "../../../shared/Interface"
+import { clor } from "../../../shared/color"
+import { scale } from "../../../shared/normalize"
 
 function ShowConfirmBooking() {
 
     const user = useAppSelector((state) => state.user)
     const [data, setData] = useState<Booking[]>([])
     const [existConfirmBooking, setExistConfirmBooking] = useState<boolean>(false)
-    let currentDay = dayjs().format('YYYY-MM-DD')
-    let endDay = dayjs().add(6, 'day').format('YYYY-MM-DD')
+    let currentDay = dayjs().format("YYYY-MM-DD")
+    let endDay = dayjs().add(6, "day").format("YYYY-MM-DD")
 
 
     async function Get_ExsistConfirmBookingOfUser() {
-        var url = BASE_URL + "/api/v1/bookings?" + 'customerId=' + user.userProperties.Id + '&startDate=' + currentDay + '&endDate=' + endDay + '&status=Confirm'
+        var url = BASE_URL + "/api/v1/bookings?" + "customerId=" + user.userProperties.Id + "&startDate=" + currentDay + "&endDate=" + endDay + "&status=Confirm"
         await fetch(url, {
             method: "GET",
             headers: {
-                "Content-Type": 'multipart/form-data'
+                "Content-Type": "multipart/form-data"
             },
         }).then((response) => {
             if (response.status == 200) {
@@ -67,39 +68,5 @@ function ShowConfirmBooking() {
 }
 export default memo(ShowConfirmBooking)
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'black',
-        borderRadius: 10,
-        width: '90%',
-        alignSelf: 'center',
-        flexDirection: 'column',
-        marginVertical: 20,
-        padding: 10,
-    },
-    txtTitleTimeLeft: {
-        fontSize: 16,
-        color: 'red'
-    },
-    txtPhoneCustomer: {
-        fontSize: 18,
-        color: '#ffcc33'
-    },
-    txtMainContent: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#FCEFD9'
-    },
-    txtContent: {
-        fontSize: 16,
-        color: 'white',
-        marginLeft: 5
-    },
-    rowItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 3
-    }
-})
 
 

@@ -4,7 +4,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from "react-native-responsive-screen";
-import { isTablet } from 'react-native-device-info';
+import { isTablet } from "react-native-device-info";
 
 export const { width, height } = Dimensions.get("window");
 const [shortDimension, longDimension] = width < height ? [width, height] : [height, width];

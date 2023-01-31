@@ -1,9 +1,10 @@
 import React from "react";
-import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
-import TopView from "./components/TopView"
-import BottomView from "./components/BottomView"
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native"
+import { clor } from "../../shared/color"
+import TopView from "./components/TopViewChangePass"
+import BottomView from "./components/BottomViewChangePass"
 
-const SignIn = () => {
+const ChangePass = () => {
 
     return (
         <TouchableWithoutFeedback onPress={() => {
@@ -11,19 +12,20 @@ const SignIn = () => {
         }}
             accessible={false}>
             <View style={styles.container}>
+                <TopView />
                 <BottomView />
             </View>
         </TouchableWithoutFeedback>
-
-    );
+    )
 }
 
-export default SignIn
+export default ChangePass
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white",
-        justifyContent: "center"
+        backgroundColor: clor.white
     }
-})
+});
+
+

@@ -8,12 +8,12 @@ import {
     ImageBackground
 } from "react-native";
 import React, { useState, memo, useEffect, useRef } from "react";
-import { clor } from '../../shared/color'
-import { scale } from '../../shared/normalize'
-import { img } from '../../asset/index'
-import { RankingStylist } from '../../shared/Interface'
+import { clor } from "../../shared/color"
+import { scale } from "../../shared/normalize"
+import { img } from "../../asset/index"
+import { RankingStylist } from "../../shared/Interface"
 import LottieView from "lottie-react-native"
-import ItemStylist from './components/ItemStylist'
+import ItemStylist from "./components/ItemStylist"
 
 const sizeTitle = scale(16)
 
@@ -50,8 +50,8 @@ function Ranking() {
 
     return (
         <ImageBackground
-            blurRadius={4}
-            source={img.bgrSalon}
+            blurRadius={2}
+            source={img.bgrRanking}
             style={styles.container}>
             {loading ?
                 <LottieView source={img.waiting} autoPlay />
@@ -66,6 +66,7 @@ function Ranking() {
                         <Animated.FlatList
                             showsVerticalScrollIndicator={false}
                             data={dataStylist}
+                            contentContainerStyle={{ paddingTop: scale(35) }}
                             onScroll={Animated.event(
                                 [{ nativeEvent: { contentOffset: { y: scrollY } } }],
                                 { useNativeDriver: true }
@@ -101,7 +102,6 @@ const styles = StyleSheet.create({
     },
     bottomView: {
         flex: 4,
-        paddingTop: scale(25),
         width: "100%",
         justifyContent: "center",
         alignItems: "center"

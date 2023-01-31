@@ -76,6 +76,7 @@ export interface Staff {
     bills?: Bill[]
     _count: Count
     avg?: string
+    details?: Detail[]
 }
 
 export interface Role {

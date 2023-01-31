@@ -4,6 +4,9 @@ export enum screenName {
     signIn = "SignIn",
     user = "User",
     signUp = "SignUp",
-    otp = "OTPView",
-    forgotpass = "ForgotPass"
+    otpSignUp = "OTPSignUp",
+    otpForgotPass = "OTPForgotPass",
+    forgotpass = "ForgotPass",
+    booking = "Booking",
+    mainDrawer = "MainDrawer"
 }

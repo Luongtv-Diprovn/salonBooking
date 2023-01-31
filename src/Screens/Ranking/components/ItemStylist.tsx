@@ -1,4 +1,4 @@
-import { BASE_URL } from '../../../shared/BASE_URL'
+import { BASE_URL } from "../../../shared/BASE_URL"
 import {
     View,
     StyleSheet,
@@ -12,11 +12,11 @@ import {
 import React, { useState, memo } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5"
 import Modal from "react-native-modal";
-import { responsive } from '../../../shared/responsive'
-import { clor } from '../../../shared/color'
-import { s } from '../../../shared/normalize'
-import { img } from '../../../asset/index'
-import { Rate, RankingStylist } from '../../../shared/Interface'
+import { responsive } from "../../../shared/responsive"
+import { clor } from "../../../shared/color"
+import { s, scale } from "../../../shared/normalize"
+import { img } from "../../../asset/index"
+import { Rate, RankingStylist } from "../../../shared/Interface"
 import LottieView from "lottie-react-native"
 import { useAppSelector, useAppDispatch } from "../../../Redux/hookRedux"
 import dayjs from "dayjs";
@@ -51,7 +51,7 @@ function Rating(props: recieveRating) {
                         <Image
                             key={index}
                             source={item <= props.userStarRate ? img.starFill : img.starUnFill}
-                            style={{ height: 20, width: 20, marginLeft: 5 }}
+                            style={{ height: s(20), width: s(20), marginLeft: s(5) }}
                         />
                     )
                 })
@@ -67,21 +67,24 @@ function checkRankAndReturnColor(rank: number) {
     var colorTrophy = ""
     var colorBGRTrophy = ""
     var colorShadow = ""
+    var colorBorder = ""
     if (rank < 3) {
-        colorBGR = color_rank[rank]
+        colorBGR = clor.white
         colorTrophy = color_rank[rank]
         colorBGRTrophy = clor.white
-        colorShadow = "orange"
+        colorShadow = color_rank[rank]
+        colorBorder = color_rank[rank]
         return {
-            colorBGR, colorTrophy, colorBGRTrophy, colorShadow
+            colorBGR, colorTrophy, colorBGRTrophy, colorShadow, colorBorder
         }
     }
     colorBGR = clor.white
     colorTrophy = clor.white
     colorBGRTrophy = clor.maincolor
     colorShadow = clor.maincolor
+    colorBorder = clor.white
     return {
-        colorBGR, colorTrophy, colorBGRTrophy, colorShadow
+        colorBGR, colorTrophy, colorBGRTrophy, colorShadow, colorBorder
     }
 }
 
@@ -108,7 +111,7 @@ function ItemStylist(props: receiveItemStylist) {
         await fetch(url, {
             method: "GET",
             headers: {
-                'Authorization': 'Bearer ' + user.userProperties.Token.token,
+                "Authorization": "Bearer " + user.userProperties.Token.token,
                 "Content-Type": "application/json",
             },
         }).then((response) => {
@@ -139,7 +142,7 @@ function ItemStylist(props: receiveItemStylist) {
                         <ImageBackground
                             style={styles.img}
                             source={img.barberConfirm}>
-                            <View style={[styles.viewIconTrophy, { backgroundColor: handleChangeColor.colorBGRTrophy }]}>
+                            <View style={[styles.viewIconTrophy, { backgroundColor: handleChangeColor.colorBGRTrophy, borderColor: handleChangeColor.colorBorder }]}>
                                 {
                                     props.index < 3 ?
                                         <Icon
@@ -184,46 +187,33 @@ function ItemStylist(props: receiveItemStylist) {
                                     <Text style={styles.txtClose}>X</Text>
                                 </TouchableOpacity>
                             </View>
-                            {
-                                data.length != 0 ?
-                                    <>
-                                        <FlatList
-                                            showsVerticalScrollIndicator={false}
-                                            data={data}
-                                            onScroll={(event) => {
-                                                console.log(event.nativeEvent.contentOffset.y)
-                                            }}
-                                            renderItem={({ item, index }) =>
-                                                <View key={index}>
-                                                    <View style={{ flexDirection: "row" }}>
-                                                        <Text style={styles.txtTitle}>Rate :</Text>
-                                                        <Rating userStarRate={item.rate} />
-                                                    </View>
-                                                    <View style={{ flexDirection: "row" }}>
-                                                        <Text style={styles.txtTitle}>Create At :</Text>
-                                                        <Text style={styles.txtContent}>{dayjs(item.createdAt).format("YYYY-MM-DD")}</Text>
-                                                    </View>
-                                                    <View>
-                                                        <Text style={styles.txtTitle}>Comment :</Text>
-                                                        {
-                                                            item.comment !== "" ?
-                                                                <Text style={styles.txtContent}>{item.comment}</Text>
-                                                                :
-                                                                <></>
-                                                        }
-                                                    </View>
-                                                    <View style={styles.lineHorizone} />
-                                                </View>
+
+                            <FlatList
+                                showsVerticalScrollIndicator={false}
+                                data={data}
+                                renderItem={({ item, index }) =>
+                                    <View key={index}>
+                                        <View style={styles.viewFlexRow}>
+                                            <Text style={styles.txtTitle}>Rate :</Text>
+                                            <Rating userStarRate={item.rate} />
+                                        </View>
+                                        <View style={styles.viewFlexRow}>
+                                            <Text style={styles.txtTitle}>Create At :</Text>
+                                            <Text style={styles.txtContent}>{dayjs(item.createdAt).format("YYYY-MM-DD")}</Text>
+                                        </View>
+                                        <View>
+                                            <Text style={styles.txtTitle}>Comment :</Text>
+                                            {
+                                                item.comment !== "" ?
+                                                    <Text style={styles.txtContent}>{item.comment}</Text>
+                                                    :
+                                                    <></>
                                             }
-                                        />
-                                    </>
-                                    :
-                                    <Image
-                                        source={img.notfound}
-                                        resizeMode={"contain"}
-                                        style={styles.imgNotfound}
-                                    />
-                            }
+                                        </View>
+                                        <View style={styles.lineHorizone} />
+                                    </View>
+                                }
+                            />
                         </View>
                 }
             </Modal>
@@ -248,10 +238,11 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
-
         elevation: 24,
     },
     viewIconTrophy: {
+        borderWidth: scale(2),
+        borderColor: clor.white,
         backgroundColor: clor.white,
         height: sizeViewIconTrophy,
         width: sizeViewIconTrophy,
@@ -261,6 +252,9 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: -sizeViewIconTrophy / 3,
         left: -sizeViewIconTrophy / 3
+    },
+    viewFlexRow: {
+        flexDirection: "row"
     },
     leftView: {
         flex: 1,
@@ -274,21 +268,16 @@ const styles = StyleSheet.create({
         height: sizeIMG,
         width: sizeIMG
     },
-    imgNotfound: {
-        alignSelf: "center",
-        height: "100%",
-        width: "100%"
-    },
     txtName: {
         marginLeft: 8,
         fontSize: sizeTxt,
         fontWeight: "bold",
-        color: clor.grayForTxt
+        color: clor.blackForTxt
     },
     txtCount: {
         fontWeight: "bold",
         fontSize: sizeTxt,
-        color: "red"
+        color: clor.D
     },
     lineHorizone: {
         borderWidth: 0.8,
@@ -309,7 +298,7 @@ const styles = StyleSheet.create({
         height: responsive.WIDTH * 0.8 * 1.5,
         width: responsive.WIDTH * 0.8,
         backgroundColor: "white",
-        padding: 10,
+        padding: scale(10),
         borderRadius: 15,
 
     },
@@ -319,7 +308,7 @@ const styles = StyleSheet.create({
     },
     btnClose: {
         backgroundColor: "red",
-        padding: 5,
+        padding: scale(5),
         borderRadius: 5,
         flexShrink: 1
     },

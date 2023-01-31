@@ -14,9 +14,9 @@ import Toast from "react-native-toast-message"
 import { toastConfig, showToast } from "../../components/Toast/ToastNotify"
 import { BASE_URL } from "../../shared/BASE_URL"
 import { changeStatusBooking } from "../../Redux/Slice/userSlice"
-import { clor } from '../../shared/color'
-import LottieView from 'lottie-react-native'
-import { img } from '../../asset/index'
+import { clor } from "../../shared/color"
+import LottieView from "lottie-react-native"
+import { img } from "../../asset/index"
 
 const Booking = () => {
 
@@ -60,6 +60,8 @@ const Booking = () => {
     }
 
     async function Post_Booking() {
+
+        setloading(true)
         // 7 lines next is to check if the element is of integer type, add it to the list, otherwise don"t add it        var listServiceChoose = []
         var listServiceChoose = []
         for (var i = 0; i < selectedIDServices.length; i++) {
@@ -101,7 +103,6 @@ const Booking = () => {
             } else {
                 Promise.resolve(response.text())
                     .then((value) => {
-                        console.log(value)
                         value != "" ? showToast("Warning", value, "", 18)
                             : showToast("FailTwoLine", "Fail Booking", "Something wrong, booking again please !!!")
                     });
@@ -165,8 +166,7 @@ const Booking = () => {
                     color={clor.maincolor}
                     disabled={disableBTNBooking}
                     onPress={() => {
-                        setloading(true);
-                        Post_Booking();
+                        Post_Booking()
                     }}
                     title="Booking"
                 />
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: "100%",
-        backgroundColor: clor.grayLight
+        backgroundColor: clor.white
     },
     txtTitle: {
         marginLeft: scale(12),
