@@ -28,7 +28,7 @@ function TopViewUser() {
                     name={"settings"}
                     size={sizeItem}
                     color={clor.white} />
-                <Text style={styles.txt}>Profile</Text>
+                <Text style={styles.txtPageName}>Profile</Text>
                 <TouchableOpacity
                     style={styles.btnMoreOption}
                     onPress={() => navigation.openDrawer()}>
@@ -77,9 +77,13 @@ const styles = StyleSheet.create({
         borderColor: clor.white,
     },
     txt: {
-        alignSelf: "center",
         color: clor.white,
         fontSize: sizeItem,
+        fontWeight: "600",
+    },
+    txtPageName: {
+        color: clor.white,
+        fontSize: sizeItem * 1.3,
         fontWeight: "600",
     },
     btnMoreOption: {

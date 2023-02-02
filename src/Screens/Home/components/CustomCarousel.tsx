@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, Image, ActivityIndicator } from "react-native";
 import { BASE_URL } from "../../../shared/BASE_URL"
 import { responsive } from "../../../shared/responsive"
 import { scale } from "../../../shared/normalize"
@@ -7,8 +7,8 @@ import { img } from "../../../asset/index"
 import { clor } from "../../../shared/color"
 import { Advertisement } from "../../../shared/Interface"
 import Carousel from "react-native-reanimated-carousel"
-import LottieView from "lottie-react-native"
 import dayjs from "dayjs"
+import { ScrollView } from "react-native-gesture-handler";
 
 function CustomCarousel() {
 
@@ -52,7 +52,7 @@ function CustomCarousel() {
     return (
         <>
             {loading ?
-                <LottieView source={img.waiting} autoPlay />
+                <ActivityIndicator size={scale(40)} color={clor.maincolor} style={styles.indicator} />
                 :
                 <>
                     <Carousel
@@ -69,6 +69,7 @@ function CustomCarousel() {
                     {
                         data.length !== 0 ?
                             <View style={styles.viewDetail}>
+
                                 <Text style={styles.contentInRow}>{data[currentIndex].title}</Text>
                                 <View style={styles.rowItem}>
                                     <Text style={styles.titleInRow}>Start Date:  </Text>
@@ -99,7 +100,6 @@ function CustomCarousel() {
                                     style={styles.txtDecription}>
                                     {data[currentIndex].detail}
                                 </Text>
-
                             </View>
                             :
                             <></>
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         borderColor: clor.grayForTxt,
         padding: scale(10),
         borderRadius: 10,
-        height: scale(400),
+        height: responsive.height(400),
         backgroundColor: clor.white
     },
     txtTitle: {
@@ -172,4 +172,7 @@ const styles = StyleSheet.create({
         marginLeft: scale(5),
         color: clor.A
     },
+    indicator: {
+        alignSelf: "center"
+    }
 })

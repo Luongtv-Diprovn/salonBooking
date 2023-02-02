@@ -86,6 +86,7 @@ export default function HistoryBooking() {
 
   const handleRefresh = () => {
     if (!refresh && loadmore == false) {
+      console.log("hi")
       setFresh(true)
       setData([])
       setCurentPage(1)
@@ -113,7 +114,7 @@ export default function HistoryBooking() {
 
   useEffect(() => {
     get_HistoryBooking()
-  }, [curentPage, , user.userProperties.statusBooking])
+  }, [curentPage, user.userProperties.statusBooking])
 
   useEffect(() => {
     setloading(true)
@@ -136,7 +137,7 @@ export default function HistoryBooking() {
         {
           loadmore ?
             <View style={styles.viewLoadMore}>
-              <ActivityIndicator size={scale(50)} color={clor.maincolor} />
+              <ActivityIndicator size={scale(40)} color={clor.maincolor} />
             </View>
             :
             <></>

@@ -95,7 +95,7 @@ export default function OTPView() {
                 setNotify("This phone number already exists!")
             }
             else {
-                setNotify("Please check OTP code");
+                setNotify("Please check OTP code")
             }
         })
     }
@@ -144,7 +144,6 @@ export default function OTPView() {
         try {
             await confirmVerify.confirm(otp[1] + otp[2] + otp[3] + otp[4] + otp[5] + otp[6])
             Post_NewAccount(receive?.phone, CreateRandomPass(6))
-
         } catch (error) {
             setNotify("Invalid OTP code")
         }
@@ -164,7 +163,7 @@ export default function OTPView() {
                 setNotify("You spam more than 3 time, take your chance")
             }
             else if (counterSpamVerify + 1 <= 3) {
-                if (newTxtOTP.length == 4) {
+                if (newTxtOTP.length == 6) {
                     setNotify("")
                     confirmOTP()
                 }
@@ -331,9 +330,9 @@ export default function OTPView() {
                 </View>
                 <TouchableOpacity
                     style={[styles.btn, { backgroundColor: handleDisableVerification() ? "black" : clor.maincolor, shadowColor: handleDisableVerification() ? "black" : clor.maincolor }]}
-                    // disabled={handleDisableVerification()}
+                    disabled={handleDisableVerification()}
                     onPress={() => {
-                        handleVerification(otp[1] + otp[2] + otp[3] + otp[4])
+                        handleVerification(otp[1] + otp[2] + otp[3] + otp[4] + otp[5] + otp[6])
                     }}>
                     <Text style={styles.txtTitleBTN}>VERIFICATION</Text>
                 </TouchableOpacity>
