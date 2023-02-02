@@ -113,8 +113,6 @@ const styles = StyleSheet.create({
     btnLogOut: {
         alignItems: "center",
         justifyContent: "center",
-        // position: "absolute",
-        // bottom: 20,
         alignSelf: "center"
     },
 })

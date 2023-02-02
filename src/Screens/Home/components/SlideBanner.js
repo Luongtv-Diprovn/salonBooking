@@ -47,125 +47,128 @@ function SlideBanner() {
     }, [])
 
     return (
-        <View style={styles.container}>
-            {loading ?
-                <LottieView source={img.waiting} autoPlay />
-                :
-                <View style={styles.container}>
-                    <ImageSlider
-                        blurRadius={10}
-                        data={data}
-                        showIndicator={true}
-                        timer={6000}
-                        autoPlay={true}
-                        caroselImageContainerStyle={styles.caroselContainer}
-                        caroselImageStyle={styles.caroselIMG}
-                        onItemChanged={(item) => {
-                            setCurrentAdvertise(item)
-                        }}
-                        closeIconColor="black" >
-                        <View style={styles.viewTitle}>
-                            <Text style={styles.txtTitle}>{currentAdvertise.title}</Text>
-                        </View>
-                    </ImageSlider>
-                    <ShowCofirmBooking />
-                    <Text style={styles.txtDetail}>Detail Advertisement: </Text>
-                    <View style={styles.viewDetail}>
-                        <View style={styles.rowItem}>
-                            <Text style={styles.titleInRow}>Start Date:  </Text>
-                            <Text style={styles.contentInRow}>{dayjs(currentAdvertise.startDate).format("DD-MM-YYYY")}</Text>
-                        </View>
-                        <View style={styles.rowItem}>
-                            <Text style={styles.titleInRow}>End Date: </Text>
-                            <Text style={styles.contentInRow}>{dayjs(currentAdvertise.endDate).format("DD-MM-YYYY")}</Text>
-                        </View>
-                        {
-                            currentAdvertise.voucherCode != null && currentAdvertise.amount > 0 ?
-                                <>
-                                    <View style={styles.rowItem}>
-                                        <Text style={styles.titleInRow}>Voucher Code: </Text>
-                                        <Text style={styles.contentInRow}>{currentAdvertise.voucherCode}</Text>
-                                    </View>
-                                    <View style={styles.rowItem}>
-                                        <Text style={styles.titleInRow}>Discount: </Text>
-                                        <Text style={styles.contentInRow}>{currentAdvertise.discount}%</Text>
-                                    </View>
-                                    <Text style={styles.contentInRow}>{"=> The number of vouchers is limited, hurry and book now to use"} </Text>
-                                </>
-                                :
-                                <></>
-                        }
-                        <Text
-                            numberOfLines={12}
-                            style={styles.txtDecription}>
-                            {currentAdvertise.detail}
-                        </Text>
-                    </View>
-                </View>
+        <View style={styles.container} >
+            {
+                loading ?
+                    <LottieView source={img.waiting
+                    } autoPlay />
+                    :
+                    <View style={styles.container}>
+                        <ImageSlider
+                            blurRadius={10}
+                            data={data}
+                            showIndicator={true}
+                            timer={6000}
+                            autoPlay={true}
+                            caroselImageContainerStyle={styles.caroselContainer}
+                            caroselImageStyle={styles.caroselIMG}
+                            onItemChanged={(item) => {
+                                setCurrentAdvertise(item)
+                            }
+                            }
+                            closeIconColor="black" >
+                            <View style={styles.viewTitle}>
+                                <Text style={styles.txtTitle}> {currentAdvertise.title} < /Text>
+                                    < /View>
+                                    < /ImageSlider>
+                                    < ShowCofirmBooking />
+                                    <Text style={styles.txtDetail}> Detail Advertisement: </Text>
+                                    < View style={styles.viewDetail} >
+                                        <View style={styles.rowItem}>
+                                            <Text style={styles.titleInRow}> Start Date: </Text>
+                                            < Text style={styles.contentInRow} > {dayjs(currentAdvertise.startDate).format("DD-MM-YYYY")} < /Text>
+                                                < /View>
+                                                < View style={styles.rowItem} >
+                                                    <Text style={styles.titleInRow}> End Date: </Text>
+                                                    < Text style={styles.contentInRow} > {dayjs(currentAdvertise.endDate).format("DD-MM-YYYY")} < /Text>
+                                                        < /View>
+                                                        {
+                                                            currentAdvertise.voucherCode != null && currentAdvertise.amount > 0 ?
+        <>
+                                                                    <View style={styles.rowItem}>
+                                                                        <Text style={styles.titleInRow}> Voucher Code: </Text>
+                                                                        < Text style={styles.contentInRow} > {currentAdvertise.voucherCode} < /Text>
+                                                                            < /View>
+                                                                            < View style={styles.rowItem} >
+                                                                                <Text style={styles.titleInRow}> Discount: </Text>
+                                                                                < Text style={styles.contentInRow} > {currentAdvertise.discount} % </Text>
+                                                                                < /View>
+                                                                                < Text style={styles.contentInRow} > {"=> The number of vouchers is limited, hurry and book now to use"} < /Text>
+                                                                                    < />
+                                                                                    :
+                                                                                    <></>
+}
+                                                                                    <Text
+                                                                                        numberOfLines={12}
+                                                                                        style={styles.txtDecription} >
+                                                                                        {currentAdvertise.detail}
+                                                                                        < /Text>
+                                                                                        < /View>
+                                                                                        < /View>
             }
-        </View>
-    )
+                                                                                    </View>
+                                                                                    )
 }
 
-export default memo(SlideBanner)
+                                                                                    export default memo(SlideBanner)
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
+                                                                                    const styles = StyleSheet.create({
+                                                                                        container: {
+                                                                                        flex: 1
     },
-    rowItem: {
-        flexDirection: "row",
-        alignItems: "center"
+                                                                                    rowItem: {
+                                                                                        flexDirection: "row",
+                                                                                    alignItems: "center"
     },
-    titleInRow: {
-        color: "#9CA1A3",
-        fontSize: scale(16)
+                                                                                    titleInRow: {
+                                                                                        color: "#9CA1A3",
+                                                                                    fontSize: scale(16)
     },
-    txtDecription: {
-        fontSize: scale(16),
-        color: clor.blackForTxt
+                                                                                    txtDecription: {
+                                                                                        fontSize: scale(16),
+                                                                                    color: clor.blackForTxt
     },
-    contentInRow: {
-        fontSize: scale(16),
-        fontWeight: "bold"
+                                                                                    contentInRow: {
+                                                                                        fontSize: scale(16),
+                                                                                    fontWeight: "bold"
     },
-    viewTitle: {
-        height: responsive.HEIGHT * 0.05,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: clor.maincolor
+                                                                                    viewTitle: {
+                                                                                        height: responsive.HEIGHT * 0.05,
+                                                                                    alignItems: "center",
+                                                                                    justifyContent: "center",
+                                                                                    backgroundColor: clor.maincolor
     },
-    viewDetail: {
-        alignSelf: "center",
-        width: "90%",
-        borderWidth: 4,
-        borderColor: clor.C,
-        padding: scale(10),
-        borderRadius: 10,
-        height: 400,
-        marginBottom: scale(20)
+                                                                                    viewDetail: {
+                                                                                        alignSelf: "center",
+                                                                                    width: "90%",
+                                                                                    borderWidth: 4,
+                                                                                    borderColor: clor.C,
+                                                                                    padding: scale(10),
+                                                                                    borderRadius: 10,
+                                                                                    height: 400,
+                                                                                    marginBottom: scale(20)
     },
-    txtTitle: {
-        color: "white",
-        fontSize: scale(14),
-        fontWeight: "bold"
+                                                                                    txtTitle: {
+                                                                                        color: "white",
+                                                                                    fontSize: scale(14),
+                                                                                    fontWeight: "bold"
     },
-    txtDetail: {
-        fontSize: scale(18),
-        fontWeight: "bold",
-        marginVertical: scale(20),
-        marginLeft: 5,
-        color: clor.A
+                                                                                    txtDetail: {
+                                                                                        fontSize: scale(18),
+                                                                                    fontWeight: "bold",
+                                                                                    marginVertical: scale(20),
+                                                                                    marginLeft: 5,
+                                                                                    color: clor.A
     },
-    caroselContainer: {
-        height: responsive.HEIGHT * 0.5
+                                                                                    caroselContainer: {
+                                                                                        height: responsive.HEIGHT * 0.5
     },
-    caroselIMG: {
-        resizeMode: "contain",
-        height: responsive.HEIGHT * 0.45
+                                                                                    caroselIMG: {
+                                                                                        resizeMode: "contain",
+                                                                                    height: responsive.HEIGHT * 0.45
     },
-    Indicator: {
-        alignSelf: "center"
+                                                                                    Indicator: {
+                                                                                        alignSelf: "center"
     }
 })
 
